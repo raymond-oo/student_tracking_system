@@ -1,41 +1,21 @@
-import React from 'react';
-import { GoogleLogin } from '@react-oauth/google';
+import React, { } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import Home from './Home';
+import Login from './Login';
 import './App.css';
 
 function App() {
-    const responseMessage = async (response) => {
-        try {
-            const res = await fetch('http://localhost:5001/api/auth/google', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ token: response.credential }),
-            });
-            const data = await res.json();
-            console.log(data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const errorMessage = (error) => {
-        console.log(error);
-    };
-
     return (
-        <div className="container">
-            <div className="mission-section">
-                <h2 className="mission-title">ISY Makerspace Student Tracking System</h2>
-                <p className="mission-text">Computer Science IA Project</p>
-                <div className="google-login-container">
-                    <GoogleLogin
-                        onSuccess={responseMessage}
-                        onError={errorMessage}
-                        useOneTap
-                        className="google-login-button"
-                    />
-                </div>
-            </div>
-        </div>
+        <GoogleOAuthProvider clientId="945899431720-vulljqk5528th1uora746n3g2s999uk2.apps.googleusercontent.com">
+            <Router>
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/" element={<Navigate to="/login" />} />
+                </Routes>
+            </Router>
+        </GoogleOAuthProvider>
     );
 }
 
