@@ -7,6 +7,23 @@ const client = new OAuth2Client('945899431720-vulljqk5528th1uora746n3g2s999uk2.a
 
 let userIdCounter = 0; // Ideally, this should be stored in the database and fetched upon server start
 
+const calculateGrade = (email) => {
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth(); // 0-based month (0 is January, 11 is December)
+    const graduationYear = parseInt(email.slice(0, 2)) + 2000; // Assuming emails are like 25oor@isyedu.org
+
+    let grade;
+    if (currentMonth < 6) {
+        // January to June
+        grade = graduationYear - currentYear + 11;
+    } else {
+        // July to December
+        grade = graduationYear - currentYear + 12;
+    }
+
+    return grade;
+};
+
 router.post('/google', async (req, res) => {
     const { token } = req.body;
 
@@ -23,6 +40,8 @@ router.post('/google', async (req, res) => {
             return res.status(403).send('Unauthorized domain');
         }
 
+        const grade = calculateGrade(email);
+
         let user = await User.findOne({ email });
 
         if (!user) {
@@ -34,7 +53,12 @@ router.post('/google', async (req, res) => {
                 last_name: family_name,
                 email: email,
                 profile_image: picture,
+                grade: grade,
             });
+            await user.save();
+        } else {
+            // Update the grade if user already exists
+            user.grade = grade;
             await user.save();
         }
 
