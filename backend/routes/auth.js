@@ -13,11 +13,11 @@ const calculateGrade = (email) => {
     const graduationYear = parseInt(email.slice(0, 2)) + 2000; // Assuming emails are like 25oor@isyedu.org
 
     let grade;
-    if (currentMonth < 6) {
-        // January to June
+    if (currentMonth < 7) {
+        // January to July
         grade = graduationYear - currentYear + 11;
     } else {
-        // July to December
+        // August to December
         grade = graduationYear - currentYear + 12;
     }
 
