@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Home from './Home';
 import Login from './Login';
+import ViewStudents from './ViewStudents';
 import './App.css';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/home" element={<Home />} />
+                    <Route path="/view-students" element={<ViewStudents />} />
                     <Route path="/" element={<Navigate to="/login" />} />
                 </Routes>
             </Router>
