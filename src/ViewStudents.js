@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import logo from './resources/isylogo.png';
 import './ViewStudents.css';
 
 const ViewStudents = () => {
@@ -35,22 +36,43 @@ const ViewStudents = () => {
     if (error) return <div>Error: {error.message}</div>;
 
     return (
+        <div className="home-container">
+        <header className="home-header">
+            <img src={logo} alt="ISY Logo" className="home-logo" href="/home" />
+            <nav className="home-nav">
+                <a href="/home">Home</a>
+                <a href="/view-tools">View Tools</a>
+                <a href="/view-students">View Students</a>
+                <a href="/account">My Account</a>
+            </nav>
+        </header>
         <div className="students-container">
             <input
                 type="text"
-                placeholder="Search students..."
+                placeholder="Enter a student name"
                 value={searchTerm}
                 onChange={handleSearchChange}
                 className="search-bar"
             />
-            {filteredStudents.map((student, index) => (
-                <div className="student-card" key={index}>
-                    <h3>{student.first_name} {student.last_name}</h3>
-                    <p>Grade: {student.grade}</p>
-                    <p>Experience With: {student.list_of_trained_tools.join(', ')}</p>
-                </div>
-            ))}
+            <div className="students-grid">
+                {filteredStudents.map((student, index) => (
+                    <div className="student-card" key={index}>
+                        <div className="student-card-header">
+                            <div className="student-profile-pic">
+                                <img src="profile-placeholder.png" alt="Profile" />
+                            </div>
+                            <button className="view-more-btn">View More</button>
+                        </div>
+                        <div className="student-info">
+                            <h3>{student.first_name} {student.last_name}</h3>
+                            <p><strong>Grade:</strong> {student.grade}</p>
+                            <p><strong>Experience With:</strong> {student.list_of_trained_tools.join(', ')}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
+    </div>
     );
 };
 

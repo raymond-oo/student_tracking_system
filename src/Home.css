@@ -13,9 +13,11 @@
     padding: 10px 15px;
     margin: 0;
     width: 100%;
-    box-sizing: border-box;
 }
 
+
+/* TODO 
+    - Change size of logo */
 .home-logo {
     height: 50px;
     width: 50px;
@@ -48,7 +50,6 @@
     height: 400px; 
     position: relative; 
     overflow: hidden;
-    margin-top: -10px; 
     box-sizing: border-box;
 }
 
