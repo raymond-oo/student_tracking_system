@@ -1,6 +1,6 @@
 // Home.js
 import React from 'react';
-import './Home.css';
+import './design/Home.css';
 import logo from './resources/isylogo.png';
 
 const Home = () => {

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import logo from './resources/isylogo.png';
-import './ViewStudents.css';
+import './design/ViewStudents.css';
 
 const ViewStudents = () => {
     const [students, setStudents] = useState([]);
@@ -14,7 +15,6 @@ const ViewStudents = () => {
         const fetchStudents = async () => {
             try {
                 const response = await axios.get('http://localhost:5001/api/students');
-                console.log('API Response:', response.data); // Debugging line
                 setStudents(response.data);
                 setLoading(false);
             } catch (err) {
@@ -33,41 +33,40 @@ const ViewStudents = () => {
     const handleSortChange = (e) => {
         const criteria = e.target.value;
         setSortCriteria(criteria);
-        sortStudents(criteria);
+        sortStudents(criteria, students);
     };
 
-    const sortStudents = (criteria) => {
+    const sortStudents = useCallback((criteria, studentsList) => {
         let sortedStudents;
         if (criteria === 'alphabetical') {
-            sortedStudents = [...students].sort((a, b) => 
+            sortedStudents = [...studentsList].sort((a, b) => 
                 `${a.first_name} ${a.last_name}`.localeCompare(`${b.first_name} ${b.last_name}`)
             );
         } else if (criteria === 'grade') {
-            sortedStudents = [...students].sort((a, b) => a.grade - b.grade);
+            sortedStudents = [...studentsList].sort((a, b) => b.grade - a.grade);
         }
-        console.log('Sorted Students:', sortedStudents); // Debugging line
         setStudents(sortedStudents);
-    };
+    }, []);
 
     useEffect(() => {
         if (students.length > 0) {
-            sortStudents(sortCriteria);
+            sortStudents(sortCriteria, students);
         }
-    }, [students, sortCriteria]);
+    }, [students, sortCriteria, sortStudents]);
 
     const filteredStudents = students.filter(student =>
         `${student.first_name} ${student.last_name}`.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    console.log('Filtered Students:', filteredStudents); // Debugging line
-
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
 
     return (
-        <div className="home-container">
+        <div className="viewstudents-container">
             <header className="home-header">
-                <img src={logo} alt="ISY Logo" className="home-logo" />
+                <Link to="/home">
+                    <img src={logo} alt="ISY Logo" className="home-logo" />
+                </Link>
                 <nav className="home-nav">
                     <a href="/home">Home</a>
                     <a href="/view-tools">View Tools</a>

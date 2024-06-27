@@ -5,19 +5,15 @@ const User = require('../models/User');
 const router = express.Router();
 const client = new OAuth2Client('945899431720-vulljqk5528th1uora746n3g2s999uk2.apps.googleusercontent.com');
 
-let userIdCounter = 0; // Ideally, this should be stored in the database and fetched upon server start
-
 const calculateGrade = (email) => {
     const currentYear = new Date().getFullYear();
-    const currentMonth = new Date().getMonth(); // 0-based month (0 is January, 11 is December)
-    const graduationYear = parseInt(email.slice(0, 2)) + 2000; // Assuming emails are like 25oor@isyedu.org
+    const currentMonth = new Date().getMonth();
+    const graduationYear = parseInt(email.slice(0, 2)) + 2000;
 
     let grade;
     if (currentMonth < 7) {
-        // January to July
         grade = graduationYear - currentYear + 11;
     } else {
-        // August to December
         grade = graduationYear - currentYear + 12;
     }
 
@@ -36,7 +32,6 @@ router.post('/google', async (req, res) => {
         const payload = ticket.getPayload();
         const { sub, given_name, family_name, email, picture } = payload;
 
-        
         if (!email.endsWith('@isyedu.org')) {
             return res.status(403).send('Unauthorized domain');
         }
@@ -46,9 +41,10 @@ router.post('/google', async (req, res) => {
         let user = await User.findOne({ email });
 
         if (!user) {
-            userIdCounter += 1;
+            const userId = await User.getNextUserId();
+
             user = new User({
-                user_id: userIdCounter,
+                user_id: userId,
                 google_id: sub,
                 first_name: given_name,
                 last_name: family_name,
@@ -59,12 +55,13 @@ router.post('/google', async (req, res) => {
             await user.save();
         } else {
             user.grade = grade;
-            user.profile_image = picture; // Update profile image if user exists
+            user.profile_image = picture;
             await user.save();
         }
 
         res.status(200).json(user);
     } catch (error) {
+        console.error('Error verifying token:', error);
         res.status(400).send('Error verifying token');
     }
 });

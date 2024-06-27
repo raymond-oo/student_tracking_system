@@ -4,7 +4,6 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import Home from './Home';
 import Login from './Login';
 import ViewStudents from './ViewStudents';
-import './App.css';
 
 function App() {
     return (
