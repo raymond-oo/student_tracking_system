@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     grade: { type: String },
     is_admin: { type: Boolean, default: false },
     list_of_trained_tools: { type: [String] },
-    profile_image: { type: String },
+    profile_image: { type: String, required: true },
 });
 
 const User = mongoose.model('User', userSchema);

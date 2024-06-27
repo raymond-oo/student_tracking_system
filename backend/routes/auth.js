@@ -36,6 +36,7 @@ router.post('/google', async (req, res) => {
         const payload = ticket.getPayload();
         const { sub, given_name, family_name, email, picture } = payload;
 
+        
         if (!email.endsWith('@isyedu.org')) {
             return res.status(403).send('Unauthorized domain');
         }
@@ -57,8 +58,8 @@ router.post('/google', async (req, res) => {
             });
             await user.save();
         } else {
-            // Update the grade if user already exists
             user.grade = grade;
+            user.profile_image = picture; // Update profile image if user exists
             await user.save();
         }
 
