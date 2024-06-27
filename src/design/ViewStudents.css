@@ -1,79 +1,52 @@
-/* ViewStudents.css */
-
-.home-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #DCB41F;
-    padding: 10px 15px;
-    margin: 0;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.home-logo {
-    height: 50px;
-    width: 50px;
-    margin-left: 30px;
-    margin-bottom: 10px;
-}
-
-.home-logo:hover {
-    cursor: pointer;
-}
-
-.home-nav a{
-    margin: 0 15px;
-    margin-bottom: 25px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    align-items: center;
-}
-
 .students-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 20px;
 }
 
 .students-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
+    gap: 25px; 
     width: 80%;
     max-width: 1500px;
 }
-
-/* TODO: Make format of student card fixed*/
 
 .student-card {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 4px;
-    padding: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 450px;
+    height: 350px;
+    overflow: hidden;
 }
 
 .student-card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    background-color: #e0e0e0;
+    padding: 20px;
 }
 
 .student-profile-pic {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
 }
 
 .student-profile-pic img {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
     object-fit: cover;
 }
 
@@ -82,13 +55,17 @@
     border: none;
     color: #007BFF;
     cursor: pointer;
+    font-size: large;
     font-weight: bold;
 }
 
+.view-more-btn:hover {
+    text-decoration: underline;
+}
+
 .student-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 20px;
+    padding-bottom: 150px;
 }
 
 .student-info h3 {
@@ -97,7 +74,7 @@
 }
 
 .student-info p {
-    margin: 5px 0;
+    margin-bottom: 5px;
 }
 
 .search-sort-container {
@@ -106,12 +83,13 @@
     align-items: center;
     margin: 20px 0;
     width: 80%;
-    max-width: 400px;
+    max-width: 1500px;
 }
 
 .search-bar {
     flex: 1;
-    padding: 10px;
+    height: 35px;
+    width: 10000px;
     border-radius: 4px;
     border: 1px solid #ccc;
     margin-right: 10px;

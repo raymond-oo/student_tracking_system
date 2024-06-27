@@ -1,20 +1,12 @@
 // Home.js
 import React from 'react';
 import './design/Home.css';
-import logo from './resources/isylogo.png';
+import Header from './Header';
 
 const Home = () => {
     return (
         <div className="home-container">
-            <header className="home-header">
-                <img src={logo} alt="ISY Logo" className="home-logo" href="/home" />
-                <nav className="home-nav">
-                    <a href="/home">Home</a>
-                    <a href="/view-tools">View Tools</a>
-                    <a href="/view-students">View Students</a>
-                    <a href="/account">My Account</a>
-                </nav>
-            </header>
+            <Header />
             <main className="home-main">
                 <section className="home-banner">
                     <img src = "https://makerspace.isyedu.org/wp-content/uploads/2022/12/71202320_2206331706138199_7173154348543770624_n.jpg" alt="Makerspace" className='home-banner-photo' />
