@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './design/ViewStudents.css';
-import Header from './Header';
+import Header from './components/Header';
 
 const ViewStudents = () => {
     const [students, setStudents] = useState([]);
