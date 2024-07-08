@@ -10,7 +10,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/student_tracking_system')
+mongoose.connect('mongodb://localhost:3306/student_tracking_system')
     .then(() => console.log('MongoDB connected'))
     .catch((err) => console.error('MongoDB connection error:', err));
 
