@@ -14,7 +14,12 @@ const ViewStudents = () => {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/api/students');
+                const sessionToken = localStorage.getItem('sessionToken');
+                const response = await axios.get('http://localhost:5001/api/students', {
+                    headers: {
+                        'Authorization': `Bearer ${sessionToken}`
+                    }
+                });
                 setStudents(response.data);
                 setLoading(false);
             } catch (err) {
@@ -39,7 +44,7 @@ const ViewStudents = () => {
     const sortStudents = useCallback((criteria, studentsList) => {
         let sortedStudents;
         if (criteria === 'lastname') {
-            sortedStudents = [...studentsList].sort((a, b) => 
+            sortedStudents = [...studentsList].sort((a, b) =>
                 `${a.last_name}`.localeCompare(`${b.last_name}`)
             );
         } else if (criteria === 'firstname') {

@@ -1,5 +1,6 @@
+// routes/protected.js
 const express = require('express');
-const verifySession = require('../middleware/verifysession');
+const verifySession = require('../middleware/verifySession');
 
 const router = express.Router();
 
