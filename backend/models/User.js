@@ -1,3 +1,4 @@
+// models/User.js
 const mongoose = require('mongoose');
 const Counter = require('./Counter');
 
@@ -11,13 +12,14 @@ const userSchema = new mongoose.Schema({
   is_admin: { type: Boolean, default: false },
   list_of_trained_tools: { type: [String] },
   profile_image: { type: String },
+  session: { type: String }, // Adding session token field
 });
 
 userSchema.statics.getNextUserId = async function () {
   const counter = await Counter.findByIdAndUpdate(
     { _id: 'userIdCounter' },
     { $inc: { seq: 1 } },
-    { new: true, upsert: true }
+    { new: true, upsert: true, setDefaultsOnInsert: true } // Ensure defaults are set on insert
   );
   return counter.seq;
 };
