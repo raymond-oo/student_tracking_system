@@ -63,7 +63,9 @@ const ViewStudents = () => {
     }, [students, sortCriteria, sortStudents]);
 
     const filteredStudents = students.filter(student =>
-        `${student.first_name} ${student.last_name}`.toLowerCase().includes(searchTerm.toLowerCase())
+        `${student.first_name} ${student.last_name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        `${student.grade}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        `${student.list_of_trained_tools}`.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     if (loading) return <div>Loading...</div>;
@@ -76,7 +78,7 @@ const ViewStudents = () => {
                 <div className="search-sort-container">
                     <input
                         type="text"
-                        placeholder="  Enter a student name"
+                        placeholder="Enter a student name"
                         value={searchTerm}
                         onChange={handleSearchChange}
                         className="search-bar"
