@@ -2,6 +2,7 @@
 
 # dependencies
 /backend/data/mongodbdata
+backend/data/mongodbdata
 /node_modules
 /.pnp
 .pnp.js
