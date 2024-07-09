@@ -13,7 +13,7 @@ function App() {
         <GoogleOAuthProvider clientId="945899431720-vulljqk5528th1uora746n3g2s999uk2.apps.googleusercontent.com">
             <Router>
                 <Routes>
-                    <Route path="/" element={<Navigate to="/login" />} />
+                    <Route path="/" element={<Navigate to="/home" />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
                     <Route path="/view-students" element={<ProtectedRoute><ViewStudents /></ProtectedRoute>} />

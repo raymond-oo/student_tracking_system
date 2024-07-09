@@ -42,14 +42,6 @@
     pointer-events: none; 
 }
 
-.home-banner .home-video {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
-    z-index: 1; 
-}
-
 .home-content {
     display: flex;
     justify-content: space-around;

@@ -5,12 +5,11 @@ import Header from './components/Header';
 
 const Home = () => {
     return (
-        <div className="home-container">
+        <div>
             <Header />
             <main className="home-main">
                 <section className="home-banner">
                     <img src = "https://makerspace.isyedu.org/wp-content/uploads/2022/12/71202320_2206331706138199_7173154348543770624_n.jpg" alt="Makerspace" className='home-banner-photo' />
-                    <div className="home-video">Photo/Looping Video Of MAKERSPACE</div>
                 </section>
                 <section className="home-content">
                     <div className="home-content-section">

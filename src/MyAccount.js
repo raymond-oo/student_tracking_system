@@ -15,13 +15,15 @@ const MyAccount = () => {
     };
 
     return (
-        <div className="myaccount-container">
+        <div>
             <Header />
-            <div className="myaccount-content">
-                <h2>My Account</h2>
-                <button onClick={handleLogout} className="logout-button">
-                    Logout
-                </button>
+            <div className="myaccount-container">
+                <div className="myaccount-content">
+                    <h2>My Account</h2>
+                    <button onClick={handleLogout} className="logout-button">
+                        Logout
+                    </button>
+                </div>
             </div>
         </div>
     );
