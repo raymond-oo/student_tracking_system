@@ -23,3 +23,8 @@
     color: #333;
     font-weight: bold;
 }
+
+.home-nav a:hover {
+    color: #808080;
+    transition: color 0.3s;
+}

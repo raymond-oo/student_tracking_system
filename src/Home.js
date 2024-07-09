@@ -15,12 +15,12 @@ const Home = () => {
                     <div className="home-content-section">
                         <h2>A makerspace ignites innovation, offering an environment full of tools.</h2>
                         <p>Explore all of the makerspace's tools, ranging from woodworking and electronics to 3D printing and crafting</p>
-                        <button>Button (View Tools)</button>
+                        <button onClick={() => window.location.href = '/view-tools'}>View Tools</button>
                     </div>
                     <div className="home-content-section">
                         <h2>Empower your creativity with the makerspace and collaborate with fellow students.</h2>
                         <p>Explore all the students who have ventured into the realm of creation inside the makerspace.</p>
-                        <button>Button (View Students)</button>
+                        <button onClick={() => window.location.href = '/view-students'}>View Students</button>
                     </div>
                 </section>
             </main>
