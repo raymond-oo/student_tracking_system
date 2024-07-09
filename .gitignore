@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/mongodb_data
+/backend/data/mongodbdata
 /node_modules
 /.pnp
 .pnp.js

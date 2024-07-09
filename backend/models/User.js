@@ -1,4 +1,3 @@
-// models/User.js
 const mongoose = require('mongoose');
 const Counter = require('./Counter');
 
@@ -14,7 +13,6 @@ const userSchema = new mongoose.Schema({
   profile_image: { type: String },
 });
 
-// Static method to get the next user ID
 userSchema.statics.getNextUserId = async function () {
   const counter = await Counter.findByIdAndUpdate(
     { _id: 'userIdCounter' },

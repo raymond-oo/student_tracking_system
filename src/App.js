@@ -6,18 +6,18 @@ import Login from './Login';
 import ViewStudents from './ViewStudents';
 
 function App() {
-    return (
-        <GoogleOAuthProvider clientId="945899431720-vulljqk5528th1uora746n3g2s999uk2.apps.googleusercontent.com">
-            <Router>
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/view-students" element={<ViewStudents />} />
-                    <Route path="/" element={<Navigate to="/login" />} />
-                </Routes>
-            </Router>
-        </GoogleOAuthProvider>
-    );
+  return (
+    <GoogleOAuthProvider clientId="945899431720-vulljqk5528th1uora746n3g2s999uk2.apps.googleusercontent.com">
+      <Router>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/view-students" element={<ViewStudents />} />
+        </Routes>
+      </Router>
+    </GoogleOAuthProvider>
+  );
 }
 
 export default App;
