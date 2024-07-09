@@ -2,6 +2,7 @@
 const express = require('express');
 const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
+const { v4: uuidv4 } = require('uuid'); // Use UUID for generating session tokens
 
 const router = express.Router();
 const client = new OAuth2Client('945899431720-vulljqk5528th1uora746n3g2s999uk2.apps.googleusercontent.com');
@@ -43,6 +44,7 @@ router.post('/google', async (req, res) => {
 
     if (!user) {
       const userId = await User.getNextUserId();
+      const sessionToken = uuidv4(); // Generate a session token
 
       user = new User({
         user_id: userId,
@@ -52,15 +54,17 @@ router.post('/google', async (req, res) => {
         email: email,
         profile_image: picture,
         grade: grade,
+        session: sessionToken, // Store session token
       });
       await user.save();
     } else {
       user.grade = grade;
       user.profile_image = picture;
+      user.session = uuidv4(); // Update session token
       await user.save();
     }
 
-    res.status(200).json(user);
+    res.status(200).json({ user, sessionToken: user.session }); // Return session token to client
   } catch (error) {
     console.error('Error verifying token:', error);
     res.status(400).send('Error verifying token');

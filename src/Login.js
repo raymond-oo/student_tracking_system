@@ -1,3 +1,4 @@
+// Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
@@ -16,6 +17,9 @@ function Login() {
             });
             const data = await res.json();
             console.log(data);
+
+            // Store the session token in localStorage
+            localStorage.setItem('sessionToken', data.sessionToken);
 
             navigate('/home');
         } catch (error) {
