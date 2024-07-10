@@ -48,7 +48,7 @@
 }
 
 .update-button, .delete-button {
-    background-color: transparent;
+    background-color: lightgray;
     border: 1px solid #ccc;
     padding: 5px 10px;
     border-radius: 4px;
@@ -57,4 +57,5 @@
 
 .update-button:hover, .delete-button:hover {
     background-color: #e0e0e0;
+    transition: background-color 0.3s;
 }

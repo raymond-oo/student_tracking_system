@@ -8,7 +8,9 @@ import ViewStudents from './ViewStudents';
 import MyAccount from './MyAccount';
 import ProtectedRoute from './components/ProtectedRoute';
 import EditRecords from './EditRecords';
-import AdminRoute from './AdminRoute';
+import AdminRoute from './components/AdminRoute';
+import AddStudent from './Students/AddStudent';
+import UpdateStudent from './Students/UpdateStudent';
 
 function App() {
     
@@ -26,6 +28,26 @@ function App() {
                         <ProtectedRoute>
                             <AdminRoute>
                                 <EditRecords />
+                            </AdminRoute>
+                        </ProtectedRoute>
+                    } 
+                />
+                    <Route 
+                    path="/add-student" 
+                    element={
+                        <ProtectedRoute>
+                            <AdminRoute>
+                                <AddStudent />
+                            </AdminRoute>
+                        </ProtectedRoute>
+                    } 
+                />
+                <Route 
+                    path="/update-student/:id" 
+                    element={
+                        <ProtectedRoute>
+                            <AdminRoute>
+                                <UpdateStudent />
                             </AdminRoute>
                         </ProtectedRoute>
                     } 

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
-import './design/Login.css';
+import './styles/Login.css';
 
 function Login() {
     const [error, setError] = useState(null);

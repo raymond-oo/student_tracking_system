@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Header from './components/Header';
-import './design/MyAccount.css';
+import './styles/MyAccount.css';
 
 const MyAccount = () => {
     const [user, setUser] = useState(null);

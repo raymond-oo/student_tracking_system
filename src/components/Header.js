@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import logo from '../resources/isylogo.png';
 import { Link } from 'react-router-dom';
-import '../design/Header.css';
+import '../styles/Header.css';
 
 const Header = () => {
     const [user, setUser] = useState(null);
