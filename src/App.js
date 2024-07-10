@@ -7,17 +7,30 @@ import Login from './Login';
 import ViewStudents from './ViewStudents';
 import MyAccount from './MyAccount';
 import ProtectedRoute from './components/ProtectedRoute';
+import EditRecords from './EditRecords';
+import AdminRoute from './AdminRoute';
 
 function App() {
+    
     return (
         <GoogleOAuthProvider clientId="945899431720-vulljqk5528th1uora746n3g2s999uk2.apps.googleusercontent.com">
             <Router>
                 <Routes>
                     <Route path="/" element={<Navigate to="/home" />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-                    <Route path="/view-students" element={<ProtectedRoute><ViewStudents /></ProtectedRoute>} />
-                    <Route path="/my-account" element={<ProtectedRoute><MyAccount /></ProtectedRoute>} />
+                    <Route path="/home" element={<ProtectedRoute> <Home /> </ProtectedRoute>} />
+                    <Route path="/view-students" element={<ProtectedRoute> <ViewStudents /></ProtectedRoute>} />
+                    <Route 
+                    path="/edit-records" 
+                    element={
+                        <ProtectedRoute>
+                            <AdminRoute>
+                                <EditRecords />
+                            </AdminRoute>
+                        </ProtectedRoute>
+                    } 
+                />
+                    <Route path="/my-account" element={<ProtectedRoute> <MyAccount /> </ProtectedRoute>} />
                 </Routes>
             </Router>
         </GoogleOAuthProvider>
