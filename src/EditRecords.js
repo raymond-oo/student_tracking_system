@@ -31,7 +31,7 @@ const EditRecords = () => {
     };
 
     fetchStudents();
-  }, [API_URL]);
+  }, []);
 
   const handleAddStudent = () => {
     navigate('/add-student');
