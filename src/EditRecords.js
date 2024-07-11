@@ -6,14 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Modal, Input, Select, Table } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
-const { confirm: modalConfirm } = Modal;
-
 const EditRecords = () => {
   const [students, setStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortCriteria, setSortCriteria] = useState('lastname');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [selectedStudentId, setSelectedStudentId] = useState(null);
   const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_API_URL;
 
@@ -44,28 +44,25 @@ const EditRecords = () => {
     navigate(`/update-student/${id}`);
   };
 
-  const showDeleteConfirm = (id) => {
-    modalConfirm({
-      title: 'Are you sure delete this student?',
-      icon: <ExclamationCircleOutlined />,
-      content: 'This action cannot be undone.',
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
-      onOk() {
-        handleDelete(id);
-      },
-    });
+  const showDeleteModal = (id) => {
+    setSelectedStudentId(id);
+    setDeleteModalVisible(true);
   };
 
-  const handleDelete = async (id) => {
+  const hideDeleteModal = () => {
+    setDeleteModalVisible(false);
+    setSelectedStudentId(null);
+  };
+
+  const handleDelete = async () => {
     try {
-      await axios.delete(`${API_URL}/api/students/${id}`, {
+      await axios.delete(`${API_URL}/api/students/${selectedStudentId}`, {
         headers: {
           Authorization: localStorage.getItem('sessionToken'),
         },
       });
-      setStudents(students.filter((student) => student._id !== id));
+      setStudents(students.filter((student) => student._id !== selectedStudentId));
+      hideDeleteModal();
     } catch (err) {
       setError(err);
     }
@@ -178,12 +175,24 @@ const EditRecords = () => {
             title="Remove Student"
             key="remove"
             render={(text, record) => (
-              <Button danger onClick={() => showDeleteConfirm(record._id)}>
+              <Button danger onClick={() => showDeleteModal(record._id)}>
                 Delete
               </Button>
             )}
           />
         </Table>
+
+        <Modal
+          title="Are you sure you want to delete this student?"
+          visible={deleteModalVisible}
+          onOk={handleDelete}
+          onCancel={hideDeleteModal}
+          okText="Yes"
+          cancelText="No"
+        >
+          <ExclamationCircleOutlined />
+          <p>This action cannot be undone.</p>
+        </Modal>
       </div>
     </div>
   );
