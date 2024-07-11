@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const verifySession = require('../middleware/verifySession');
+const verifySession = require('../middleware/verifysession');
 
 // Get all students
 router.get('/', verifySession, async (req, res) => {
