@@ -3,8 +3,7 @@ import axios from 'axios';
 import Header from './components/Header';
 import './styles/EditRecords.css';
 import { useNavigate } from 'react-router-dom';
-import { Button, Modal, Input, Select, Table } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { Button, Input, Select, Table } from 'antd';
 
 const EditRecords = () => {
   const [students, setStudents] = useState([]);
@@ -12,8 +11,6 @@ const EditRecords = () => {
   const [sortCriteria, setSortCriteria] = useState('lastname');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-  const [selectedStudentId, setSelectedStudentId] = useState(null);
   const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_API_URL;
 
@@ -44,48 +41,18 @@ const EditRecords = () => {
     navigate(`/update-student/${id}`);
   };
 
-  const showDeleteModal = (id) => {
-    setSelectedStudentId(id);
-    setDeleteModalVisible(true);
-  };
-
-  const hideDeleteModal = () => {
-    setDeleteModalVisible(false);
-    setSelectedStudentId(null);
-  };
-
-  const [deleteLoading, setDeleteLoading] = useState(false);
-
-  const handleDelete = async () => {
-    setDeleteLoading(true);
+  const handleDelete = async (id) => {
     try {
-      // Optimistic UI update
-      setStudents(students.filter((student) => student._id !== selectedStudentId));
-      hideDeleteModal();
-  
-      // API call
-      await axios.delete(`${API_URL}/api/students/${selectedStudentId}`, {
-        headers: {
-          Authorization: localStorage.getItem('sessionToken'),
-        },
-      });
-  
-      // If the API call fails, we'll revert the optimistic update in the catch block
+        await axios.delete(`${API_URL}/api/students/${id}`, {
+            headers: {
+                'Authorization': localStorage.getItem('sessionToken')
+            }
+        });
+        setStudents(students.filter(student => student._id !== id));
     } catch (err) {
-      console.error('Error deleting student:', err);
-      setError('Failed to delete student. Please try again.');
-      
-      // Revert the optimistic update
-      const response = await axios.get(`${API_URL}/api/students`, {
-        headers: {
-          Authorization: localStorage.getItem('sessionToken'),
-        },
-      });
-      setStudents(response.data);
-    } finally {
-      setDeleteLoading(false);
+        setError(err);
     }
-  };
+};
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -193,24 +160,12 @@ const EditRecords = () => {
             title="Remove Student"
             key="remove"
             render={(text, record) => (
-              <Button danger onClick={() => showDeleteModal(record._id)}>
+              <Button danger onClick={handleDelete(record._id)}>
                 Delete
               </Button>
             )}
           />
         </Table>
-
-        <Modal
-            title="Are you sure you want to delete this student?"
-            visible={deleteModalVisible}
-            onOk={handleDelete}
-            onCancel={hideDeleteModal}
-            okText="Yes"
-            cancelText="No"
-            confirmLoading={deleteLoading}>
-                <ExclamationCircleOutlined />
-                <p>This action cannot be undone.</p>
-        </Modal>
       </div>
     </div>
   );
