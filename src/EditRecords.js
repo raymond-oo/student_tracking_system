@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from './components/Header';
 import './styles/EditRecords.css';
+import { useNavigate } from 'react-router-dom';
 
 const EditRecords = () => {
     const [students, setStudents] = useState([]);
@@ -29,12 +29,14 @@ const EditRecords = () => {
         fetchStudents();
     }, []);
 
+    const handleAddStudent = () => {
+        navigate('/add-student');
+    };
+
     const handleUpdate = (id) => {
         navigate(`/update-student/${id}`);
     };
 
-
-    //TODO: Add delete functionality
     const handleDelete = async (id) => {
         try {
             await axios.delete(`http://localhost:5001/api/students/${id}`, {
@@ -42,9 +44,9 @@ const EditRecords = () => {
                     'Authorization': localStorage.getItem('sessionToken')
                 }
             });
-            setStudents(students.filter(student => student.user_id !== id));
+            setStudents(students.filter(student => student._id !== id));
         } catch (err) {
-            console.error(err);
+            setError(err);
         }
     };
 
@@ -59,7 +61,7 @@ const EditRecords = () => {
                     <button className="tab selected">Students</button>
                     <button className="tab">Tools</button>
                 </div>
-                <button className="add-student-button" onClick={() => navigate('/add-student')}>Add a new student</button>
+                <button className="add-student-button" onClick={handleAddStudent}>Add a new student</button>
                 <table className="students-table">
                     <thead>
                         <tr>
@@ -73,13 +75,13 @@ const EditRecords = () => {
                     </thead>
                     <tbody>
                         {students.map((student) => (
-                            <tr key={student.user_id}>
+                            <tr key={student._id}>
                                 <td>{student.user_id}</td>
                                 <td>{`${student.first_name} ${student.last_name}`}</td>
                                 <td>{student.grade}</td>
                                 <td>{student.list_of_trained_tools.join(', ')}</td>
-                                <td><button className="update-button" onClick={() => handleUpdate(student.user_id)}>Update</button></td>
-                                <td><button className="delete-button" onClick={() => handleDelete(student.user_id)}>Delete</button></td>
+                                <td><button className="update-button" onClick={() => handleUpdate(student._id)}>Update</button></td>
+                                <td><button className="delete-button" onClick={() => handleDelete(student._id)}>Delete</button></td>
                             </tr>
                         ))}
                     </tbody>

@@ -19,9 +19,8 @@ mongoose.connect('mongodb://localhost:27017/student_tracking_system', {
     .then(() => console.log('MongoDB connected'))
     .catch((err) => console.error('MongoDB connection error:', err));
 
-// Routes
 app.use('/api/auth', authRoute);
-app.use('/api/user', userRouter); // This should match the import
+app.use('/api/user', userRouter);
 app.use('/api/protected', protectedRoutes);
 app.use('/api/students', studentsRoute);
 

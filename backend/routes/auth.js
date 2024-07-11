@@ -43,7 +43,7 @@ router.post('/google', async (req, res) => {
     let user = await User.findOne({ email });
 
     if (!user) {
-      const userId = await User.getNextUserId();
+      const userId = User.generateUniqueId();
       const sessionToken = uuidv4(); // Generate a session token
 
       user = new User({
