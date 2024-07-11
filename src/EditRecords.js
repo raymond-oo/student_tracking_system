@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from './components/Header';
 import './styles/EditRecords.css';
 import { useNavigate } from 'react-router-dom';
+import { Button, message, Popconfirm } from 'antd';
 
 const EditRecords = () => {
     const [students, setStudents] = useState([]);
@@ -39,6 +40,15 @@ const EditRecords = () => {
     const handleUpdate = (id) => {
         navigate(`/update-student/${id}`);
     };
+
+    const confirm = (e) => {
+        console.log(e);
+        message.success('Click on Yes');
+      };
+      const cancel = (e) => {
+        console.log(e);
+        message.error('Click on No');
+      };
 
     const handleDelete = async (id) => {
         try {
@@ -137,7 +147,17 @@ const EditRecords = () => {
                                 <td>{student.grade}</td>
                                 <td>{student.list_of_trained_tools.join(', ')}</td>
                                 <td><button className="update-button" onClick={() => handleUpdate(student._id)}>Update</button></td>
-                                <td><button className="delete-button" onClick={() => handleDelete(student._id)}>Delete</button></td>
+                                <td>
+                                    <Popconfirm
+                                            title="Delete the task"
+                                            description="Are you sure to delete this task?"
+                                            onConfirm={confirm}
+                                            onCancel={cancel}
+                                            okText="Yes"
+                                            cancelText="No">
+                                        <Button danger>Delete</Button>
+                                    </Popconfirm>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
