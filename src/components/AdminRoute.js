@@ -5,6 +5,7 @@ import axios from 'axios';
 const AdminRoute = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [isAdmin, setIsAdmin] = useState(false);
+    const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const checkAdmin = async () => {

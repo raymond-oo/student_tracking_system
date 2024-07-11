@@ -12,6 +12,7 @@ const ViewStudents = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [sortCriteria, setSortCriteria] = useState('lastname');
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleViewMore = (studentId) => {
         navigate(`/student/${studentId}`);

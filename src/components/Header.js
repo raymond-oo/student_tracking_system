@@ -8,6 +8,7 @@ const Header = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const fetchUser = async () => {

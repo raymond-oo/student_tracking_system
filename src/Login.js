@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 function Login() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const responseMessage = async (response) => {
         try {

@@ -11,6 +11,7 @@ const StudentProfile = () => {
     const [error, setError] = useState(null);
     const { id } = useParams();
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const fetchStudent = async () => {
