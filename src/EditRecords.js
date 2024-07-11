@@ -3,7 +3,6 @@ import axios from 'axios';
 import Header from './components/Header';
 import './styles/EditRecords.css';
 import { useNavigate } from 'react-router-dom';
-import { Button, Input, Select, Table } from 'antd';
 
 const EditRecords = () => {
   const [students, setStudents] = useState([]);
@@ -14,24 +13,24 @@ const EditRecords = () => {
   const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_API_URL;
 
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/api/students`, {
-          headers: {
-            Authorization: localStorage.getItem('sessionToken'),
-          },
-        });
-        setStudents(response.data);
-        setLoading(false);
-      } catch (err) {
-        setError(err);
-        setLoading(false);
-      }
-    };
+    useEffect(() => {
+        const fetchStudents = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/api/students`, {
+                    headers: {
+                        'Authorization': localStorage.getItem('sessionToken')
+                    }
+                });
+                setStudents(response.data);
+                setLoading(false);
+            } catch (err) {
+                setError(err);
+                setLoading(false);
+            }
+        };
 
-    fetchStudents();
-  }, []);
+        fetchStudents();
+    }, []);
 
   const handleAddStudent = () => {
     navigate('/add-student');
@@ -102,73 +101,54 @@ const EditRecords = () => {
 
   return (
     <div>
-      <Header />
-      <div className="edit-records-container">
-        <div className="tab-container">
-          <Button className="tab selected">Students</Button>
-          <Button className="tab">Tools</Button>
+        <Header />
+        <div className="edit-records-container">
+            <div className="tab-container">
+                <button className="tab selected">Students</button>
+                <button className="tab">Tools</button>
+            </div>
+            <div className="controls-container">
+                <input 
+                    type="text" 
+                    placeholder="Search..." 
+                    value={searchTerm} 
+                    onChange={handleSearchChange} 
+                    className="search-input" 
+                />
+                <select value={sortCriteria} onChange={handleSortChange} className="sort-dropdown">
+                    <option value="lastname">Sort By: Last Name A → Z </option>
+                    <option value="firstname">Sort By: First Name A → Z </option>
+                    <option value="grade">Sort By: Grade Level</option>
+                </select>
+                <button className="add-student-button" onClick={handleAddStudent}>Add a new student</button>
+            </div>
+            <table className="students-table">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Grade Level</th>
+                        <th>List of Tools/Experience</th>
+                        <th>Update Student</th>
+                        <th>Remove Student</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {filteredStudents.map((student) => (
+                        <tr key={student._id}>
+                            <td>{student.user_id}</td>
+                            <td>{`${student.first_name} ${student.last_name}`}</td>
+                            <td>{student.grade}</td>
+                            <td>{student.list_of_trained_tools.join(', ')}</td>
+                            <td><button className="update-button" onClick={() => handleUpdate(student._id)}>Update</button></td>
+                            <td><button className="delete-button" onClick={() => handleDelete(student._id)}>Delete</button></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div className="controls-container">
-          <Input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="search-input"
-          />
-          <Select
-            value={sortCriteria}
-            onChange={handleSortChange}
-          >
-            <Select.Option value="lastname">Sort By: Last Name A → Z</Select.Option>
-            <Select.Option value="firstname">Sort By: First Name A → Z</Select.Option>
-            <Select.Option value="grade">Sort By: Grade Level</Select.Option>
-          </Select>
-          <Button
-            type="primary"
-            className="add-student-button"
-            onClick={handleAddStudent}
-          >
-            Add a new student
-          </Button>
-        </div>
-        <Table dataSource={filteredStudents} rowKey="_id">
-          <Table.Column title="Student ID" dataIndex="user_id" key="user_id" />
-          <Table.Column
-            title="Student Name"
-            dataIndex={["first_name", "last_name"]}
-            key="name"
-            render={(text, record) => `${record.first_name} ${record.last_name}`}
-          />
-          <Table.Column title="Grade Level" dataIndex="grade" key="grade" />
-          <Table.Column
-            title="List of Tools/Experience"
-            dataIndex="list_of_trained_tools"
-            key="list_of_trained_tools"
-            render={(tools) => tools.join(', ')}
-          />
-          <Table.Column
-            title="Update Student"
-            key="update"
-            render={(text, record) => (
-              <Button type="link" onClick={() => handleUpdate(record._id)}>
-                Update
-              </Button>
-            )}
-          />
-          <Table.Column
-            title="Remove Student"
-            key="remove"
-            render={(text, record) => (
-              <Button danger onClick={handleDelete(record._id)}>
-                Delete
-              </Button>
-            )}
-          />
-        </Table>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default EditRecords;
