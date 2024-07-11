@@ -22,7 +22,7 @@ const EditRecords = () => {
       try {
         const response = await axios.get(`${API_URL}/api/students`, {
           headers: {
-            'Authorization': localStorage.getItem('sessionToken'),
+            Authorization: localStorage.getItem('sessionToken'),
           },
         });
         setStudents(response.data);
@@ -34,7 +34,7 @@ const EditRecords = () => {
     };
 
     fetchStudents();
-  }, []);
+  }, [API_URL]);
 
   const handleAddStudent = () => {
     navigate('/add-student');
@@ -55,9 +55,6 @@ const EditRecords = () => {
       onOk() {
         handleDelete(id);
       },
-      onCancel() {
-        console.log('Cancel');
-      },
     });
   };
 
@@ -65,7 +62,7 @@ const EditRecords = () => {
     try {
       await axios.delete(`${API_URL}/api/students/${id}`, {
         headers: {
-          'Authorization': localStorage.getItem('sessionToken'),
+          Authorization: localStorage.getItem('sessionToken'),
         },
       });
       setStudents(students.filter((student) => student._id !== id));
@@ -78,21 +75,20 @@ const EditRecords = () => {
     setSearchTerm(e.target.value);
   };
 
-  const handleSortChange = (e) => {
-    const criteria = e.target.value;
-    setSortCriteria(criteria);
-    sortStudents(criteria, students);
+  const handleSortChange = (value) => {
+    setSortCriteria(value);
+    sortStudents(value, students);
   };
 
   const sortStudents = useCallback((criteria, studentsList) => {
     let sortedStudents;
     if (criteria === 'lastname') {
       sortedStudents = [...studentsList].sort((a, b) =>
-        `${a.last_name}`.localeCompare(`${b.last_name}`)
+        a.last_name.localeCompare(b.last_name)
       );
     } else if (criteria === 'firstname') {
       sortedStudents = [...studentsList].sort((a, b) =>
-        `${a.first_name}`.localeCompare(`${b.first_name}`)
+        a.first_name.localeCompare(b.first_name)
       );
     } else if (criteria === 'grade') {
       sortedStudents = [...studentsList].sort((a, b) => b.grade - a.grade);
@@ -106,11 +102,16 @@ const EditRecords = () => {
     }
   }, [students, sortCriteria, sortStudents]);
 
-  const filteredStudents = students.filter((student) =>
-    `${student.first_name} ${student.last_name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    `${student.grade}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    `${student.list_of_trained_tools}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    `${student.user_id}`.includes(searchTerm.toLowerCase())
+  const filteredStudents = students.filter(
+    (student) =>
+      `${student.first_name} ${student.last_name}`
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      `${student.grade}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      `${student.list_of_trained_tools}`
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      `${student.user_id}`.includes(searchTerm.toLowerCase())
   );
 
   if (loading) return <div>Loading...</div>;
@@ -121,8 +122,8 @@ const EditRecords = () => {
       <Header />
       <div className="edit-records-container">
         <div className="tab-container">
-          <button className="tab selected">Students</button>
-          <button className="tab">Tools</button>
+          <Button className="tab selected">Students</Button>
+          <Button className="tab">Tools</Button>
         </div>
         <div className="controls-container">
           <Input
@@ -137,25 +138,51 @@ const EditRecords = () => {
             onChange={handleSortChange}
             className="sort-dropdown"
           >
-            <Select.Option value="lastname">Sort By: Last Name A → Z </Select.Option>
-            <Select.Option value="firstname">Sort By: First Name A → Z </Select.Option>
+            <Select.Option value="lastname">Sort By: Last Name A → Z</Select.Option>
+            <Select.Option value="firstname">Sort By: First Name A → Z</Select.Option>
             <Select.Option value="grade">Sort By: Grade Level</Select.Option>
           </Select>
-          <Button type="primary" className="add-student-button" onClick={handleAddStudent}>
+          <Button
+            type="primary"
+            className="add-student-button"
+            onClick={handleAddStudent}
+          >
             Add a new student
           </Button>
         </div>
-        <Table className="students-table" dataSource={filteredStudents} rowKey="_id">
+        <Table dataSource={filteredStudents} rowKey="_id">
           <Table.Column title="Student ID" dataIndex="user_id" key="user_id" />
-          <Table.Column title="Student Name" dataIndex={["first_name", "last_name"]} key="name" render={(text, record) => `${record.first_name} ${record.last_name}`} />
+          <Table.Column
+            title="Student Name"
+            dataIndex={["first_name", "last_name"]}
+            key="name"
+            render={(text, record) => `${record.first_name} ${record.last_name}`}
+          />
           <Table.Column title="Grade Level" dataIndex="grade" key="grade" />
-          <Table.Column title="List of Tools/Experience" dataIndex="list_of_trained_tools" key="list_of_trained_tools" render={(tools) => tools.join(', ')} />
-          <Table.Column title="Update Student" key="update" render={(text, record) => (
-            <Button type="link" onClick={() => handleUpdate(record._id)}>Update</Button>
-          )} />
-          <Table.Column title="Remove Student" key="remove" render={(text, record) => (
-            <Button danger onClick={() => showDeleteConfirm(record._id)}>Delete</Button>
-          )} />
+          <Table.Column
+            title="List of Tools/Experience"
+            dataIndex="list_of_trained_tools"
+            key="list_of_trained_tools"
+            render={(tools) => tools.join(', ')}
+          />
+          <Table.Column
+            title="Update Student"
+            key="update"
+            render={(text, record) => (
+              <Button type="link" onClick={() => handleUpdate(record._id)}>
+                Update
+              </Button>
+            )}
+          />
+          <Table.Column
+            title="Remove Student"
+            key="remove"
+            render={(text, record) => (
+              <Button danger onClick={() => showDeleteConfirm(record._id)}>
+                Delete
+              </Button>
+            )}
+          />
         </Table>
       </div>
     </div>
