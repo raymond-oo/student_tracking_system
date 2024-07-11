@@ -21,7 +21,7 @@ const ViewStudents = () => {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await axios.get(`${API_URL}api/students`, {
+                const response = await axios.get(`${API_URL}/api/students`, {
                     headers: {
                         'Authorization': localStorage.getItem('sessionToken')
                     }
