@@ -5,7 +5,7 @@ const User = require('../models/User');
 const { v4: uuidv4 } = require('uuid'); // Use UUID for generating session tokens
 
 const router = express.Router();
-const client = new OAuth2Client('945899431720-vulljqk5528th1uora746n3g2s999uk2.apps.googleusercontent.com');
+const client = new OAuth2Client('503971750045-jke96ruuail5lvds58hc8vfccado58n5.apps.googleusercontent.com');
 
 const calculateGrade = (email) => {
   const currentYear = new Date().getFullYear();
@@ -28,7 +28,7 @@ router.post('/google', async (req, res) => {
   try {
     const ticket = await client.verifyIdToken({
       idToken: token,
-      audience: '945899431720-vulljqk5528th1uora746n3g2s999uk2.apps.googleusercontent.com',
+      audience: '503971750045-jke96ruuail5lvds58hc8vfccado58n5.apps.googleusercontent.com',
     });
 
     const payload = ticket.getPayload();

@@ -1,27 +1,24 @@
-// models/User.js
 const mongoose = require('mongoose');
-const Counter = require('./Counter');
+const crypto = require('crypto');
 
 const userSchema = new mongoose.Schema({
-  user_id: { type: Number, unique: true, primary: true },
-  google_id: { type: String, required: true },
+  user_id: { type: String, unique: true, required: true },
+  google_id: { type: String },
   first_name: { type: String, required: true },
   last_name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   grade: { type: String },
   is_admin: { type: Boolean, default: false },
-  list_of_trained_tools: { type: Array }, // Array of tool IDs
+  list_of_trained_tools: { type: Array },
   profile_image: { type: String },
-  session: { type: String }, // Adding session token field
+  session: { type: String },
 });
 
-userSchema.statics.getNextUserId = async function () {
-  const counter = await Counter.findByIdAndUpdate(
-    { _id: 'userIdCounter' },
-    { $inc: { seq: 1 } },
-    { new: true, upsert: true, setDefaultsOnInsert: true } // Ensure defaults are set on insert
-  );
-  return counter.seq;
+userSchema.statics.generateUniqueId = function() {
+
+  const randomStr = crypto.randomInt(0, 999999).toString().padStart(6, '0');
+  return randomStr;
+  
 };
 
 const User = mongoose.model('User', userSchema);

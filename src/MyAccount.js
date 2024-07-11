@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import './styles/MyAccount.css';
+import toast from 'react-hot-toast';
 
 const MyAccount = () => {
     const [user, setUser] = useState(null);
@@ -32,6 +33,15 @@ const MyAccount = () => {
     const handleLogout = () => {
         localStorage.removeItem('sessionToken');
         navigate('/login');
+        toast.success('Logged out successfully!', { iconTheme: {
+            primary: '#DCB41F',
+            secondary: '#333',
+        },
+        style: {
+            backgroundColor: '#333',
+            color: '#DCB41F',
+        },
+    });
     };
 
     if (loading) return <div>Loading...</div>;
@@ -49,7 +59,7 @@ const MyAccount = () => {
                             <p><strong>Email:</strong> {user.email}</p>
                             <p><strong>Grade:</strong> {user.grade}</p>
                             <p><strong>Experience With:</strong> {user.list_of_trained_tools.join(', ')}</p>
-                            <button onClick={handleLogout}>Logout</button>
+                            <button className="logout-button" onClick={handleLogout}>Logout</button>
                         </>
                     )}
                 </div>

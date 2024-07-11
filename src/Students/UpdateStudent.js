@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import toast from 'react-hot-toast';
 // import '../styles/UpdateStudent.css';
 
 const UpdateStudent = () => {
@@ -48,7 +49,8 @@ const UpdateStudent = () => {
                     'Authorization': localStorage.getItem('sessionToken')
                 }
             });
-            navigate('/edit-records');
+            navigate(`/student/${id}`);
+            toast.success('Student updated successfully!');
         } catch (err) {
             setError(err.response.data.message);
         }

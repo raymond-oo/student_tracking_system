@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import toast from 'react-hot-toast';
 
 // import '../styles/AddStudent.css';
 
@@ -51,7 +52,8 @@ const AddStudent = () => {
                     'Authorization': localStorage.getItem('sessionToken')
                 }
             });
-            navigate('/edit-records');
+            navigate(`/edit-records`);
+            toast.success('Student added successfully!');
         } catch (err) {
             setError(err.response.data.message);
         }

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import './styles/Login.css';
+import toast from 'react-hot-toast';
 
 function Login() {
     const [error, setError] = useState(null);
@@ -21,7 +22,18 @@ function Login() {
             // Store the session token in localStorage
             localStorage.setItem('sessionToken', data.sessionToken);
 
+            toast.success(`Successfully logged in!`, {
+                iconTheme: {
+                    primary: '#333',
+                    secondary: '#DCB41F',
+                },
+                style: {
+                    backgroundColor: '#333',
+                    color: '#DCB41F',
+                },
+            });
             navigate('/home');
+
         } catch (error) {
             console.log(error);
             setError('An error occurred during login. Please try again.');

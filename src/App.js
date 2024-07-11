@@ -11,17 +11,21 @@ import EditRecords from './EditRecords';
 import AdminRoute from './components/AdminRoute';
 import AddStudent from './Students/AddStudent';
 import UpdateStudent from './Students/UpdateStudent';
+import StudentProfile from './components/StudentProfile';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
     
     return (
-        <GoogleOAuthProvider clientId="945899431720-vulljqk5528th1uora746n3g2s999uk2.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId="503971750045-jke96ruuail5lvds58hc8vfccado58n5.apps.googleusercontent.com">
+            <Toaster />
             <Router>
                 <Routes>
                     <Route path="/" element={<Navigate to="/home" />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/home" element={<ProtectedRoute> <Home /> </ProtectedRoute>} />
                     <Route path="/view-students" element={<ProtectedRoute> <ViewStudents /></ProtectedRoute>} />
+                    <Route path="/student/:id" element={<ProtectedRoute> <StudentProfile /></ProtectedRoute>} />
                     <Route 
                     path="/edit-records" 
                     element={
