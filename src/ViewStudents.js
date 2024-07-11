@@ -1,5 +1,6 @@
 // ViewStudents.js
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './styles/ViewStudents.css';
 import Header from './components/Header';
@@ -10,6 +11,11 @@ const ViewStudents = () => {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [sortCriteria, setSortCriteria] = useState('lastname');
+    const navigate = useNavigate();
+
+    const handleViewMore = (studentId) => {
+        navigate(`/student/${studentId}`);
+    };
 
     useEffect(() => {
         const fetchStudents = async () => {
@@ -96,7 +102,7 @@ const ViewStudents = () => {
                                 <div className="student-profile-pic">
                                     <img src={student.profile_image} alt="Profile" />
                                 </div>
-                                <button className="view-more-btn">{'>'} View More</button>
+                                <button onClick={() => handleViewMore(student._id)} className="view-more-btn">{'>'} View More</button>
                             </div>
                             <div className="student-info">
                                 <h3>{student.first_name} {student.last_name}</h3>
