@@ -54,17 +54,36 @@ const EditRecords = () => {
     setSelectedStudentId(null);
   };
 
+  const [deleteLoading, setDeleteLoading] = useState(false);
+
   const handleDelete = async () => {
+    setDeleteLoading(true);
     try {
+      // Optimistic UI update
+      setStudents(students.filter((student) => student._id !== selectedStudentId));
+      hideDeleteModal();
+  
+      // API call
       await axios.delete(`${API_URL}/api/students/${selectedStudentId}`, {
         headers: {
           Authorization: localStorage.getItem('sessionToken'),
         },
       });
-      setStudents(students.filter((student) => student._id !== selectedStudentId));
-      hideDeleteModal();
+  
+      // If the API call fails, we'll revert the optimistic update in the catch block
     } catch (err) {
-      setError(err);
+      console.error('Error deleting student:', err);
+      setError('Failed to delete student. Please try again.');
+      
+      // Revert the optimistic update
+      const response = await axios.get(`${API_URL}/api/students`, {
+        headers: {
+          Authorization: localStorage.getItem('sessionToken'),
+        },
+      });
+      setStudents(response.data);
+    } finally {
+      setDeleteLoading(false);
     }
   };
 
@@ -133,7 +152,6 @@ const EditRecords = () => {
           <Select
             value={sortCriteria}
             onChange={handleSortChange}
-            className="sort-dropdown"
           >
             <Select.Option value="lastname">Sort By: Last Name A → Z</Select.Option>
             <Select.Option value="firstname">Sort By: First Name A → Z</Select.Option>
@@ -183,15 +201,15 @@ const EditRecords = () => {
         </Table>
 
         <Modal
-          title="Are you sure you want to delete this student?"
-          visible={deleteModalVisible}
-          onOk={handleDelete}
-          onCancel={hideDeleteModal}
-          okText="Yes"
-          cancelText="No"
-        >
-          <ExclamationCircleOutlined />
-          <p>This action cannot be undone.</p>
+            title="Are you sure you want to delete this student?"
+            visible={deleteModalVisible}
+            onOk={handleDelete}
+            onCancel={hideDeleteModal}
+            okText="Yes"
+            cancelText="No"
+            confirmLoading={deleteLoading}>
+                <ExclamationCircleOutlined />
+                <p>This action cannot be undone.</p>
         </Modal>
       </div>
     </div>
