@@ -9,7 +9,7 @@ const AdminRoute = ({ children }) => {
     useEffect(() => {
         const checkAdmin = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/api/user/me', {
+                const response = await axios.get(`${API_URL}/api/user/me`, {
                     headers: {
                         'Authorization': localStorage.getItem('sessionToken')
                     }

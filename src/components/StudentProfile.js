@@ -15,7 +15,7 @@ const StudentProfile = () => {
     useEffect(() => {
         const fetchStudent = async () => {
             try {
-                const response = await axios.get(`http://localhost:5001/api/students/${id}`, {
+                const response = await axios.get(`${API_URL}/api/students/${id}`, {
                     headers: {
                         'Authorization': localStorage.getItem('sessionToken')
                     }

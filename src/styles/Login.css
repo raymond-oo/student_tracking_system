@@ -1,6 +1,12 @@
-@font-face {
+/* @font-face {
   font-family: 'Stardom';
   src: url('/Users/raymondoo/Desktop/Important Stuff/School/G11/COMPSCI/IA/student_tracking_system/src/resources/fonts/Stardom_Complete/Fonts/OTF/Stardom-Regular.otf') format('opentype');
+} */
+
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 400;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
 }
 
 body {

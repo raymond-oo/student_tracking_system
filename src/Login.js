@@ -11,7 +11,7 @@ function Login() {
 
     const responseMessage = async (response) => {
         try {
-            const res = await fetch('http://localhost:5001/api/auth/google', {
+            const res = await fetch(`${API_URL}/api/auth/google`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ token: response.credential }),

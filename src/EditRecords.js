@@ -11,11 +11,12 @@ const EditRecords = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/api/students', {
+                const response = await axios.get(`${API_URL}/api/students`, {
                     headers: {
                         'Authorization': localStorage.getItem('sessionToken')
                     }
@@ -41,7 +42,7 @@ const EditRecords = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5001/api/students/${id}`, {
+            await axios.delete(`${API_URL}/api/students/${id}`, {
                 headers: {
                     'Authorization': localStorage.getItem('sessionToken')
                 }

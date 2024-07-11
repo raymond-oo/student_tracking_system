@@ -25,7 +25,7 @@ const AddStudent = () => {
 
     const checkAdminStatus = async () => {
         try {
-            const response = await axios.get('http://localhost:5001/api/user/me', {
+            const response = await axios.get(`${API_URL}/api/user/me`, {
                 headers: {
                     'Authorization': localStorage.getItem('sessionToken')
                 }
@@ -47,7 +47,7 @@ const AddStudent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5001/api/students', student, {
+            await axios.post(`${API_URL}/api/students`, student, {
                 headers: {
                     'Authorization': localStorage.getItem('sessionToken')
                 }
