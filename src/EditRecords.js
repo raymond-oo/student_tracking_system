@@ -4,7 +4,7 @@ import Header from './components/Header';
 import './styles/EditRecords.css';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import ConfirmationModal from './ConfirmationModal';
+import ConfirmationModal from './components/ConfirmationModal';
 
 const EditRecords = () => {
   const [students, setStudents] = useState([]);
