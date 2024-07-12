@@ -60,6 +60,7 @@ const EditRecords = () => {
       toast.success('Student successfully deleted!');
       setIsModalOpen(false);
       setStudentToDelete(null);
+      window.location.reload();
     } catch (err) {
       setError(err);
       setIsModalOpen(false);
