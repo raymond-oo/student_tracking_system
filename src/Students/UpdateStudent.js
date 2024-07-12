@@ -15,7 +15,6 @@ const UpdateStudent = () => {
         list_of_trained_tools: [],
         profile_picture: null
     });
-    const [originalStudent, setOriginalStudent] = useState({});
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { id } = useParams();
@@ -31,9 +30,8 @@ const UpdateStudent = () => {
                     }
                 });
                 setStudent(response.data);
-                setOriginalStudent(response.data);
             } catch (err) {
-                setError(err.response.data.message);
+                setError(err.response?.data?.message || 'An error occurred while fetching student data.');
             }
         };
         fetchStudent();
@@ -49,13 +47,8 @@ const UpdateStudent = () => {
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        if (JSON.stringify(student) === JSON.stringify(originalStudent)) {
-            toast.info('No changes were made');
-            navigate('/edit-records');
-            return;
-        }
         setIsModalOpen(true);
     };
 
@@ -65,28 +58,33 @@ const UpdateStudent = () => {
             for (let key in student) {
                 if (key === 'list_of_trained_tools') {
                     formData.append(key, JSON.stringify(student[key]));
-                } else {
+                } else if (student[key] !== null) {
                     formData.append(key, student[key]);
                 }
             }
 
-            await axios.put(`${API_URL}/api/students/${id}`, formData, {
+            const response = await axios.put(`${API_URL}/api/students/${id}`, formData, {
                 headers: {
                     'Authorization': localStorage.getItem('sessionToken'),
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            navigate('/edit-records');
-            toast.success('Student updated successfully!');
+
+            if (response.data) {
+                navigate('/edit-records');
+                toast.success('Student updated successfully!');
+            } else {
+                setError('Failed to update student. Please try again.');
+            }
         } catch (err) {
-            setError(err.response.data.message);
+            setError(err.response?.data?.message || 'An error occurred while updating the student.');
         }
         setIsModalOpen(false);
     };
 
     const handleCancel = () => {
         navigate('/edit-records');
-        toast.info('No changes were made');
+        toast('Update cancelled');
     };
 
     return (
@@ -96,11 +94,11 @@ const UpdateStudent = () => {
                 <h2>Update Student</h2>
                 {error && <p className="error">{error}</p>}
                 <form onSubmit={handleSubmit}>
-                    <input type="text" name="first_name" value={student.first_name} onChange={handleChange} required />
-                    <input type="text" name="last_name" value={student.last_name} onChange={handleChange} required />
-                    <input type="email" name="email" value={student.email} onChange={handleChange} required />
-                    <input type="text" name="grade" value={student.grade} onChange={handleChange} required />
-                    <input type="text" name="list_of_trained_tools" value={student.list_of_trained_tools.join(',')} onChange={handleChange} />
+                    <input type="text" name="first_name" value={student.first_name || ''} onChange={handleChange} required placeholder="First Name" />
+                    <input type="text" name="last_name" value={student.last_name || ''} onChange={handleChange} required placeholder="Last Name" />
+                    <input type="email" name="email" value={student.email || ''} onChange={handleChange} required placeholder="Email" />
+                    <input type="text" name="grade" value={student.grade || ''} onChange={handleChange} required placeholder="Grade" />
+                    <input type="text" name="list_of_trained_tools" value={student.list_of_trained_tools ? student.list_of_trained_tools.join(',') : ''} onChange={handleChange} placeholder="Trained Tools (comma separated)" />
                     <input type="file" name="profile_picture" onChange={handleChange} accept="image/*" />
                     <div className="button-group">
                         <button type="submit">Update Student</button>

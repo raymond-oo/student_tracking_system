@@ -51,6 +51,10 @@ const AddStudent = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!student.first_name || !student.last_name || !student.email) {
+            setError('First name, last name, and email are required fields.');
+            return;
+        }
         setIsModalOpen(true);
     };
 
@@ -60,28 +64,33 @@ const AddStudent = () => {
             for (let key in student) {
                 if (key === 'list_of_trained_tools') {
                     formData.append(key, JSON.stringify(student[key]));
-                } else {
+                } else if (student[key]) { // Only append if the value is not null or empty
                     formData.append(key, student[key]);
                 }
             }
 
-            await axios.post(`${API_URL}/api/students`, formData, {
+            const response = await axios.post(`${API_URL}/api/students`, formData, {
                 headers: {
                     'Authorization': localStorage.getItem('sessionToken'),
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            navigate('/edit-records');
-            toast.success('Student added successfully!');
+            
+            if (response.data) {
+                navigate('/edit-records');
+                toast.success('Student added successfully!');
+            } else {
+                setError('Failed to add student. Please try again.');
+            }
         } catch (err) {
-            setError(err.response.data.message);
+            setError(err.response?.data?.message || 'An error occurred while adding the student.');
         }
         setIsModalOpen(false);
     };
 
     const handleCancel = () => {
         navigate('/edit-records');
-        toast.info('Student addition cancelled');
+        toast('Add cancelled.');
     };
 
     return (
@@ -103,11 +112,11 @@ const AddStudent = () => {
                             />
                         </div>
                     )}
-                    <input type="text" name="first_name" placeholder="First Name" onChange={handleChange} required />
-                    <input type="text" name="last_name" placeholder="Last Name" onChange={handleChange} required />
-                    <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-                    <input type="text" name="grade" placeholder="Grade" onChange={handleChange} required />
-                    <input type="text" name="list_of_trained_tools" placeholder="Trained Tools (comma separated)" onChange={handleChange} />
+                    <input type="text" name="first_name" placeholder="First Name" value={student.first_name} onChange={handleChange} required />
+                    <input type="text" name="last_name" placeholder="Last Name" value={student.last_name} onChange={handleChange} required />
+                    <input type="email" name="email" placeholder="Email" value={student.email} onChange={handleChange} required />
+                    <input type="text" name="grade" placeholder="Grade" value={student.grade} onChange={handleChange} required />
+                    <input type="text" name="list_of_trained_tools" placeholder="Trained Tools (comma separated)" value={student.list_of_trained_tools.join(',')} onChange={handleChange} />
                     <input type="file" name="profile_picture" onChange={handleChange} accept="image/*" />
                     <div className="button-group">
                         <button type="submit">Add Student</button>
