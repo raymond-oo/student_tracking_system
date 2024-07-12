@@ -3,11 +3,15 @@ import axios from 'axios';
 import Header from './components/Header';
 import './styles/EditRecords.css';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import ConfirmationModal from './ConfirmationModal';
 
 const EditRecords = () => {
   const [students, setStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortCriteria, setSortCriteria] = useState('lastname');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [studentToDelete, setStudentToDelete] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -40,18 +44,28 @@ const EditRecords = () => {
     navigate(`/update-student/${id}`);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = (id) => {
+    setStudentToDelete(id);
+    setIsModalOpen(true);
+  };
+  
+  const confirmDelete = async () => {
     try {
-        await axios.delete(`${API_URL}/api/students/${id}`, {
-            headers: {
-                'Authorization': localStorage.getItem('sessionToken')
-            }
-        });
-        setStudents(students.filter(student => student._id !== id));
+      await axios.delete(`${API_URL}/api/students/${studentToDelete}`, {
+        headers: {
+          'Authorization': localStorage.getItem('sessionToken')
+        }
+      });
+      setStudents(students.filter(student => student._id !== studentToDelete));
+      toast.success('Student successfully deleted!');
+      setIsModalOpen(false);
+      setStudentToDelete(null);
     } catch (err) {
-        setError(err);
+      setError(err);
+      setIsModalOpen(false);
+      setStudentToDelete(null);
     }
-};
+  };
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -141,12 +155,20 @@ const EditRecords = () => {
                             <td>{student.grade}</td>
                             <td>{student.list_of_trained_tools.join(', ')}</td>
                             <td><button className="update-button" onClick={() => handleUpdate(student._id)}>Update</button></td>
-                            <td><button className="delete-button" onClick={() => handleDelete(student._id)}>Delete</button></td>
+                            <td> <button className="delete-button" onClick={() => handleDelete(student._id)}> Delete </button> </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
+            <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={confirmDelete}
+        message="Are you sure you want to delete this student?"
+        confirmText="Delete"
+        cancelText="Cancel"
+      />
         </div>
     );
 };
