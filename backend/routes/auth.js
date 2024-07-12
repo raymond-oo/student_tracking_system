@@ -8,18 +8,28 @@ const router = express.Router();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 const calculateGrade = (email) => {
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth();
-  const graduationYear = parseInt(email.slice(0, 2)) + 2000;
+    // Get current date
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth(); // 0-11, where 0 is January
 
-  let grade;
-  if (currentMonth < 7) {
-    grade = graduationYear - currentYear + 11;
-  } else {
-    grade = graduationYear - currentYear + 12;
-  }
-
-  return grade;
+    // Extract first two digits from email
+    const gradDigits = email.slice(0, 2);
+    
+    // Convert to full graduation year
+    const gradYear = 2000 + parseInt(gradDigits);
+    
+    // Determine the academic year
+    // If it's July or later, we consider it the next academic year
+    const academicYear = currentMonth >= 6 ? currentYear + 1 : currentYear;
+    
+    // Calculate years until graduation
+    const yearsUntilGrad = gradYear - academicYear;
+    
+    // Calculate current grade
+    const grade = 12 - yearsUntilGrad;
+    
+    return grade;
 };
 
 router.post('/google', async (req, res) => {
