@@ -57,10 +57,10 @@ const EditRecords = () => {
         }
       });
       setStudents(students.filter(student => student._id !== studentToDelete));
-      toast.success('Student successfully deleted!');
       setIsModalOpen(false);
       setStudentToDelete(null);
       window.location.reload();
+      setTimeout (() => toast.success('Student deleted successfully!'), 1000);
     } catch (err) {
       setError(err);
       setIsModalOpen(false);

@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import toast from 'react-hot-toast';
-// import '../styles/UpdateStudent.css';
+import ConfirmationModal from '../components/ConfirmationModal';
+import '../styles/UpdateStudent.css';
 
 const UpdateStudent = () => {
     const [student, setStudent] = useState({
@@ -11,9 +12,12 @@ const UpdateStudent = () => {
         last_name: '',
         email: '',
         grade: '',
-        list_of_trained_tools: []
+        list_of_trained_tools: [],
+        profile_picture: null
     });
+    const [originalStudent, setOriginalStudent] = useState({});
     const [error, setError] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const { id } = useParams();
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
@@ -27,16 +31,19 @@ const UpdateStudent = () => {
                     }
                 });
                 setStudent(response.data);
+                setOriginalStudent(response.data);
             } catch (err) {
                 setError(err.response.data.message);
             }
         };
         fetchStudent();
-    }, [id]);
+    }, [id, API_URL]);
 
     const handleChange = (e) => {
         if (e.target.name === 'list_of_trained_tools') {
             setStudent({...student, [e.target.name]: e.target.value.split(',')});
+        } else if (e.target.name === 'profile_picture') {
+            setStudent({...student, [e.target.name]: e.target.files[0]});
         } else {
             setStudent({...student, [e.target.name]: e.target.value});
         }
@@ -44,17 +51,42 @@ const UpdateStudent = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (JSON.stringify(student) === JSON.stringify(originalStudent)) {
+            toast.info('No changes were made');
+            navigate('/edit-records');
+            return;
+        }
+        setIsModalOpen(true);
+    };
+
+    const confirmUpdate = async () => {
         try {
-            await axios.put(`${API_URL}/api/students/${id}`, student, {
+            const formData = new FormData();
+            for (let key in student) {
+                if (key === 'list_of_trained_tools') {
+                    formData.append(key, JSON.stringify(student[key]));
+                } else {
+                    formData.append(key, student[key]);
+                }
+            }
+
+            await axios.put(`${API_URL}/api/students/${id}`, formData, {
                 headers: {
-                    'Authorization': localStorage.getItem('sessionToken')
+                    'Authorization': localStorage.getItem('sessionToken'),
+                    'Content-Type': 'multipart/form-data'
                 }
             });
-            navigate(`/student/${id}`);
+            navigate('/edit-records');
             toast.success('Student updated successfully!');
         } catch (err) {
             setError(err.response.data.message);
         }
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        navigate('/edit-records');
+        toast.info('No changes were made');
     };
 
     return (
@@ -69,9 +101,21 @@ const UpdateStudent = () => {
                     <input type="email" name="email" value={student.email} onChange={handleChange} required />
                     <input type="text" name="grade" value={student.grade} onChange={handleChange} required />
                     <input type="text" name="list_of_trained_tools" value={student.list_of_trained_tools.join(',')} onChange={handleChange} />
-                    <button type="submit">Update Student</button>
+                    <input type="file" name="profile_picture" onChange={handleChange} accept="image/*" />
+                    <div className="button-group">
+                        <button type="submit">Update Student</button>
+                        <button type="button" onClick={handleCancel}>Cancel</button>
+                    </div>
                 </form>
             </div>
+            <ConfirmationModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={confirmUpdate}
+                message="Are you sure you want to update this student?"
+                confirmText="Update"
+                cancelText="Cancel"
+            />
         </div>
     );
 };

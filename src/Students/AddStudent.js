@@ -3,8 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import toast from 'react-hot-toast';
-
-// import '../styles/AddStudent.css';
+import ConfirmationModal from '../components/ConfirmationModal';
+import '../styles/AddStudent.css';
 
 const AddStudent = () => {
     const [student, setStudent] = useState({
@@ -13,10 +13,12 @@ const AddStudent = () => {
         last_name: '',
         email: '',
         grade: '',
-        list_of_trained_tools: []
+        list_of_trained_tools: [],
+        profile_picture: null
     });
     const [error, setError] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
 
@@ -40,24 +42,46 @@ const AddStudent = () => {
     const handleChange = (e) => {
         if (e.target.name === 'list_of_trained_tools') {
             setStudent({...student, [e.target.name]: e.target.value.split(',')});
+        } else if (e.target.name === 'profile_picture') {
+            setStudent({...student, [e.target.name]: e.target.files[0]});
         } else {
             setStudent({...student, [e.target.name]: e.target.value});
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
+        setIsModalOpen(true);
+    };
+
+    const confirmAdd = async () => {
         try {
-            await axios.post(`${API_URL}/api/students`, student, {
+            const formData = new FormData();
+            for (let key in student) {
+                if (key === 'list_of_trained_tools') {
+                    formData.append(key, JSON.stringify(student[key]));
+                } else {
+                    formData.append(key, student[key]);
+                }
+            }
+
+            await axios.post(`${API_URL}/api/students`, formData, {
                 headers: {
-                    'Authorization': localStorage.getItem('sessionToken')
+                    'Authorization': localStorage.getItem('sessionToken'),
+                    'Content-Type': 'multipart/form-data'
                 }
             });
-            navigate(`/edit-records`);
+            navigate('/edit-records');
             toast.success('Student added successfully!');
         } catch (err) {
             setError(err.response.data.message);
         }
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        navigate('/edit-records');
+        toast.info('Student addition cancelled');
     };
 
     return (
@@ -84,9 +108,21 @@ const AddStudent = () => {
                     <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
                     <input type="text" name="grade" placeholder="Grade" onChange={handleChange} required />
                     <input type="text" name="list_of_trained_tools" placeholder="Trained Tools (comma separated)" onChange={handleChange} />
-                    <button type="submit">Add Student</button>
+                    <input type="file" name="profile_picture" onChange={handleChange} accept="image/*" />
+                    <div className="button-group">
+                        <button type="submit">Add Student</button>
+                        <button type="button" onClick={handleCancel}>Cancel</button>
+                    </div>
                 </form>
             </div>
+            <ConfirmationModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={confirmAdd}
+                message="Are you sure you want to add this student?"
+                confirmText="Add"
+                cancelText="Cancel"
+            />
         </div>
     );
 };
