@@ -56,7 +56,7 @@
 
 .add-student-container button[type="button"] {
     background-color: #ecf0f1;
-    color: white;
+    color: #34495e;
 }
 
 .add-student-container button[type="button"]:hover {
