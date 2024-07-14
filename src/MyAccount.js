@@ -1,9 +1,12 @@
+// MyAccount.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Header from './components/Header';
+import StudentView from './components/RespectiveStudent';
 import './styles/MyAccount.css';
 import toast from 'react-hot-toast';
+import RespectiveStudent from './components/RespectiveStudent';
 
 const MyAccount = () => {
     const [user, setUser] = useState(null);
@@ -34,15 +37,16 @@ const MyAccount = () => {
     const handleLogout = () => {
         localStorage.removeItem('sessionToken');
         navigate('/login');
-        toast.success('Logged out successfully!', { iconTheme: {
-            primary: '#DCB41F',
-            secondary: '#333',
-        },
-        style: {
-            backgroundColor: '#333',
-            color: '#DCB41F',
-        },
-    });
+        toast.success('Logged out successfully!', {
+            iconTheme: {
+                primary: '#DCB41F',
+                secondary: '#333',
+            },
+            style: {
+                backgroundColor: '#333',
+                color: '#DCB41F',
+            },
+        });
     };
 
     if (loading) return <div>Loading...</div>;
@@ -52,18 +56,10 @@ const MyAccount = () => {
         <div>
             <Header />
             <div className="myaccount-container">
-                <div className="account-info">
-                    <h2>My Account</h2>
-                    {user && (
-                        <>
-                            <p><strong>Name:</strong> {user.first_name} {user.last_name}</p>
-                            <p><strong>Email:</strong> {user.email}</p>
-                            <p><strong>Grade:</strong> {user.grade}</p>
-                            <p><strong>Experience With:</strong> {user.list_of_trained_tools.join(', ')}</p>
-                            <button className="logout-button" onClick={handleLogout}>Logout</button>
-                        </>
-                    )}
-                </div>
+                <h2>My Account</h2>
+                {user && (
+                    <RespectiveStudent student={user} showLogout={true} onLogout={handleLogout} />
+                )}
             </div>
         </div>
     );

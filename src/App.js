@@ -11,7 +11,7 @@ import EditRecords from './EditRecords';
 import AdminRoute from './components/AdminRoute';
 import AddStudent from './Students/AddStudent';
 import UpdateStudent from './Students/UpdateStudent';
-import StudentProfile from './components/StudentProfile';
+import StudentProfile from './Students/StudentProfile';
 import { Toaster } from 'react-hot-toast';
 
 function App() {

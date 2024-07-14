@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Header from './Header';
+import Header from '../components/Header';
 import '../styles/StudentProfile.css';
+import RespectiveStudent from '../components/RespectiveStudent';
 
 const StudentProfile = () => {
     const [student, setStudent] = useState(null);
@@ -40,18 +41,8 @@ const StudentProfile = () => {
         <div>
             <Header />
             <div className="student-profile-container">
-                <div className="profile-content">
-                    <button className="back-button" onClick={() => navigate('/view-students')}>Back to Students</button>
-                    <div className="profile-header">
-                        <img src={student.profile_image} alt={`${student.first_name} ${student.last_name}`} className="profile-image" />
-                        <h2>{student.first_name} {student.last_name}</h2>
-                    </div>
-                    <div className="profile-details">
-                        <p><strong>Grade:</strong> {student.grade}</p>
-                        <p><strong>Email:</strong> {student.email}</p>
-                        <p><strong>Experience With:</strong> {student.list_of_trained_tools.join(', ')}</p>
-                    </div>
-                </div>
+                <button className="back-button" onClick={() => navigate('/view-students')}>Back to Students</button>
+                <RespectiveStudent student={student} showLogout={false} />
             </div>
         </div>
     );
