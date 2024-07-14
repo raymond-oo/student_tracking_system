@@ -55,12 +55,12 @@
 }
 
 .update-student-container button[type="button"] {
-    background-color: #e74c3c;
+    background-color: #ecf0f1;
     color: white;
 }
 
 .update-student-container button[type="button"]:hover {
-    background-color: #c0392b;
+    background-color: #bdc3c7;
 }
 
 .error {

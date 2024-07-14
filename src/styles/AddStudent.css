@@ -46,21 +46,21 @@
 }
 
 .add-student-container button[type="submit"] {
-    background-color: #2ecc71;
+    background-color: #3498db;
     color: white;
 }
 
 .add-student-container button[type="submit"]:hover {
-    background-color: #27ae60;
+    background-color: #2980b9;
 }
 
 .add-student-container button[type="button"] {
-    background-color: #e74c3c;
+    background-color: #ecf0f1;
     color: white;
 }
 
 .add-student-container button[type="button"]:hover {
-    background-color: #c0392b;
+    background-color: #bdc3c7;
 }
 
 .error {
