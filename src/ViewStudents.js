@@ -82,39 +82,41 @@ const ViewStudents = () => {
         <div>
             <Header />
             <div className="students-container">
-                <div className="search-sort-container">
-                    <input
-                        type="text"
-                        placeholder="Enter a student name"
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                        className="search-bar"
-                    />
-                    <select value={sortCriteria} onChange={handleSortChange} className="sort-dropdown">
-                        <option value="lastname">Sort By: Last Name A → Z </option>
-                        <option value="firstname"> Sort By: First Name A → Z </option>
-                        <option value="grade">Sort By: Grade Level</option>
-                    </select>
-                </div>
-                <div className="students-grid">
-                    {filteredStudents.map((student, index) => (
-                        <div className="student-card" key={index}>
-                            <div className="student-card-header">
-                                <div className="student-profile-pic">
-                                    <img src={student.profile_image} alt="Profile" />
+                <h1>A makerspace ignites innovation, offering an environment full with tools</h1>
+                <p>Explore all of the makerspace's tools</p>
+                    <div className="search-sort-container">
+                        <input
+                            type="text"
+                            placeholder="Enter a student name"
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                            className="search-bar"
+                        />
+                        <select value={sortCriteria} onChange={handleSortChange} className="sort-dropdown">
+                            <option value="lastname">Sort By: Last Name A → Z </option>
+                            <option value="firstname"> Sort By: First Name A → Z </option>
+                            <option value="grade">Sort By: Grade Level</option>
+                        </select>
+                    </div>
+                    <div className="students-grid">
+                        {filteredStudents.map((student, index) => (
+                            <div className="student-card" key={index}>
+                                <div className="student-card-header">
+                                    <div className="student-profile-pic">
+                                        <img src={student.profile_image} alt="Profile" />
+                                    </div>
+                                    <button onClick={() => handleViewMore(student._id)} className="view-more-btn">{'>'} View More</button>
                                 </div>
-                                <button onClick={() => handleViewMore(student._id)} className="view-more-btn">{'>'} View More</button>
+                                <div className="student-info">
+                                    <h3>{student.first_name} {student.last_name}</h3>
+                                    <p><strong>Grade:</strong> {student.grade}</p>
+                                    <p><strong>Experience With:</strong> {student.list_of_trained_tools.join(', ')}</p>
+                                </div>
                             </div>
-                            <div className="student-info">
-                                <h3>{student.first_name} {student.last_name}</h3>
-                                <p><strong>Grade:</strong> {student.grade}</p>
-                                <p><strong>Experience With:</strong> {student.list_of_trained_tools.join(', ')}</p>
-                            </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
     );
 };
 
