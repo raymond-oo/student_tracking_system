@@ -93,18 +93,18 @@ const ViewTools = () => {
                 <div className="tools-grid">
                     {filteredTools.map((tool, index) => (
                         <div className="tool-card" key={index}>
-                            <div className="tool-card-header">
-                                <img src={tool.imageUrl} alt={tool.tool_name} className="tool-image" />
-                                <button onClick={() => handleViewMore(tool._id)} className="view-more-btn">Learn More {'>>'}</button>
-                            </div>
+                            <img src={tool.imageUrl} alt={tool.tool_name} className="tool-image" />
                             <div className="tool-info">
-                                <h3>{tool.tool_name}</h3>
+                                <h3>
+                                    {tool.tool_name}
+                                    <span className={`status-icon ${tool.status === 'good' ? 'good' : tool.status === 'warning' ? 'warning' : 'unavailable'}`}>
+                                        {tool.status === 'good' ? '👍' : tool.status === 'warning' ? '⚠️' : '❌'}
+                                    </span>
+                                </h3>
                                 <p>{tool.tool_model}</p>
-                                <p className="placeholder-text">{tool.tool_category}</p>
+                                <p className="tool-category">{tool.tool_category}</p>
                             </div>
-                            <div className={`status-icon ${tool.restriction_id === `1` ? 'good' : tool.restriction_id === '2' ? 'warning' : 'unavailable'}`}>
-                                {tool.restriction_id === 'good' ? '👍' : tool.restriction_id === 'warning' ? '⚠️' : '❌'}
-                            </div>
+                            <button onClick={() => handleViewMore(tool._id)} className="view-more-btn">Learn More {'>>'}</button>
                         </div>
                     ))}
                 </div>
