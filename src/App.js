@@ -58,6 +58,26 @@ function App() {
                         </ProtectedRoute>
                     } 
                 />
+                <Route 
+                    path="/add-tool" 
+                    element={
+                        <ProtectedRoute>
+                            <AdminRoute>
+                                <UpdateStudent />
+                            </AdminRoute>
+                        </ProtectedRoute>
+                    } 
+                />
+                <Route 
+                    path="/update-tool/:id" 
+                    element={
+                        <ProtectedRoute>
+                            <AdminRoute>
+                                <UpdateStudent />
+                            </AdminRoute>
+                        </ProtectedRoute>
+                    } 
+                />
                     <Route path="/my-account" element={<ProtectedRoute> <MyAccount /> </ProtectedRoute>} />
                 </Routes>
             </Router>
