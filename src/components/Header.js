@@ -49,7 +49,7 @@ const Header = () => {
                 <Link to="/">Home</Link>
                 <Link to="/view-tools">View Tools</Link> 
                 <Link to="/view-students">View Students</Link>
-                {user?.is_admin && <Link to="/edit-records">Edit Records</Link>}
+                {user?.is_admin && <Link to="/edit-students">Edit Records</Link>}
                 <Link to="/my-account">My Account</Link>
             </nav>
         </header>

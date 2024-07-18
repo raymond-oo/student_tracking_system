@@ -8,7 +8,6 @@ import ViewTools from './ViewTools';
 import ViewStudents from './ViewStudents';
 import MyAccount from './MyAccount';
 import ProtectedRoute from './components/ProtectedRoute';
-import EditRecords from './EditRecords';
 import AdminRoute from './components/AdminRoute';
 import AddStudent from './Students/AddStudent';
 import UpdateStudent from './Students/UpdateStudent';
@@ -16,6 +15,8 @@ import StudentProfile from './Students/StudentProfile';
 import { Toaster } from 'react-hot-toast';
 import AddTool from './Tools/AddTool';
 import UpdateTool from './Tools/UpdateTool';
+import EditStudents from './EditStudents';
+import EditTools from './EditTools';
 
 function App() {
     
@@ -31,11 +32,21 @@ function App() {
                     <Route path="/view-students" element={<ProtectedRoute> <ViewStudents /></ProtectedRoute>} />
                     <Route path="/student/:id" element={<ProtectedRoute> <StudentProfile /></ProtectedRoute>} />
                     <Route 
-                    path="/edit-records" 
+                    path="/edit-students" 
                     element={
                         <ProtectedRoute>
                             <AdminRoute>
-                                <EditRecords />
+                                <EditStudents />
+                            </AdminRoute>
+                        </ProtectedRoute>
+                    } 
+                />
+                    <Route 
+                    path="/edit-tools" 
+                    element={
+                        <ProtectedRoute>
+                            <AdminRoute>
+                                <EditTools />
                             </AdminRoute>
                         </ProtectedRoute>
                     } 
