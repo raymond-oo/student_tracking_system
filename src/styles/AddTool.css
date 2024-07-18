@@ -1,0 +1,50 @@
+.add-tool-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.add-tool-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.add-tool-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-tool-container input,
+.add-tool-container textarea {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.add-tool-container .button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-tool-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-tool-container button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.add-tool-container button[type="button"] {
+    background-color: #f44336;
+    color: white;
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
