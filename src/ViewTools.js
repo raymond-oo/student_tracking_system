@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './styles/ViewTools.css';
 import Header from './components/Header';
+import { FaThumbsUp } from 'react-icons/fa';
+import { MdDangerous } from 'react-icons/md';
+import { IoIosWarning } from 'react-icons/io';
 
 const ViewTools = () => {
     const [tools, setTools] = useState([]);
@@ -74,8 +77,8 @@ const ViewTools = () => {
         <div>
             <Header />
             <div className="tools-container">
-                <h1>A makerspace ignites innovation, offering an environment full with tools</h1>
-                <p>Explore all of the makerspace's tools</p>
+                <h1>A makerspace ignites innovation, offering an environment full with tools.</h1>
+                <p>Explore all of the makerspace's tools, ranging from woodworking and electronics to 3D printing and crafting.</p>
                 <div className="search-sort-container">
                     <input
                         type="text"
@@ -98,11 +101,11 @@ const ViewTools = () => {
                                 <h3>
                                     {tool.tool_name}
                                     <span className={`status-icon`}>
-                                        {tool.restriction_id === '0' ? '👍' : tool.restriction_id === '1' ? '⚠️' : '❌'}
-                                    </span>
-                                </h3>
-                                <p>{tool.tool_model}</p>
-                                <p className="tool-category">{tool.tool_category}</p>
+                    {tool.restriction_id === '0' ? <FaThumbsUp /> : tool.restriction_id === '1' ? <IoIosWarning /> : <MdDangerous />}
+                </span>
+            </h3>
+            <p>{tool.tool_model}</p>
+            <p className="tool-category">{tool.tool_category}</p>
                             </div>
                             <button onClick={() => handleViewMore(tool._id)} className="view-more-btn">Learn More {'>>'}</button>
                         </div>

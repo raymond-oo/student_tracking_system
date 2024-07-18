@@ -82,8 +82,8 @@ const ViewStudents = () => {
         <div>
             <Header />
             <div className="students-container">
-                <h1>A makerspace ignites innovation, offering an environment full with tools</h1>
-                <p>Explore all of the makerspace's tools</p>
+                <h1>Empower your creativity with the makerspace and collaborate with fellow students.</h1>
+                <p>Explore all the students who have ventured into the realm of creation inside the makerspace</p>
                     <div className="search-sort-container">
                         <input
                             type="text"
