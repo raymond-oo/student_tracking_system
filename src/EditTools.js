@@ -11,7 +11,7 @@ const EditTools = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [sortCriteria, setSortCriteria] = useState('tool_name');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [itemToDelete, setItemToDelete] = useState(null);
+    const [toolToDelete, setToolToDelete] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -45,26 +45,29 @@ const EditTools = () => {
     };
 
     const handleDelete = (id) => {
-        setItemToDelete(id);
+        setToolToDelete(id);
         setIsModalOpen(true);
     };
 
     const confirmDelete = async () => {
         try {
-            await axios.delete(`${API_URL}/api/tools/${itemToDelete}`, {
+            await axios.delete(`${API_URL}/api/tools/${toolToDelete}`, {
                 headers: {
                     'Authorization': localStorage.getItem('sessionToken')
                 }
             });
-            setTools(tools.filter(tool => tool._id !== itemToDelete));
+            setTools(tools.filter(tool => tool._id !== toolToDelete));
             toast.success('Tool deleted successfully!');
             setIsModalOpen(false);
-            setItemToDelete(null);
+            setToolToDelete(null);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            window.location.reload();
+
         } catch (err) {
             setError(err);
             toast.error(err.message);
             setIsModalOpen(false);
-            setItemToDelete(null);
+            setToolToDelete(null);
         }
     };
 

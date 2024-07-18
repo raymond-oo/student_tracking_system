@@ -47,8 +47,8 @@ const AddStudent = () => {
     };
 
     const handleCancel = () => {
-        navigate('/edit-records');
-        toast('Add cancelled.');
+        navigate('/edit-students');
+        toast('No changes were made.');
     };
 
     return (

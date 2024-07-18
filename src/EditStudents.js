@@ -11,7 +11,7 @@ const EditStudents = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [sortCriteria, setSortCriteria] = useState('lastname');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [itemToDelete, setItemToDelete] = useState(null);
+    const [studentToDelete, setStudentToDelete] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -45,28 +45,31 @@ const EditStudents = () => {
     };
 
     const handleDelete = (id) => {
-        setItemToDelete(id);
+        setStudentToDelete(id);
         setIsModalOpen(true);
     };
 
     const confirmDelete = async () => {
         try {
-            await axios.delete(`${API_URL}/api/students/${itemToDelete}`, {
-                headers: {
-                    'Authorization': localStorage.getItem('sessionToken')
-                }
-            });
-            setStudents(students.filter(student => student._id !== itemToDelete));
-            toast.success('Student deleted successfully!');
-            setIsModalOpen(false);
-            setItemToDelete(null);
+          await axios.delete(`${API_URL}/api/students/${studentToDelete}`, {
+            headers: {
+              'Authorization': localStorage.getItem('sessionToken')
+            }
+          });
+          setStudents(students.filter(student => student._id !== studentToDelete));
+          toast.success('Student deleted successfully!')
+          setIsModalOpen(false);
+          setStudentToDelete(null);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          window.location.reload();
+    
         } catch (err) {
-            setError(err);
-            toast.error(err.message);
-            setIsModalOpen(false);
-            setItemToDelete(null);
+          setError(err);
+          toast.error(err.message);
+          setIsModalOpen(false);
+          setStudentToDelete(null);
         }
-    };
+      };
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);

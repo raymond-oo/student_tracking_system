@@ -62,8 +62,8 @@ const UpdateStudent = () => {
     };
 
     const handleCancel = () => {
-        navigate('/edit-records');
-        toast('No changes were made');
+        navigate('/edit-students');
+        toast('No changes were made.');
     };
 
     return (

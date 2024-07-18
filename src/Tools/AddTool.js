@@ -39,8 +39,8 @@ const AddTool = () => {
     };
 
     const handleCancel = () => {
-        navigate('/edit-records');
-        toast('Add cancelled.');
+        navigate('/edit-tools');
+        toast('No changes were made.');
     };
 
     return (

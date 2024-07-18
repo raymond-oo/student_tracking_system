@@ -57,8 +57,8 @@ const UpdateTool = () => {
     };
 
     const handleCancel = () => {
-        navigate('/edit-records');
-        toast('No changes were made');
+        navigate('/edit-tools');
+        toast('No changes were made.');
     };
 
     return (
