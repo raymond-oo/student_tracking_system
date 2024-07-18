@@ -118,10 +118,11 @@ const EditRecords = () => {
     }, [selectedTab]);
 
     useEffect(() => {
-        if (selectedTab === 'students' ? students.length > 0 : tools.length > 0) {
+        if ((selectedTab === 'students' && students?.length > 0) || (selectedTab === 'tools' && tools?.length > 0)) {
             sortItems(sortCriteria, selectedTab === 'students' ? students : tools);
         }
     }, [students, tools, sortCriteria, sortItems, selectedTab]);
+    
 
     const filteredItems = (selectedTab === 'students' ? students : tools)?.filter(
         (item) => selectedTab === 'students' ?

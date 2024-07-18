@@ -16,26 +16,8 @@ const AddStudent = () => {
         profile_picture: null
     });
     const [error, setError] = useState(null);
-    const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
-
-    useEffect(() => {
-        checkAdminStatus();
-    }, []);
-
-    const checkAdminStatus = async () => {
-        try {
-            const response = await axios.get(`${API_URL}/api/user/me`, {
-                headers: {
-                    'Authorization': localStorage.getItem('sessionToken')
-                }
-            });
-            setIsAdmin(response.data.is_admin);
-        } catch (err) {
-            console.error('Error checking admin status:', err);
-        }
-    };
 
     const handleChange = (e) => {
         if (e.target.name === 'list_of_trained_tools') {
@@ -76,7 +58,6 @@ const AddStudent = () => {
                 <h2>Add New Student</h2>
                 {error && <p className="error">{error}</p>}
                 <form onSubmit={handleSubmit}>
-                    {isAdmin && (
                         <div>
                             <label htmlFor="user_id">User ID (optional):</label>
                             <input
@@ -87,7 +68,6 @@ const AddStudent = () => {
                                 onChange={handleChange}
                             />
                         </div>
-                    )}
                     <input type="text" name="first_name" placeholder="First Name" onChange={handleChange} required />
                     <input type="text" name="last_name" placeholder="Last Name" onChange={handleChange} required />
                     <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
