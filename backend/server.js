@@ -8,6 +8,7 @@ const authRoute = require('./routes/auth');
 const protectedRoutes = require('./routes/protected');
 const studentsRoute = require('./routes/students');
 const userRouter = require('./routes/user');
+const toolsRouter = require('./routes/tools');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use('/api/auth', authRoute);
 app.use('/api/user', userRouter);
 app.use('/api/protected', protectedRoutes);
 app.use('/api/students', studentsRoute);
+app.use('/api/tools', toolsRouter);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

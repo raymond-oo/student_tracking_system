@@ -79,7 +79,7 @@ const ViewStudents = () => {
     if (error) return <div>Error: {error.message}</div>;
 
     return (
-        <div className="viewstudents-container">
+        <div>
             <Header />
             <div className="students-container">
                 <div className="search-sort-container">

@@ -1,0 +1,116 @@
+/* ViewTools.css */
+
+main {
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.search-sort-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.search-bar {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+}
+
+.sort-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.sort-dropdown {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-left: 1px solid #ccc;
+    outline: none;
+    background: transparent;
+}
+
+.search-icon {
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.tool-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    position: relative;
+}
+
+.tool-image {
+    height: 200px;
+    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tool-info {
+    padding: 15px;
+    text-align: left;
+}
+
+.tool-info h3 {
+    margin: 0 0 10px 0;
+}
+
+.tool-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.placeholder-text {
+    color: #999;
+}
+
+.learn-more {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.tool-status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.status-icon {
+    font-size: 24px;
+}
+
+.warning {
+    color: #ffc107;
+}
+
+.good {
+    color: #28a745;
+}
+
+.unavailable {
+    color: #dc3545;
+}

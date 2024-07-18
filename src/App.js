@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Home from './Home';
 import Login from './Login';
+import ViewTools from './ViewTools';
 import ViewStudents from './ViewStudents';
 import MyAccount from './MyAccount';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -24,6 +25,7 @@ function App() {
                     <Route path="/" element={<Navigate to="/home" />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/home" element={<ProtectedRoute> <Home /> </ProtectedRoute>} />
+                    <Route path="/view-tools" element={<ProtectedRoute> <ViewTools /></ProtectedRoute>} /> 
                     <Route path="/view-students" element={<ProtectedRoute> <ViewStudents /></ProtectedRoute>} />
                     <Route path="/student/:id" element={<ProtectedRoute> <StudentProfile /></ProtectedRoute>} />
                     <Route 

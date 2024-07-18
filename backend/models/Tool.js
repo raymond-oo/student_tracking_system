@@ -8,14 +8,13 @@ const toolSchema = new mongoose.Schema({
     tool_location: {type: String, required: true},
     tool_category: {type: String, required: true},
     imageUrl: {type: String, required: true},
-    list_of_trained_students: {type: Array, required: true}, // Array of student IDs
-});
+    list_of_trained_students: {type: Array}, // Array of student IDs
+}, { timestamps: true });
 
-toolSchema.statics.getNextToolId = async function () {
-    const tool = await this.findOne().sort({tool_id: -1});
-    if (!tool) return 1;
-    return tool.tool_id + 1;
-}
+toolSchema.statics.generateUniqueId = function() {
+    return crypto.randomInt(0, 999999).toString().padStart(6, '0');
+};
+
 
 const Tool = mongoose.model('Tool', toolSchema);
 
