@@ -14,6 +14,8 @@ import AddStudent from './Students/AddStudent';
 import UpdateStudent from './Students/UpdateStudent';
 import StudentProfile from './Students/StudentProfile';
 import { Toaster } from 'react-hot-toast';
+import AddTool from './Tools/AddTool';
+import UpdateTool from './Tools/UpdateTool';
 
 function App() {
     
@@ -63,7 +65,7 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <AdminRoute>
-                                <UpdateStudent />
+                                <AddTool />
                             </AdminRoute>
                         </ProtectedRoute>
                     } 
@@ -73,7 +75,7 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <AdminRoute>
-                                <UpdateStudent />
+                                <UpdateTool />
                             </AdminRoute>
                         </ProtectedRoute>
                     } 
