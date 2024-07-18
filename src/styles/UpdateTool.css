@@ -31,20 +31,20 @@
     justify-content: space-between;
 }
 
-.update-student-container button[type="submit"] {
+.update-tool-container button[type="submit"] {
     background-color: #3498db;
     color: white;
 }
 
-.update-student-container button[type="submit"]:hover {
+.update-tool-container button[type="submit"]:hover {
     background-color: #2980b9;
 }
 
-.update-student-container button[type="button"] {
+.update-tool-container button[type="button"] {
     background-color: #ecf0f1;
     color: #34495e;
 }
 
-.update-student-container button[type="button"]:hover {
+.update-tool-container button[type="button"]:hover {
     background-color: #bdc3c7;
 }
