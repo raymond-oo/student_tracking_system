@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const crypto = require('crypto');
 
 const toolSchema = new mongoose.Schema({
     tool_id: {type: String, required: true, unique: true},
