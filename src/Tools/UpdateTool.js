@@ -8,9 +8,11 @@ import '../styles/UpdateTool.css';
 const UpdateTool = () => {
     const [tool, setTool] = useState({
         tool_name: '',
-        category: '',
-        location: '',
-        description: ''
+        tool_model: '',
+        tool_location: '',
+        tool_category: '',
+        imageUrl: '',
+        restriction_id: ''
     });
 
     const [error, setError] = useState(null);
@@ -28,11 +30,11 @@ const UpdateTool = () => {
                 });
                 setTool(response.data);
             } catch (err) {
-                setError(err.response.data.message);
+                setError(err.response ? err.response.data.message : 'Error fetching tool data');
             }
         };
         fetchTool();
-    }, [id, API_URL]);
+    }, [id]);
 
     const handleChange = (e) => {
         setTool({ ...tool, [e.target.name]: e.target.value });
@@ -46,10 +48,11 @@ const UpdateTool = () => {
                     'Authorization': localStorage.getItem('sessionToken')
                 }
             });
-            navigate(`/tool/${id}`);
+            navigate('/edit-records');
             toast.success('Tool updated successfully!');
         } catch (err) {
-            setError(err.response.data.message);
+            setError(err.response ? err.response.data.message : 'Error updating tool');
+            toast.error('Error updating tool');
         }
     };
 
@@ -66,9 +69,11 @@ const UpdateTool = () => {
                 {error && <p className="error">{error}</p>}
                 <form onSubmit={handleSubmit}>
                     <input placeholder="Tool Name" type="text" name="tool_name" value={tool.tool_name} onChange={handleChange} required />
-                    <input placeholder="Category" type="text" name="category" value={tool.category} onChange={handleChange} required />
-                    <input placeholder="Location" type="text" name="location" value={tool.location} onChange={handleChange} required />
-                    <textarea placeholder="Description" name="description" value={tool.description} onChange={handleChange}></textarea>
+                    <input placeholder="Tool Model" type="text" name="tool_model" value={tool.tool_model} onChange={handleChange} required />
+                    <input placeholder="Tool Location" type="text" name="tool_location" value={tool.tool_location} onChange={handleChange} required />
+                    <input placeholder="Tool Category" type="text" name="tool_category" value={tool.tool_category} onChange={handleChange} required />
+                    <input placeholder="Image URL" type="text" name="imageUrl" value={tool.imageUrl} onChange={handleChange} required />
+                    <input placeholder="Restriction ID" type="number" name="restriction_id" value={tool.restriction_id} onChange={handleChange} required />
                     <div className="button-group">
                         <button type="submit">Update Tool</button>
                         <button type="button" onClick={handleCancel}>Cancel</button>
