@@ -85,27 +85,25 @@ const ViewTools = () => {
                         className="search-bar"
                     />
                     <select value={sortCriteria} onChange={handleSortChange} className="sort-dropdown">
-                        <option value="tool_name">Sort By: Name A → Z</option>
-                        <option value="tool_category">Sort By: Category</option>
-                        <option value="restriction_id">Sort By: Restriction</option>
+                        <option value="tool_name">Sort By</option>
+                        <option value="tool_category">Category</option>
+                        <option value="restriction_id">Restriction</option>
                     </select>
                 </div>
                 <div className="tools-grid">
                     {filteredTools.map((tool, index) => (
                         <div className="tool-card" key={index}>
-                            <div className="tool-card-header">
-                                <img src={tool.imageUrl} alt={tool.tool_name} className="tool-image" />
-                                <button onClick={() => handleViewMore(tool._id)} className="view-more-btn">Learn More {'>>'}</button>
-                            </div>
+                            <div className="tool-image-placeholder"></div>
                             <div className="tool-info">
                                 <h3>{tool.tool_name}</h3>
                                 <p>{tool.tool_model}</p>
                                 <p className="placeholder-text">{tool.tool_category}</p>
+                                <button onClick={() => handleViewMore(tool._id)} className="learn-more-btn">Learn More {'>>'}</button>
                             </div>
                             <div className="tool-status">
-                                {tool.status === 'warning' && <span className="status-icon warning">⚠️</span>}
-                                {tool.status === 'good' && <span className="status-icon good">👍</span>}
-                                {tool.status === 'unavailable' && <span className="status-icon unavailable">⛔</span>}
+                                {tool.restriction_id === 1 && <span className="status-icon warning">⚠️</span>}
+                                {tool.restriction_id === 2 && <span className="status-icon good">👍</span>}
+                                {tool.restriction_id === 3 && <span className="status-icon unavailable">⛔</span>}
                             </div>
                         </div>
                     ))}
