@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const toolSchema = new mongoose.Schema({
-    tool_id: {type: Number, required: true, unique: true},
-    restriction_id: {type: Number, required: true},
+    tool_id: {type: String, required: true, unique: true},
+    restriction_id: {type: String, required: true},
     tool_name: {type: String, required: true},
     tool_model: {type: String, required: true},
     tool_location: {type: String, required: true},
