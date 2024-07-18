@@ -97,8 +97,8 @@ const ViewTools = () => {
                             <div className="tool-info">
                                 <h3>
                                     {tool.tool_name}
-                                    <span className={`status-icon ${tool.status === 'good' ? 'good' : tool.status === 'warning' ? 'warning' : 'unavailable'}`}>
-                                        {tool.status === 'good' ? '👍' : tool.status === 'warning' ? '⚠️' : '❌'}
+                                    <span className={`status-icon`}>
+                                        {tool.restriction_id === '0' ? '👍' : tool.restriction_id === '1' ? '⚠️' : '❌'}
                                     </span>
                                 </h3>
                                 <p>{tool.tool_model}</p>
