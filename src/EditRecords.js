@@ -110,7 +110,7 @@ const EditRecords = () => {
                 );
             } else if (criteria === 'category') {
                 sortedItems = [...itemsList].sort((a, b) =>
-                    a.category.localeCompare(b.category)
+                    a.tool_category.localeCompare(b.tool_category)
                 );
             }
         }
@@ -123,7 +123,7 @@ const EditRecords = () => {
         }
     }, [students, tools, sortCriteria, sortItems, selectedTab]);
 
-    const filteredItems = (selectedTab === 'students' ? students : tools).filter(
+    const filteredItems = (selectedTab === 'students' ? students : tools)?.filter(
         (item) => selectedTab === 'students' ?
             (`${item.first_name} ${item.last_name}`
                 .toLowerCase()
@@ -134,9 +134,13 @@ const EditRecords = () => {
                     .includes(searchTerm.toLowerCase()) ||
                 `${item.user_id}`.includes(searchTerm.toLowerCase())) :
             (item.tool_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                item.location.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
+                item.tool_category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.tool_location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.restriction_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.tool_model.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.tool_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.list_of_trained_students.join(', ').toLowerCase().includes(searchTerm.toLowerCase()))
+    ) || [];
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
@@ -199,9 +203,13 @@ const EditRecords = () => {
                                 </>
                             ) : (
                                 <>
+                                    <th>Tool ID</th>
+                                    <th>Restriction ID</th>
                                     <th>Tool Name</th>
-                                    <th>Category</th>
-                                    <th>Location</th>
+                                    <th>Tool Model</th>
+                                    <th>Tool Location</th>
+                                    <th>Tool Category</th>
+                                    <th>List of Trained Students</th>
                                     <th>Update Tool</th>
                                     <th>Remove Tool</th>
                                 </>
@@ -222,9 +230,13 @@ const EditRecords = () => {
                                     </>
                                 ) : (
                                     <>
+                                        <td>{item.tool_id}</td>
+                                        <td>{item.restriction_id}</td>
                                         <td>{item.tool_name}</td>
-                                        <td>{item.category}</td>
-                                        <td>{item.location}</td>
+                                        <td>{item.tool_model}</td>
+                                        <td>{item.tool_location}</td>
+                                        <td>{item.tool_category}</td>
+                                        <td>{item.list_of_trained_students.join(', ')}</td>
                                         <td><button className="update-button" onClick={() => handleUpdate(item._id)}>Update</button></td>
                                         <td><button className="delete-button" onClick={() => handleDelete(item._id)}>Delete</button></td>
                                     </>
@@ -233,15 +245,13 @@ const EditRecords = () => {
                         ))}
                     </tbody>
                 </table>
+                {isModalOpen && (
+                    <ConfirmationModal
+                        onConfirm={confirmDelete}
+                        onCancel={() => setIsModalOpen(false)}
+                    />
+                )}
             </div>
-            <ConfirmationModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onConfirm={confirmDelete}
-                message={`Are you sure you want to delete this ${selectedTab.slice(0, -1)}?`}
-                confirmText="Delete"
-                cancelText="Cancel"
-            />
         </div>
     );
 };
