@@ -47,7 +47,6 @@ const Header = () => {
             </Link>
             <nav className="home-nav">
                 <Link to="/">Home</Link>
-                <Link to="/tools">View Tools</Link>
                 <Link to="/view-tools">View Tools</Link> 
                 <Link to="/view-students">View Students</Link>
                 {user?.is_admin && <Link to="/edit-records">Edit Records</Link>}

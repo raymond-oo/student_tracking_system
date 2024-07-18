@@ -1,4 +1,3 @@
-// ViewTools.js
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -13,6 +12,10 @@ const ViewTools = () => {
     const [sortCriteria, setSortCriteria] = useState('tool_name');
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
+
+    const handleViewMore = (toolId) => {
+        navigate(`/tool/${toolId}`);
+    };
 
     useEffect(() => {
         const fetchTools = async () => {
@@ -38,8 +41,28 @@ const ViewTools = () => {
     };
 
     const handleSortChange = (e) => {
-        setSortCriteria(e.target.value);
+        const criteria = e.target.value;
+        setSortCriteria(criteria);
+        sortTools(criteria, tools);
     };
+
+    const sortTools = useCallback((criteria, toolsList) => {
+        let sortedTools;
+        if (criteria === 'tool_name') {
+            sortedTools = [...toolsList].sort((a, b) => a.tool_name.localeCompare(b.tool_name));
+        } else if (criteria === 'tool_category') {
+            sortedTools = [...toolsList].sort((a, b) => a.tool_category.localeCompare(b.tool_category));
+        } else if (criteria === 'tool_location') {
+            sortedTools = [...toolsList].sort((a, b) => a.tool_location.localeCompare(b.tool_location));
+        }
+        setTools(sortedTools);
+    }, []);
+
+    useEffect(() => {
+        if (tools.length > 0) {
+            sortTools(sortCriteria, tools);
+        }
+    }, [tools, sortCriteria, sortTools]);
 
     const filteredTools = tools.filter(tool =>
         tool.tool_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -52,7 +75,7 @@ const ViewTools = () => {
     return (
         <div>
             <Header />
-            <main>
+            <div className="tools-container">
                 <h1>A makerspace ignites innovation, offering an environment full with tools</h1>
                 <p>Explore all of the makerspace's tools</p>
                 <div className="search-sort-container">
@@ -63,26 +86,25 @@ const ViewTools = () => {
                         onChange={handleSearchChange}
                         className="search-bar"
                     />
-                    <div className="sort-wrapper">
-                        <select value={sortCriteria} onChange={handleSortChange} className="sort-dropdown">
-                            <option value="tool_name">Sort By</option>
-                            <option value="tool_category">Category</option>
-                            <option value="tool_location">Location</option>
-                        </select>
-                        <span className="search-icon">🔍</span>
-                    </div>
+                    <select value={sortCriteria} onChange={handleSortChange} className="sort-dropdown">
+                        <option value="tool_name">Sort By: Name A → Z</option>
+                        <option value="tool_category">Sort By: Category</option>
+                        <option value="tool_location">Sort By: Location</option>
+                    </select>
                 </div>
                 <div className="tools-grid">
                     {filteredTools.map((tool, index) => (
                         <div className="tool-card" key={index}>
-                            <div className="tool-image">
-                                {/* Placeholder for tool image */}
+                            <div className="tool-card-header">
+                                <div className="tool-image">
+                                    {/* Placeholder for tool image */}
+                                </div>
+                                <button onClick={() => handleViewMore(tool._id)} className="view-more-btn">{'>'} View More</button>
                             </div>
                             <div className="tool-info">
                                 <h3>{tool.tool_name}</h3>
                                 <p>{tool.tool_model}</p>
                                 <p className="placeholder-text">Placeholder Text</p>
-                                <a href={`/tool/${tool._id}`} className="learn-more">Learn More &gt;&gt;</a>
                             </div>
                             <div className="tool-status">
                                 {tool.status === 'warning' && <span className="status-icon warning">⚠️</span>}
@@ -92,7 +114,7 @@ const ViewTools = () => {
                         </div>
                     ))}
                 </div>
-            </main>
+            </div>
         </div>
     );
 };
