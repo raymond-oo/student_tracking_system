@@ -34,35 +34,33 @@ const ViewTools = () => {
         };
 
         fetchTools();
-    }, []);
+    }, [API_URL]);
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
     };
 
     const handleSortChange = (e) => {
-        const criteria = e.target.value;
-        setSortCriteria(criteria);
-        sortTools(criteria, tools);
+        setSortCriteria(e.target.value);
     };
 
-    const sortTools = useCallback((criteria, toolsList) => {
+    const sortTools = useCallback((toolsList) => {
         let sortedTools;
-        if (criteria === 'tool_name') {
+        if (sortCriteria === 'tool_name') {
             sortedTools = [...toolsList].sort((a, b) => a.tool_name.localeCompare(b.tool_name));
-        } else if (criteria === 'tool_category') {
+        } else if (sortCriteria === 'tool_category') {
             sortedTools = [...toolsList].sort((a, b) => a.tool_category.localeCompare(b.tool_category));
-        } else if (criteria === 'tool_location') {
-            sortedTools = [...toolsList].sort((a, b) => a.tool_location.localeCompare(b.tool_location));
+        } else if (sortCriteria === 'restriction_id') {
+            sortedTools = [...toolsList].sort((a, b) => a.restriction_id - b.restriction_id);
         }
-        setTools(sortedTools);
-    }, []);
+        return sortedTools;
+    }, [sortCriteria]);
 
     useEffect(() => {
         if (tools.length > 0) {
-            sortTools(sortCriteria, tools);
+            setTools(sortTools(tools));
         }
-    }, [tools, sortCriteria, sortTools]);
+    }, [tools, sortTools]);
 
     const filteredTools = tools.filter(tool =>
         tool.tool_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -89,22 +87,20 @@ const ViewTools = () => {
                     <select value={sortCriteria} onChange={handleSortChange} className="sort-dropdown">
                         <option value="tool_name">Sort By: Name A → Z</option>
                         <option value="tool_category">Sort By: Category</option>
-                        <option value="tool_location">Sort By: Location</option>
+                        <option value="restriction_id">Sort By: Restriction</option>
                     </select>
                 </div>
                 <div className="tools-grid">
                     {filteredTools.map((tool, index) => (
                         <div className="tool-card" key={index}>
                             <div className="tool-card-header">
-                                <div className="tool-image">
-                                    {/* Placeholder for tool image */}
-                                </div>
-                                <button onClick={() => handleViewMore(tool._id)} className="view-more-btn">{'>'} View More</button>
+                                <img src={tool.imageUrl} alt={tool.tool_name} className="tool-image" />
+                                <button onClick={() => handleViewMore(tool._id)} className="view-more-btn">Learn More {'>>'}</button>
                             </div>
                             <div className="tool-info">
                                 <h3>{tool.tool_name}</h3>
                                 <p>{tool.tool_model}</p>
-                                <p className="placeholder-text">Placeholder Text</p>
+                                <p className="placeholder-text">{tool.tool_category}</p>
                             </div>
                             <div className="tool-status">
                                 {tool.status === 'warning' && <span className="status-icon warning">⚠️</span>}

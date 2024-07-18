@@ -31,17 +31,20 @@
     justify-content: space-between;
 }
 
-.update-tool-container .button-group button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #4285F4;
+.update-student-container button[type="submit"] {
+    background-color: #3498db;
     color: white;
-    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-.update-tool-container .button-group button:hover {
-    background-color: #357AE8;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+.update-student-container button[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+.update-student-container button[type="button"] {
+    background-color: #ecf0f1;
+    color: #34495e;
+}
+
+.update-student-container button[type="button"]:hover {
+    background-color: #bdc3c7;
 }

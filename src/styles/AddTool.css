@@ -34,14 +34,22 @@
     cursor: pointer;
 }
 
-.add-tool-container button[type="submit"] {
-    background-color: #4CAF50;
+.update-student-container button[type="submit"] {
+    background-color: #3498db;
     color: white;
 }
 
-.add-tool-container button[type="button"] {
-    background-color: #f44336;
-    color: white;
+.update-student-container button[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+.update-student-container button[type="button"] {
+    background-color: #ecf0f1;
+    color: #34495e;
+}
+
+.update-student-container button[type="button"]:hover {
+    background-color: #bdc3c7;
 }
 
 .error {

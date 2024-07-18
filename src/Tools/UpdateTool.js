@@ -48,7 +48,7 @@ const UpdateTool = () => {
                     'Authorization': localStorage.getItem('sessionToken')
                 }
             });
-            navigate('/edit-records');
+            navigate(`/tool${id}`);
             toast.success('Tool updated successfully!');
         } catch (err) {
             setError(err.response ? err.response.data.message : 'Error updating tool');
