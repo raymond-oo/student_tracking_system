@@ -101,11 +101,11 @@ const EditTools = () => {
     }, [tools, sortCriteria, sortItems]);
 
     const filteredItems = tools?.filter(
-        (item) =>
-            item.tool_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.tool_category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.tool_location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            `${item.tool_id}`.includes(searchTerm.toLowerCase())
+        (tool) =>
+            tool.tool_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            tool.tool_category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            tool.tool_location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            `${tool.tool_id}`.includes(searchTerm.toLowerCase())
     ) || [];
 
     if (loading) return <div>Loading...</div>;
@@ -147,15 +147,15 @@ const EditTools = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredItems.map((item) => (
-                            <tr key={item._id}>
-                                <td>{item.tool_id}</td>
-                                <td>{item.tool_name}</td>
-                                <td>{item.tool_category}</td>
-                                <td>{item.tool_location}</td>
-                                <td>{item.list_of_trained_students.join(', ')}</td>
-                                <td><button className="update-button" onClick={() => handleUpdate(item._id)}>Update</button></td>
-                                <td><button className="delete-button" onClick={() => handleDelete(item._id)}>Delete</button></td>
+                        {filteredItems.map((tool) => (
+                            <tr key={tool._id}>
+                                <td>{tool.tool_id}</td>
+                                <td>{tool.tool_name}</td>
+                                <td>{tool.tool_category}</td>
+                                <td>{tool.tool_location}</td>
+                                <td>{tool.list_of_trained_students.join(', ')}</td>
+                                <td><button className="update-button" onClick={() => handleUpdate(tool._id)}>Update</button></td>
+                                <td><button className="delete-button" onClick={() => handleDelete(tool._id)}>Delete</button></td>
                             </tr>
                         ))}
                     </tbody>
