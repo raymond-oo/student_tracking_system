@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import ConfirmationModal from './components/ConfirmationModal';
 
-const EditRecords = () => {
+const EditStudents = () => {
   const [students, setStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortCriteria, setSortCriteria] = useState('lastname');
@@ -123,7 +123,7 @@ const EditRecords = () => {
         <div className="edit-records-container">
             <div className="tab-container">
                 <button className="tab selected">Students</button>
-                <button className="tab">Tools</button>
+                <button className="tab" onClick={() => navigate('/edit-tools')}>Tools</button>
             </div>
             <div className="controls-container">
                 <input 
@@ -177,4 +177,4 @@ const EditRecords = () => {
     );
 };
 
-export default EditRecords;
+export default EditStudents;

@@ -39,7 +39,7 @@ const AddStudent = () => {
                 }
             });
 
-            navigate('/edit-records');
+            navigate('/edit-students');
             toast.success('Student added successfully!');
         } catch (err) {
             setError(err.response.data.message);

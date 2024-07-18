@@ -30,7 +30,7 @@ const AddTool = () => {
                     'Authorization': localStorage.getItem('sessionToken'),
                 }
             });
-            navigate('/edit-records');
+            navigate('/edit-tools');
             toast.success('Tool added successfully!');
         } catch (err) {
             setError(err.response ? err.response.data.message : 'Error adding tool');
