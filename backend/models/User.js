@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   grade: { type: String },
   is_admin: { type: Boolean, default: false },
-  list_of_trained_tools: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tool' }],
+  list_of_trained_tools: [{ type: Array}],
   profile_image: { type: String },
   session: { type: String },
 });
