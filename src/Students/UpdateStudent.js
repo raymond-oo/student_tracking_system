@@ -90,7 +90,12 @@ const UpdateStudent = () => {
     const handleAddTool = (tool) => {
         setStudent(prevState => ({
             ...prevState,
-            list_of_trained_tools: [...prevState.list_of_trained_tools, tool]
+            list_of_trained_tools: [...prevState.list_of_trained_tools, {
+                tool_id: tool.tool_id,
+                tool_name: tool.tool_name,
+                tool_model: tool.tool_model,
+                tool_category: tool.tool_category
+            }]
         }));
     };
 
@@ -114,32 +119,9 @@ const UpdateStudent = () => {
                     <input placeholder="Grade" type="text" name="grade" value={student.grade} onChange={handleChange} required />
                     <input placeholder="List of Trained Tools" type="text" name="list_of_trained_tools" value={student.list_of_trained_tools.join(',')} onChange={handleChange} />
                     <input placeholder="Profile Picture" type="file" name="profile_picture" onChange={handleChange} accept="image/*" />
-                    <div className="button-group">
-                        <button type="submit">Update Student</button>
-                        <button type="button" onClick={handleCancel}>Cancel</button>
-                    </div>
-                </form>
-                <div className="tool-search">
-                    <input
-                        type="text"
-                        placeholder="Search for tools..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                    <div className="tool-results">
-                        {searchResults.map(tool => (
-                            <div key={tool.tool_id} className="tool-item">
-                                <span>{tool.tool_name}</span>
-                                <span>{tool.tool_model}</span>
-                                <span>{tool.tool_category}</span>
-                                <button onClick={() => handleAddTool(tool)}>Add</button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div className="trained-tools">
-                    <h3>Tools Trained:</h3>
-                    {student.list_of_trained_tools.map(tool => (
+                    <div className="trained-tools">
+                        <h3>Tools Trained:</h3>
+                        {student.list_of_trained_tools.map(tool => (
                         <div key={tool.tool_id} className="trained-tool-item">
                             <span>{tool.tool_name}</span>
                             <span>{tool.tool_model}</span>
@@ -147,7 +129,30 @@ const UpdateStudent = () => {
                             <button onClick={() => handleRemoveTool(tool)}>Remove</button>
                         </div>
                     ))}
-                </div>
+                    </div>
+                    <div className="tool-search">
+                        <input
+                            type="text"
+                            placeholder="Search for tools..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <div className="tool-results">
+                            {searchResults.map(tool => (
+                                <div key={tool.tool_id} className="tool-item">
+                                    <span>{tool.tool_name}</span>
+                                    <span>{tool.tool_model}</span>
+                                    <span>{tool.tool_category}</span>
+                                    <button onClick={() => handleAddTool(tool)}>Add</button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="button-group">
+                        <button type="submit">Update Student</button>
+                        <button type="button" onClick={handleCancel}>Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     );
