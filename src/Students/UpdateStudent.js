@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import ToolSearch from '../components/ToolSearch';
 import toast from 'react-hot-toast';
 import '../styles/UpdateStudent.css';
 
@@ -94,11 +93,7 @@ const UpdateStudent = () => {
                     <input placeholder="example@isyedu.org" type="email" name="email" value={student.email} onChange={handleChange} required />
                     <input placeholder="Grade" type="text" name="grade" value={student.grade} onChange={handleChange} required />
                     <input placeholder="Profile Picture" type="file" name="profile_picture" onChange={handleChange} accept="image/*" />
-                    <ToolSearch
-                        tools={student.list_of_trained_tools}
-                        onAddTool={handleAddTool}
-                        onRemoveTool={handleRemoveTool}
-                    />
+                    <input placeholder="List of Trained Tools" type="text" name="list_of_trained_tools" value={student.list_of_trained_tools.join(',')} onChange={handleChange} />
                     <div className="button-group">
                         <button type="submit">Update Student</button>
                         <button type="button" onClick={handleCancel}>Cancel</button>
