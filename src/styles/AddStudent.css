@@ -63,6 +63,57 @@
     background-color: #bdc3c7;
 }
 
+.trained-tools {
+    margin-top: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 1rem;
+    background-color: #fff;
+}
+
+.trained-tools h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.trained-tool-item, .tool-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.trained-tool-item span, .tool-item span {
+    margin-right: 0.5rem;
+}
+
+.trained-tool-item button, .tool-item button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.tool-search {
+    margin-top: 1rem;
+}
+
+.tool-search input {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.tool-results {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 0.5rem;
+    background-color: #fff;
+}
+
 .error {
     color: #e74c3c;
     margin-bottom: 1rem;
