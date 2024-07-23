@@ -63,14 +63,25 @@ router.delete('/:id', verifySession, async (req, res) => {
     }
 });
 
-router.get('/search', async (req, res) => {
-    const { query } = req.query;
+router.get('/search', verifySession, async (req, res) => {
     try {
-        const tools = await Tool.find({ tool_name: new RegExp(query, 'i') }); // case-insensitive search
-        res.json(tools);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+      const { term } = req.query;
+      if (!term) {
+        return res.status(400).json({ message: 'Search term is required' });
+      }
+      
+      const tools = await Tool.find({
+        $or: [
+          { tool_name: { $regex: term, $options: 'i' } },
+          { tool_model: { $regex: term, $options: 'i' } },
+          { tool_category: { $regex: term, $options: 'i' } }
+        ]
+      });
+      
+      res.json(tools);
+    } catch (error) {
+      res.status(500).json({ message: 'Error searching tools', error: error.message });
     }
-});
+  });
 
 module.exports = router;

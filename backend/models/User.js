@@ -9,7 +9,12 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   grade: { type: String },
   is_admin: { type: Boolean, default: false },
-  list_of_trained_tools: { type: Array },
+  list_of_trained_tools: [{
+    tool_id: String,
+    tool_name: String,
+    tool_model: String,
+    tool_category: String
+  }],
   profile_image: { type: String },
   session: { type: String },
 });
