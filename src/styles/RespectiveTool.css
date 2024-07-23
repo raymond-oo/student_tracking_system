@@ -1,0 +1,30 @@
+.tool-profile {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tool-header h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.tool-header h2, .tool-header h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.tool-header p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.tool-description, .tool-instructions {
+    margin-top: 20px;
+}
+
+.tool-instructions h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}

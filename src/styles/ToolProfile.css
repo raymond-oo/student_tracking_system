@@ -1,0 +1,35 @@
+.tool-profile-container {
+    padding: 20px;
+}
+
+.back-button {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f0ad4e;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.tool-profile {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tool-header {
+    margin-bottom: 20px;
+}
+
+.tool-header h1, .tool-header h2, .tool-header h3 {
+    margin: 5px 0;
+}
+
+.tool-description, .tool-instructions {
+    margin-top: 20px;
+}
+
+.tool-instructions h2 {
+    margin-bottom: 10px;
+}

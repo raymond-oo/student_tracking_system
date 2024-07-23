@@ -17,6 +17,7 @@ import AddTool from './Tools/AddTool';
 import UpdateTool from './Tools/UpdateTool';
 import EditStudents from './EditStudents';
 import EditTools from './EditTools';
+import ToolProfile from './Tools/ToolProfile';
 
 function App() {
     
@@ -31,6 +32,7 @@ function App() {
                     <Route path="/view-tools" element={<ProtectedRoute> <ViewTools /></ProtectedRoute>} /> 
                     <Route path="/view-students" element={<ProtectedRoute> <ViewStudents /></ProtectedRoute>} />
                     <Route path="/student/:id" element={<ProtectedRoute> <StudentProfile /></ProtectedRoute>} />
+                    <Route path="/tool/:id" element={<ProtectedRoute> <ToolProfile /></ProtectedRoute>} />
                     <Route 
                     path="/edit-students" 
                     element={
