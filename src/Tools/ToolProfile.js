@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Header';
 import '../styles/ToolProfile.css';
-import RespectiveTool from '../components/RespectiveTool';
 
 const ToolProfile = () => {
     const [tool, setTool] = useState(null);
@@ -41,7 +40,20 @@ const ToolProfile = () => {
             <Header />
             <div className="tool-profile-container">
                 <button className="back-button" onClick={() => navigate('/view-tools')}>Back to Tools</button>
-                <RespectiveTool tool={tool} />
+                <div className="tool-profile">
+                    <div className="tool-header">
+                        <div className="tool-image-placeholder">
+                            <img src={tool.imageUrl} alt="Tool Image" />
+                        </div>
+                        <div className="tool-details">
+                            <h1>{tool.tool_name}</h1>
+                            <h2>Model: {tool.tool_model}</h2>
+                            <h3>Category: {tool.tool_category}</h3>
+                            <p><strong>Restriction Notice:</strong> {tool.restriction_id}</p>
+                            <p><strong>Location:</strong> {tool.tool_location}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

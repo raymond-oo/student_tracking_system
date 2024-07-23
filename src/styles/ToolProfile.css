@@ -1,5 +1,8 @@
 .tool-profile-container {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .back-button {
@@ -7,29 +10,56 @@
     padding: 10px;
     background-color: #f0ad4e;
     border: none;
-    color: white;
+    color: black;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .tool-profile {
-    background-color: #fff;
+    background: #fff;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
 }
 
 .tool-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.tool-image-placeholder {
+    width: 100%;
+    max-width: 400px;
     margin-bottom: 20px;
 }
 
-.tool-header h1, .tool-header h2, .tool-header h3 {
-    margin: 5px 0;
+.tool-image-placeholder img {
+    width: 100%;
+    border-radius: 10px;
 }
 
-.tool-description, .tool-instructions {
-    margin-top: 20px;
+.tool-details {
+    width: 100%;
 }
 
-.tool-instructions h2 {
+.tool-header h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.tool-header h2, .tool-header h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.tool-header p {
+    font-size: 16px;
     margin-bottom: 10px;
 }
