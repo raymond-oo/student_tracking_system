@@ -1,4 +1,3 @@
-// ViewStudents.js
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -72,7 +71,7 @@ const ViewStudents = () => {
     const filteredStudents = students.filter(student =>
         `${student.first_name} ${student.last_name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
         `${student.grade}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        `${student.list_of_trained_tools}`.toLowerCase().includes(searchTerm.toLowerCase())
+        student.list_of_trained_tools.some(tool => tool.tool_name.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
     if (loading) return <div>Loading...</div>;
@@ -110,7 +109,7 @@ const ViewStudents = () => {
                                 <div className="student-info">
                                     <h3>{student.first_name} {student.last_name}</h3>
                                     <p><strong>Grade:</strong> {student.grade}</p>
-                                    <p><strong>Experience With:</strong> {student.list_of_trained_tools.join(', ')}</p>
+                                    <p><strong>Experience With:</strong> {student.list_of_trained_tools.map(tool => tool.tool_name).join(', ')}</p>
                                 </div>
                             </div>
                         ))}

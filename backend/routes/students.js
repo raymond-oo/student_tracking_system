@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const Tool = require('../models/Tool');
 const verifySession = require('../middleware/verifysession');
 
 // Get all students
 router.get('/', verifySession, async (req, res) => {
     try {
-        const students = await User.find({ is_admin: false });
+        const students = await User.find({ is_admin: false }).populate('list_of_trained_tools');
         res.json(students);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -16,7 +17,7 @@ router.get('/', verifySession, async (req, res) => {
 // Get a single student
 router.get('/:id', verifySession, async (req, res) => {
     try {
-        const student = await User.findById(req.params.id);
+        const student = await User.findById(req.params.id).populate('list_of_trained_tools');
         if (!student) {
             return res.status(404).json({ message: 'Student not found' });
         }
@@ -32,7 +33,7 @@ router.post('/', verifySession, async (req, res) => {
     if (!studentData.user_id) {
         studentData.user_id = User.generateUniqueId();
     }
-    
+
     const student = new User({
         ...studentData,
         is_admin: false
@@ -40,7 +41,8 @@ router.post('/', verifySession, async (req, res) => {
 
     try {
         const newStudent = await student.save();
-        res.status(201).json(newStudent);
+        const populatedStudent = await newStudent.populate('list_of_trained_tools').execPopulate();
+        res.status(201).json(populatedStudent);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
@@ -49,7 +51,7 @@ router.post('/', verifySession, async (req, res) => {
 // Update a student
 router.put('/:id', verifySession, async (req, res) => {
     try {
-        const updatedStudent = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updatedStudent = await User.findByIdAndUpdate(req.params.id, req.body, { new: true }).populate('list_of_trained_tools');
         res.json(updatedStudent);
     } catch (err) {
         res.status(400).json({ message: err.message });

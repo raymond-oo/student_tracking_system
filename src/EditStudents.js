@@ -108,9 +108,7 @@ const EditStudents = () => {
         .toLowerCase()
         .includes(searchTerm.toLowerCase()) ||
       `${student.grade}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      `${student.list_of_trained_tools}`
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase()) ||
+      student.list_of_trained_tools.some(tool => tool.tool_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
       `${student.user_id}`.includes(searchTerm.toLowerCase())
   );
 
@@ -157,7 +155,7 @@ const EditStudents = () => {
                             <td>{student.user_id}</td>
                             <td>{`${student.first_name} ${student.last_name}`}</td>
                             <td>{student.grade}</td>
-                            <td>{student.list_of_trained_tools.join(', ')}</td>
+                            <td>{student.list_of_trained_tools.map(tool => tool.tool_name).join(', ')}</td>
                             <td><button className="update-button" onClick={() => handleUpdate(student._id)}>Update</button></td>
                             <td> <button className="delete-button" onClick={() => handleDelete(student._id)}> Delete </button> </td>
                             </tr>
