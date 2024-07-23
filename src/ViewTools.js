@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './styles/ViewTools.css';
 import Header from './components/Header';
-import { FaThumbsUp } from 'react-icons/fa';
-import { MdDangerous } from 'react-icons/md';
-import { IoIosWarning } from 'react-icons/io';
+import { AiOutlineMinusCircle } from "react-icons/ai";
+import { AiOutlineExclamationCircle } from 'react-icons/ai';
+import { AiOutlineLike } from "react-icons/ai";
 
 const ViewTools = () => {
     const [tools, setTools] = useState([]);
@@ -101,7 +101,7 @@ const ViewTools = () => {
                                 <h3>
                                     {tool.tool_name}
                                     <span className={`status-icon`}>
-                    {tool.restriction_id === '0' ? <FaThumbsUp /> : tool.restriction_id === '1' ? <IoIosWarning /> : <MdDangerous />}
+                    {tool.restriction_id === '0' ? <AiOutlineLike alt="No adult supervision needed."/> : tool.restriction_id === '1' ? <AiOutlineExclamationCircle alt="Adult supervision needed."/> : <AiOutlineMinusCircle alt="Students may not use at all costs."/>}
                 </span>
             </h3>
             <p>{tool.tool_model}</p>
