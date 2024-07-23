@@ -1,23 +1,45 @@
 .tool-search {
-    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .tools-list {
+    margin-bottom: 20px;
   }
   
   .tool-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
     margin-bottom: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
   }
   
-  .tool-item span {
-    margin-right: 10px;
-  }
-  
-  .search-box {
+  .search-container {
     position: relative;
-    margin-top: 10px;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .loading {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 1;
   }
   
   .search-results {
@@ -25,20 +47,42 @@
     top: 100%;
     left: 0;
     right: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    max-height: 200px;
+    max-height: 300px;
     overflow-y: auto;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 1;
   }
   
-  .search-results li {
-    padding: 5px;
+  .search-result-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .search-result-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .tool-name {
+    font-weight: bold;
+  }
+  
+  .tool-model, .tool-category {
+    color: #666;
+    font-size: 0.9em;
+  }
+  
+  .remove-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
     cursor: pointer;
   }
   
-  .search-results li:hover {
-    background-color: #f0f0f0;
+  .remove-btn:hover {
+    background-color: #ff3333;
   }
