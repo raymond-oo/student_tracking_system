@@ -63,4 +63,14 @@ router.delete('/:id', verifySession, async (req, res) => {
     }
 });
 
+router.get('/search', async (req, res) => {
+    const { query } = req.query;
+    try {
+        const tools = await Tool.find({ tool_name: new RegExp(query, 'i') }); // case-insensitive search
+        res.json(tools);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 module.exports = router;
