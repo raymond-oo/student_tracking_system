@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const Tool = require('./Tool');
 
 const userSchema = new mongoose.Schema({
   user_id: { type: String, unique: true, required: true },
@@ -9,7 +10,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   grade: { type: String },
   is_admin: { type: Boolean, default: false },
-  list_of_trained_tools: {type: [Object]},
+  list_of_trained_tools: {type: [Tool]},
   profile_image: { type: String },
   session: { type: String },
 });

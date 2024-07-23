@@ -117,7 +117,6 @@ const UpdateStudent = () => {
                     <input placeholder="Last Name" type="text" name="last_name" value={student.last_name} onChange={handleChange} required />
                     <input placeholder="example@isyedu.org" type="email" name="email" value={student.email} onChange={handleChange} required />
                     <input placeholder="Grade" type="text" name="grade" value={student.grade} onChange={handleChange} required />
-                    <input placeholder="List of Trained Tools" type="text" name="list_of_trained_tools" value={student.list_of_trained_tools.join(',')} onChange={handleChange} />
                     <input placeholder="Profile Picture" type="file" name="profile_picture" onChange={handleChange} accept="image/*" />
                     <div className="trained-tools">
                         <h3>Tools Trained:</h3>
