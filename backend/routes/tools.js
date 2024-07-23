@@ -6,7 +6,14 @@ const verifySession = require('../middleware/verifysession');
 // Get all tools
 router.get('/', verifySession, async (req, res) => {
     try {
-        const tools = await Tool.find();
+        const { search } = req.query;
+        let tools;
+        if (search) {
+            const searchRegex = new RegExp(search, 'i');
+            tools = await Tool.find({ tool_name: searchRegex });
+        } else {
+            tools = await Tool.find();
+        }
         res.json(tools);
     } catch (err) {
         res.status(500).json({ message: err.message });

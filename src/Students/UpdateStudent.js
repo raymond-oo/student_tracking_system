@@ -14,7 +14,8 @@ const UpdateStudent = () => {
         list_of_trained_tools: [],
         profile_picture: null
     });
-
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
     const [error, setError] = useState(null);
     const { id } = useParams();
     const navigate = useNavigate();
@@ -36,29 +37,34 @@ const UpdateStudent = () => {
         fetchStudent();
     }, [id]);
 
+    useEffect(() => {
+        const fetchTools = async () => {
+            if (searchTerm) {
+                try {
+                    const response = await axios.get(`${API_URL}/api/tools?search=${searchTerm}`, {
+                        headers: {
+                            'Authorization': localStorage.getItem('sessionToken')
+                        }
+                    });
+                    setSearchResults(response.data);
+                } catch (err) {
+                    setError(err.response.data.message);
+                }
+            } else {
+                setSearchResults([]);
+            }
+        };
+        fetchTools();
+    }, [searchTerm]);
+
     const handleChange = (e) => {
-        if (e.target.name === 'profile_picture') {
+        if (e.target.name === 'list_of_trained_tools') {
+            setStudent({...student, [e.target.name]: e.target.value.split(',')});
+        } else if (e.target.name === 'profile_picture') {
             setStudent({...student, [e.target.name]: e.target.files[0]});
         } else {
             setStudent({...student, [e.target.name]: e.target.value});
         }
-    };
-
-
-    const handleAddTool = (tool) => {
-        if (!student.list_of_trained_tools.some(t => t.tool_id === tool.tool_id)) {
-            setStudent(prevState => ({
-                ...prevState,
-                list_of_trained_tools: [...prevState.list_of_trained_tools, tool]
-            }));
-        }
-    };
-
-    const handleRemoveTool = (toolId) => {
-        setStudent(prevState => ({
-            ...prevState,
-            list_of_trained_tools: prevState.list_of_trained_tools.filter(t => t.tool_id !== toolId)
-        }));
     };
 
     const handleSubmit = async (e) => {
@@ -81,6 +87,20 @@ const UpdateStudent = () => {
         toast('No changes were made.');
     };
 
+    const handleAddTool = (tool) => {
+        setStudent(prevState => ({
+            ...prevState,
+            list_of_trained_tools: [...prevState.list_of_trained_tools, tool]
+        }));
+    };
+
+    const handleRemoveTool = (tool) => {
+        setStudent(prevState => ({
+            ...prevState,
+            list_of_trained_tools: prevState.list_of_trained_tools.filter(t => t.tool_id !== tool.tool_id)
+        }));
+    };
+
     return (
         <div>
             <Header />
@@ -92,13 +112,42 @@ const UpdateStudent = () => {
                     <input placeholder="Last Name" type="text" name="last_name" value={student.last_name} onChange={handleChange} required />
                     <input placeholder="example@isyedu.org" type="email" name="email" value={student.email} onChange={handleChange} required />
                     <input placeholder="Grade" type="text" name="grade" value={student.grade} onChange={handleChange} required />
-                    <input placeholder="Profile Picture" type="file" name="profile_picture" onChange={handleChange} accept="image/*" />
                     <input placeholder="List of Trained Tools" type="text" name="list_of_trained_tools" value={student.list_of_trained_tools.join(',')} onChange={handleChange} />
+                    <input placeholder="Profile Picture" type="file" name="profile_picture" onChange={handleChange} accept="image/*" />
                     <div className="button-group">
                         <button type="submit">Update Student</button>
                         <button type="button" onClick={handleCancel}>Cancel</button>
                     </div>
                 </form>
+                <div className="tool-search">
+                    <input
+                        type="text"
+                        placeholder="Search for tools..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <div className="tool-results">
+                        {searchResults.map(tool => (
+                            <div key={tool.tool_id} className="tool-item">
+                                <span>{tool.tool_name}</span>
+                                <span>{tool.tool_model}</span>
+                                <span>{tool.tool_category}</span>
+                                <button onClick={() => handleAddTool(tool)}>Add</button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="trained-tools">
+                    <h3>Tools Trained:</h3>
+                    {student.list_of_trained_tools.map(tool => (
+                        <div key={tool.tool_id} className="trained-tool-item">
+                            <span>{tool.tool_name}</span>
+                            <span>{tool.tool_model}</span>
+                            <span>{tool.tool_category}</span>
+                            <button onClick={() => handleRemoveTool(tool)}>Remove</button>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );
