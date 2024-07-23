@@ -2,43 +2,48 @@
     margin-top: 20px;
   }
   
-  .tool-item {
+  .tool-item, .search-result-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    padding: 5px;
+    padding: 10px;
     border: 1px solid #ccc;
+    border-radius: 4px;
   }
   
-  .tool-item span {
+  .tool-item span, .search-result-item span {
+    flex: 1;
     margin-right: 10px;
   }
   
   .search-box {
-    position: relative;
-    margin-top: 10px;
+    margin-top: 20px;
+  }
+  
+  .search-box input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
   
   .search-results {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    max-height: 200px;
+    margin-top: 10px;
+    max-height: 300px;
     overflow-y: auto;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
   }
   
-  .search-results li {
-    padding: 5px;
+  button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
   }
   
-  .search-results li:hover {
-    background-color: #f0f0f0;
+  button:hover {
+    background-color: #0056b3;
   }

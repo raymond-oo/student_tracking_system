@@ -45,20 +45,21 @@ const UpdateStudent = () => {
         }
     };
 
+
     const handleAddTool = (tool) => {
         if (!student.list_of_trained_tools.some(t => t.tool_id === tool.tool_id)) {
-            setStudent({
-                ...student,
-                list_of_trained_tools: [...student.list_of_trained_tools, tool]
-            });
+            setStudent(prevState => ({
+                ...prevState,
+                list_of_trained_tools: [...prevState.list_of_trained_tools, tool]
+            }));
         }
     };
 
     const handleRemoveTool = (toolId) => {
-        setStudent({
-            ...student,
-            list_of_trained_tools: student.list_of_trained_tools.filter(t => t.tool_id !== toolId)
-        });
+        setStudent(prevState => ({
+            ...prevState,
+            list_of_trained_tools: prevState.list_of_trained_tools.filter(t => t.tool_id !== toolId)
+        }));
     };
 
     const handleSubmit = async (e) => {

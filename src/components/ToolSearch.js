@@ -47,13 +47,16 @@ const ToolSearch = ({ tools, onAddTool, onRemoveTool }) => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <ul className="search-results">
+        <div className="search-results">
           {searchResults.map((tool) => (
-            <li key={tool.tool_id} onClick={() => onAddTool(tool)}>
-              {tool.tool_name} - {tool.tool_model}
-            </li>
+            <div key={tool._id} className="search-result-item">
+              <span>{tool.tool_name}</span>
+              <span>{tool.tool_model}</span>
+              <span>{tool.tool_category}</span>
+              <button onClick={() => onAddTool(tool)}>Add</button>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );
