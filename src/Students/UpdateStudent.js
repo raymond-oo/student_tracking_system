@@ -87,6 +87,30 @@ const UpdateStudent = () => {
         toast('No changes were made.');
     };
 
+    useEffect(() => {
+        const fetchTools = async () => {
+            if (searchTerm) {
+                try {
+                    const response = await axios.get(`${API_URL}/api/tools?search=${searchTerm}`, {
+                        headers: {
+                            'Authorization': localStorage.getItem('sessionToken')
+                        }
+                    });
+                    // Filter out tools that are already in the student's list_of_trained_tools
+                    const filteredResults = response.data.filter(tool => 
+                        !student.list_of_trained_tools.some(trainedTool => trainedTool.tool_id === tool.tool_id)
+                    );
+                    setSearchResults(filteredResults);
+                } catch (err) {
+                    setError(err.response.data.message);
+                }
+            } else {
+                setSearchResults([]);
+            }
+        };
+        fetchTools();
+    }, [searchTerm, student.list_of_trained_tools]);
+
     const handleAddTool = (tool) => {
         setStudent(prevState => ({
             ...prevState,
@@ -97,6 +121,7 @@ const UpdateStudent = () => {
                 tool_category: tool.tool_category
             }]
         }));
+        setSearchResults(prevResults => prevResults.filter(t => t.tool_id !== tool.tool_id));
     };
 
     const handleRemoveTool = (tool) => {
