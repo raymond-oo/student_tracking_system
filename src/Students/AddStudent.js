@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import Header from '../components/Header';
 import toast from 'react-hot-toast';
 import '../styles/AddStudent.css';
