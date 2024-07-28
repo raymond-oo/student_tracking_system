@@ -147,7 +147,7 @@ const UpdateStudent = () => {
                                 <span>{tool.tool_name}</span>
                                 <span>{tool.tool_model}</span>
                                 <span>{tool.tool_category}</span>
-                                <button type="button" onClick={() => handleRemoveTool(tool)}>Remove</button>
+                                <button onClick={() => handleRemoveTool(tool)}>Remove</button>
                             </div>
                         ))}
                     </div>
@@ -164,7 +164,7 @@ const UpdateStudent = () => {
                                     <span>{tool.tool_name}</span>
                                     <span>{tool.tool_model}</span>
                                     <span>{tool.tool_category}</span>
-                                    <button type="button" onClick={() => handleAddTool(tool)}>Add</button>
+                                    <button onClick={() => handleAddTool(tool)}>Add</button>
                                 </div>
                             ))}
                         </div>
