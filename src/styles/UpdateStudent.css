@@ -56,11 +56,13 @@
 
 .update-student-container button[type="button"] {
     background-color: #ecf0f1;
+    border-color: black;
     color: #34495e;
 }
 
 .update-student-container button[type="button"]:hover {
     background-color: #bdc3c7;
+    border-color: black;
 }
 
 .trained-tools, .tool-search {
@@ -102,7 +104,7 @@
     color: #34495e;
 }
 
-.trained-tool-item button, .tool-item button {
+.remove-button {
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
     background-color: #e74c3c;
@@ -113,8 +115,16 @@
     transition: background-color 0.2s;
 }
 
-.trained-tool-item button:hover, .tool-item button:hover {
+.remove-button:hover {
     background-color: #c0392b;
+}
+
+.add-button {
+    background-color: #3498db;
+}
+
+.add-button:hover {
+    background-color: #2980b9;
 }
 
 .tool-search input {
@@ -133,14 +143,6 @@
     border-radius: 6px;
     padding: 0.5rem;
     background-color: #fff;
-}
-
-.tool-item button {
-    background-color: #2ecc71;
-}
-
-.tool-item button:hover {
-    background-color: #27ae60;
 }
 
 .error {

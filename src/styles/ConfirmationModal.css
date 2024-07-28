@@ -51,9 +51,11 @@
   
   .modal-button.cancel {
     background-color: #ecf0f1;
+    border-color: black;
     color: #34495e;
   }
   
   .modal-button.cancel:hover {
     background-color: #bdc3c7;
+    border-color: black;
   }

@@ -49,9 +49,11 @@
 
 .update-tool-container button[type="button"] {
     background-color: #ecf0f1;
+    border-color: black;
     color: #34495e;
 }
 
 .update-tool-container button[type="button"]:hover {
     background-color: #bdc3c7;
+    border-color: black;
 }
