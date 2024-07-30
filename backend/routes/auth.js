@@ -44,11 +44,17 @@ router.post('/google', async (req, res) => {
     const payload = ticket.getPayload();
     const { sub, given_name, family_name, email, picture } = payload;
 
-    if (!email.endsWith('@isyedu.org')) {
-      return res.status(403).send('Unauthorized domain');
-    }
+    // ONLY NEEDED IF OAUTH'S PERMISSIONS ARE SET TO PUBLIC
+
+    // if (!email.endsWith('@isyedu.org')) {
+    //   return res.status(403).send('Unauthorized domain');
+    // }  
 
     const grade = calculateGrade(email);
+
+    if(!picture) {
+      picture = "https://static.vecteezy.com/system/resources/previews/020/911/747/non_2x/user-profile-icon-profile-avatar-user-icon-male-icon-face-icon-profile-icon-free-png.png";
+    }
 
     let user = await User.findOne({ email });
 

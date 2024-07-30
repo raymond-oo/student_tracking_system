@@ -103,10 +103,9 @@
     color: #34495e;
 }
 
-.trained-tool-item button, .tool-item button {
+.trained-tool-item .remove-button, .tool-item .add-button {
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
-    background-color: #e74c3c;
     color: white;
     border: none;
     border-radius: 4px;
@@ -114,15 +113,19 @@
     transition: background-color 0.2s;
 }
 
-.trained-tool-item button, .tool-item button:hover {
+.trained-tool-item .remove-button {
+    background-color: #e74c3c;
+}
+
+.trained-tool-item .remove-button:hover {
     background-color: #c0392b;
 }
 
-.tool-item button {
+.tool-item .add-button {
     background-color: #3498db;
 }
 
-.tool-item button:hover {
+.tool-item .add-button:hover {
     background-color: #2980b9;
 }
 
