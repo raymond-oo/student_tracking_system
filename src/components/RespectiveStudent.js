@@ -21,16 +21,11 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
                 });
                 const fetchedTools = response.data;
         
-                console.log("Fetched Tools:", fetchedTools);
-                console.log("Student's List of Trained Tools:", student.list_of_trained_tools);
-        
                 const filteredTrainedTools = fetchedTools.filter(tool => 
                     student.list_of_trained_tools.some(trainedTool => 
                         trainedTool.tool_id === tool.tool_id
                     )
                 );
-        
-                console.log("Filtered Trained Tools:", filteredTrainedTools);
         
                 setTrainedTools(filteredTrainedTools);
                 setLoading(false);
