@@ -46,9 +46,9 @@ router.post('/google', async (req, res) => {
 
     // ONLY NEEDED IF OAUTH'S PERMISSIONS ARE SET TO PUBLIC
 
-    // if (!email.endsWith('@isyedu.org')) {
-    //   return res.status(403).send('Unauthorized domain');
-    // }  
+    if (!email.endsWith('@isyedu.org')) {
+      return res.status(403).send('Unauthorized domain');
+    }  
 
     const grade = calculateGrade(email);
 
