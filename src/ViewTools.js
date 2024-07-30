@@ -1,11 +1,10 @@
+// components/ViewTools.js
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './styles/ViewTools.css';
 import Header from './components/Header';
-import { AiOutlineMinusCircle } from "react-icons/ai";
-import { AiOutlineExclamationCircle } from 'react-icons/ai';
-import { AiOutlineLike } from "react-icons/ai";
+import ToolCard from './components/ToolCard';
 
 const ViewTools = () => {
     const [tools, setTools] = useState([]);
@@ -95,20 +94,11 @@ const ViewTools = () => {
                 </div>
                 <div className="tools-grid">
                     {filteredTools.map((tool, index) => (
-                        <div className="tool-card" key={index}>
-                            <img src={tool.imageUrl} alt={tool.tool_name} className="tool-image" />
-                            <div className="tool-info">
-                                <h3>
-                                    {tool.tool_name}
-                                    <span className={`status-icon`}>
-                    {tool.restriction_id === '0' ? <AiOutlineLike alt="No adult supervision needed."/> : tool.restriction_id === '1' ? <AiOutlineExclamationCircle alt="Adult supervision needed."/> : <AiOutlineMinusCircle alt="Students may not use at all costs."/>}
-                </span>
-            </h3>
-            <p>{tool.tool_model}</p>
-            <p className="tool-category">{tool.tool_category}</p>
-                            </div>
-                            <button onClick={() => handleViewMore(tool._id)} className="view-more-btn">Learn More {'>>'}</button>
-                        </div>
+                        <ToolCard 
+                            key={index} 
+                            tool={tool} 
+                            onViewMore={handleViewMore}
+                        />
                     ))}
                 </div>
             </div>
