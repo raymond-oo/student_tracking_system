@@ -77,7 +77,7 @@ router.post('/google', async (req, res) => {
       await user.save();
     } else {
       user.grade = grade;
-      user.profile_image = picture;
+      user.profile_image = profile_image;
       user.session = uuidv4(); // Update session token
       await user.save();
     }
