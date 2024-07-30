@@ -21,10 +21,14 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
                 });
                 const fetchedTools = response.data;
 
-                const filteredTrainedTools = fetchedTools.filter(tool => student.list_of_trained_tools.includes(tool._id));
+                console.log("Fetched Tools:", fetchedTools);
+                console.log("Student's List of Trained Tools:", student.list_of_trained_tools);
 
-                console.log(fetchedTools);
-                console.log(filteredTrainedTools);
+                const filteredTrainedTools = fetchedTools.filter(tool => 
+                    student.list_of_trained_tools.some(t => t._id === tool._id)
+                );
+
+                console.log("Filtered Trained Tools:", filteredTrainedTools);
 
                 setTrainedTools(filteredTrainedTools);
                 setLoading(false);
