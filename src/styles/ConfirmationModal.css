@@ -50,9 +50,8 @@
   }
   
   .modal-button.cancel {
-    background-color: #ecf0f1;
-    border: 2px solid;
-    border-color: black;
+    background-color: #E5EBED;
+    border: none;
     color: #34495e;
   }
   

@@ -55,9 +55,8 @@
 }
 
 .update-student-container button[type="button"] {
-    background-color: #ecf0f1;
-    border: 2px solid;
-    border-color: black;
+    background-color: #E5EBED;
+    border: none;
     color: #34495e;
 }
 
@@ -104,27 +103,26 @@
     color: #34495e;
 }
 
-.remove-button {
+.trained-tool-item button, .tool-item button {
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
     background-color: #e74c3c;
     color: white;
-    border: 2px solid;
-    border-color: black;
+    border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s;
 }
 
-.remove-button:hover {
+.trained-tool-item button, .tool-item button:hover {
     background-color: #c0392b;
 }
 
-.add-button {
+.tool-item button {
     background-color: #3498db;
 }
 
-.add-button:hover {
+.tool-item button:hover {
     background-color: #2980b9;
 }
 
