@@ -53,7 +53,7 @@ router.post('/google', async (req, res) => {
     const grade = calculateGrade(email);
 
     if(!picture) {
-      picture = "https://static.vecteezy.com/system/resources/previews/020/911/747/non_2x/user-profile-icon-profile-avatar-user-icon-male-icon-face-icon-profile-icon-free-png.png";
+      profile_image = "https://static.vecteezy.com/system/resources/previews/020/911/747/non_2x/user-profile-icon-profile-avatar-user-icon-male-icon-face-icon-profile-icon-free-png.png";
     }
 
     let user = await User.findOne({ email });
