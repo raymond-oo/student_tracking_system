@@ -70,4 +70,19 @@ router.delete('/:id', verifySession, async (req, res) => {
     }
 });
 
+// Get tools by list of IDs
+router.post('/byIds', verifySession, async (req, res) => {
+    try {
+        const { toolIds } = req.body; // Expecting an array of tool IDs in the request body
+        if (!toolIds || !Array.isArray(toolIds)) {
+            return res.status(400).json({ message: 'Invalid input: toolIds should be an array of IDs.' });
+        }
+
+        const tools = await Tool.find({ _id: { $in: toolIds } });
+        res.json(tools);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 module.exports = router;
