@@ -57,6 +57,9 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
                 <p><strong>Grade:</strong> {student.grade}</p>
                 <p><strong>Email:</strong> {student.email}</p>
                 <p><strong>Experience With:</strong></p>
+                {showLogout && (
+                <button className="logout-button" onClick={onLogout}>Logout</button>
+            )}
             </div>
             <div className="tools-container">
                 <h3>Trained Tools</h3>
@@ -70,10 +73,6 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
                     ))}
                 </div>
             </div>
-
-            {showLogout && (
-                <button className="logout-button" onClick={onLogout}>Logout</button>
-            )}
         </div>
     );
 };
