@@ -20,7 +20,9 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
                     }
                 });
                 const fetchedTools = response.data;
-                const filteredTrainedTools = fetchedTools.filter(tool => student.list_of_trained_tools.includes(tool._id));
+                const filteredTrainedTools = fetchedTools.filter(tool =>
+                    student.list_of_trained_tools.some(trainedTool => trainedTool._id === tool._id)
+                );
                 setTrainedTools(filteredTrainedTools);
                 setLoading(false);
             } catch (err) {
