@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './styles/RespectiveStudent.css';
+import '../styles/RespectiveStudent.css';
 import ToolCard from './ToolCard';
 
 const RespectiveStudent = ({ student, showLogout, onLogout }) => {
