@@ -1,4 +1,3 @@
-// components/RespectiveStudent.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -6,7 +5,7 @@ import '../styles/RespectiveStudent.css';
 import ToolCard from './ToolCard';
 
 const RespectiveStudent = ({ student, showLogout, onLogout }) => {
-    const [tools, setTools] = useState([]);
+    const [trainedTools, setTrainedTools] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -20,7 +19,9 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
                         'Authorization': localStorage.getItem('sessionToken')
                     }
                 });
-                setTools(response.data);
+                const fetchedTools = response.data;
+                const filteredTrainedTools = fetchedTools.filter(tool => student.list_of_trained_tools.includes(tool._id));
+                setTrainedTools(filteredTrainedTools);
                 setLoading(false);
             } catch (err) {
                 setError(err);
@@ -29,7 +30,7 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
         };
 
         fetchTools();
-    }, [API_URL]);
+    }, [API_URL, student.list_of_trained_tools]);
 
     const handleViewMore = (toolId) => {
         navigate(`/tool/${toolId}`);
@@ -51,15 +52,19 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
                 <p><strong>Email:</strong> {student.email}</p>
                 <p><strong>Experience With:</strong></p>
             </div>
-            <div className="tools-grid">
-                {tools.map((tool, index) => (
-                    <ToolCard 
-                        key={index} 
-                        tool={tool} 
-                        onViewMore={handleViewMore}
-                    />
-                ))}
+            <div className="tools-container">
+                <h3>Trained Tools</h3>
+                <div className="tools-grid">
+                    {trainedTools.map((tool, index) => (
+                        <ToolCard 
+                            key={index} 
+                            tool={tool} 
+                            onViewMore={handleViewMore}
+                        />
+                    ))}
+                </div>
             </div>
+
             {showLogout && (
                 <button className="logout-button" onClick={onLogout}>Logout</button>
             )}
