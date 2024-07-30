@@ -53,7 +53,7 @@ router.post('/google', async (req, res) => {
     const grade = calculateGrade(email);
 
     if(!picture) {
-      profile_image = "https://static.vecteezy.com/system/resources/previews/020/911/747/non_2x/user-profile-icon-profile-avatar-user-icon-male-icon-face-icon-profile-icon-free-png.png";
+      profile_image = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
     } else {
       profile_image = picture;
     }
