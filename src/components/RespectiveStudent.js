@@ -14,10 +14,7 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
     useEffect(() => {
         const fetchTools = async () => {
             try {
-                const toolIds = student.list_of_trained_tools.map(tool => tool._id);
-                const response = await axios.post(`${API_URL}/api/tools/byIds`, {
-                    toolIds: toolIds
-                }, {
+                const response = await axios.get(`${API_URL}/api/tools`, {
                     headers: {
                         'Authorization': localStorage.getItem('sessionToken')
                     }
@@ -25,7 +22,13 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
                 const fetchedTools = response.data;
 
                 console.log("Fetched Tools:", fetchedTools);
-                setTrainedTools(fetchedTools);
+                console.log("Student's List of Trained Tools:", student.list_of_trained_tools);
+
+                const filteredTrainedTools = fetchedTools.filter(tool => student.list_of_trained_tools.includes(tool.tool_id));
+
+                console.log("Filtered Trained Tools:", filteredTrainedTools);
+
+                setTrainedTools(filteredTrainedTools);
                 setLoading(false);
             } catch (err) {
                 setError(err);
