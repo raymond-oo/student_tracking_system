@@ -1,4 +1,4 @@
-/* styles/RespectiveStudent.css */
+/* RespectiveStudent.css */
 
 .student-view {
     max-width: 1200px;
@@ -32,10 +32,11 @@
 }
 
 .tools-grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
     gap: 25px;
-    justify-content: flex-start;
+    width: 80%;
+    max-width: 1500px;
 }
 
 .logout-button {
