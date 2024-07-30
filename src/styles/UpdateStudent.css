@@ -54,13 +54,13 @@
     background-color: #2980b9;
 }
 
-.update-student-container button[type="button"] {
+.cancel-button {
     background-color: #E5EBED;
     border: none;
     color: #34495e;
 }
 
-.update-student-container button[type="button"]:hover {
+.cancel-button:hover {
     background-color: #bdc3c7;
 }
 

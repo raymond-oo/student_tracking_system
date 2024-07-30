@@ -171,7 +171,7 @@ const UpdateStudent = () => {
                     </div>
                     <div className="button-group">
                         <button type="submit">Update Student</button>
-                        <button type="button" onClick={handleCancel}>Cancel</button>
+                        <button className="cancel-button" type="button" onClick={handleCancel}>Cancel</button>
                     </div>
                 </form>
             </div>
