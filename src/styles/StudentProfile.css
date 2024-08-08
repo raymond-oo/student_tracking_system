@@ -19,10 +19,20 @@
     width: 24px;
     height: 24px;
     margin-right: 0.5rem;
+    transition: all 0.2s ease-in-out;
 }
 
 .back-button span {
     font-size: 1rem;
     font-weight: 500;
     color: #333;
+    transition: all 0.2s ease-in-out;
+}
+
+.back-button img:hover {
+    border-bottom: 1px solid black;
+}
+
+.back-button span:hover {
+    text-decoration: underline;
 }
