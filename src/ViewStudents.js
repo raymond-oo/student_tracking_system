@@ -71,7 +71,7 @@ const ViewStudents = () => {
     const filteredStudents = students.filter(student => {
         const fullName = `${student.first_name} ${student.last_name}`.toLowerCase();
         const grade = `${student.grade}`.toLowerCase();
-        const tools = student.list_of_trained_tools || []; // Default to an empty array if undefined
+        const tools = student.list_of_trained_tools || [];
 
         return (
             fullName.includes(searchTerm.toLowerCase()) ||

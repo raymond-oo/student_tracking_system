@@ -66,7 +66,9 @@ const ViewTools = () => {
 
     const filteredTools = tools.filter(tool =>
         tool.tool_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        tool.tool_model.toLowerCase().includes(searchTerm.toLowerCase())
+        tool.tool_model.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        tool.tool_category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        tool.tool_location.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     if (loading) return <div>Loading...</div>;
