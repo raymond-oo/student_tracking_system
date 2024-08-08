@@ -25,15 +25,13 @@ const AddStudent = () => {
             formData.append('file', file);
     
             try {
-                // Upload the file to your server
                 const response = await axios.post(`${API_URL}/api/upload`, formData, {
                     headers: {
                         'Authorization': localStorage.getItem('sessionToken'),
                         'Content-Type': 'multipart/form-data'
                     }
                 });
-                
-                // Use the URL returned by the server
+    
                 const imageUrl = response.data.url;
                 setStudent({ ...student, profile_picture: imageUrl });
             } catch (error) {
