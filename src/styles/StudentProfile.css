@@ -6,9 +6,9 @@
 
 .back-button {
     position: absolute;
-    top: 20px;
+    top: 100px;
     left: 20px;
-    background-color: transparent;
+    background-color: transparent !important;
     display: flex;
     align-items: center;
     cursor: pointer;
