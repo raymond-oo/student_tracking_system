@@ -56,7 +56,7 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
             <div className="student-details">
                 <p><strong>Grade:</strong> {student.grade}</p>
                 <p><strong>Email:</strong> {student.email}</p>
-                <p><strong>Experience With:</strong></p>
+                <p><strong>Last Updated:</strong> {student.updatedAt}</p>
                 {showLogout && (
                 <button className="logout-button" onClick={onLogout}>Logout</button>
             )}
