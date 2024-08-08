@@ -34,7 +34,7 @@ const UpdateTool = () => {
             }
         };
         fetchTool();
-    }, [id]);
+    }, [id, API_URL]);
 
     const handleChange = (e) => {
         setTool({ ...tool, [e.target.name]: e.target.value });

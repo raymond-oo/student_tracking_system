@@ -38,7 +38,7 @@ const UpdateStudent = () => {
             }
         };
         fetchStudent();
-    }, [id]);
+    }, [id, API_URL]);
 
     useEffect(() => {
         const fetchTools = async () => {
@@ -58,7 +58,7 @@ const UpdateStudent = () => {
             }
         };
         fetchTools();
-    }, [searchTerm]);
+    }, [searchTerm, API_URL]);
 
     const handleChange = (e) => {
         if (e.target.name === 'list_of_trained_tools') {

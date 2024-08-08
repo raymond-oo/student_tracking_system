@@ -34,7 +34,7 @@ const ViewStudents = () => {
         };
 
         fetchStudents();
-    }, []);
+    }, [API_URL]);
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
