@@ -18,15 +18,33 @@ const AddStudent = () => {
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         if (e.target.name === 'profile_picture') {
             const file = e.target.files[0];
-            const imageUrl = URL.createObjectURL(file);
-            setStudent({ ...student, profile_picture: imageUrl });
+            const formData = new FormData();
+            formData.append('file', file);
+    
+            try {
+                // Upload the file to your server
+                const response = await axios.post(`${API_URL}/api/upload`, formData, {
+                    headers: {
+                        'Authorization': localStorage.getItem('sessionToken'),
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                
+                // Use the URL returned by the server
+                const imageUrl = response.data.url;
+                setStudent({ ...student, profile_picture: imageUrl });
+            } catch (error) {
+                console.error('File upload failed:', error);
+                setError('File upload failed');
+            }
         } else {
             setStudent({ ...student, [e.target.name]: e.target.value });
         }
     };
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
