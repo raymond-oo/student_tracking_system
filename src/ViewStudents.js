@@ -68,11 +68,17 @@ const ViewStudents = () => {
         }
     }, [students, sortCriteria, sortStudents]);
 
-    const filteredStudents = students.filter(student =>
-        `${student.first_name} ${student.last_name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        `${student.grade}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.list_of_trained_tools.some(tool => tool.tool_name.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
+    const filteredStudents = students.filter(student => {
+        const fullName = `${student.first_name} ${student.last_name}`.toLowerCase();
+        const grade = `${student.grade}`.toLowerCase();
+        const tools = student.list_of_trained_tools || []; // Default to an empty array if undefined
+
+        return (
+            fullName.includes(searchTerm.toLowerCase()) ||
+            grade.includes(searchTerm.toLowerCase()) ||
+            tools.some(tool => tool.tool_name && tool.tool_name.toLowerCase().includes(searchTerm.toLowerCase()))
+        );
+    });
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;

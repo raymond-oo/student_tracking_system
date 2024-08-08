@@ -48,7 +48,7 @@ const UpdateTool = () => {
                     'Authorization': localStorage.getItem('sessionToken')
                 }
             });
-            navigate(`/tool${id}`);
+            navigate(`/tool/${id}`);
             toast.success('Tool updated successfully!', {
                 iconTheme: {
                     primary: '#333',
