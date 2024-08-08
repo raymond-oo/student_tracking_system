@@ -5,6 +5,7 @@ import axios from 'axios';
 import Header from '../components/Header';
 import '../styles/StudentProfile.css';
 import RespectiveStudent from '../components/RespectiveStudent';
+import backarrow from '../resources/back-arrow.svg';
 
 const StudentProfile = () => {
     const [student, setStudent] = useState(null);
@@ -41,7 +42,10 @@ const StudentProfile = () => {
         <div>
             <Header />
             <div className="student-profile-container">
-                <button className="back-button" onClick={() => navigate('/view-students')}>Back to Students</button>
+                <div className="back-button" onClick={() => navigate('/view-students')}>
+                    <img src={backarrow} alt="Go Back" />
+                    <span>Go Back</span>
+                </div>
                 <RespectiveStudent student={student} showLogout={false} />
             </div>
         </div>
