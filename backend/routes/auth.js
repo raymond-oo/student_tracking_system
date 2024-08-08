@@ -1,14 +1,35 @@
+// routes/auth.js
 const express = require('express');
 const { OAuth2Client } = require('google-auth-library');
-const { google } = require('googleapis');
 const User = require('../models/User');
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid'); // Use UUID for generating session tokens
 
 const router = express.Router();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 const calculateGrade = (email) => {
-    // Your existing calculateGrade logic
+    // Get current date
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth(); // 0-11, where 0 is January
+
+    // Extract first two digits from email
+    const gradDigits = email.slice(0, 2);
+    
+    // Convert to full graduation year
+    const gradYear = 2000 + parseInt(gradDigits);
+    
+    // Determine the academic year
+    // If it's July or later, we consider it the next academic year
+    const academicYear = currentMonth >= 6 ? currentYear + 1 : currentYear;
+    
+    // Calculate years until graduation
+    const yearsUntilGrad = gradYear - academicYear;
+    
+    // Calculate current grade
+    const grade = 12 - yearsUntilGrad;
+    
+    return grade;
 };
 
 router.post('/google', async (req, res) => {
@@ -21,33 +42,27 @@ router.post('/google', async (req, res) => {
     });
 
     const payload = ticket.getPayload();
-    const { sub, given_name, family_name, email } = payload;
+    const { sub, given_name, family_name, email, picture } = payload;
+
+    // ONLY NEEDED IF OAUTH'S PERMISSIONS ARE SET TO PUBLIC
 
     if (!email.endsWith('@isyedu.org')) {
       return res.status(403).send('Unauthorized domain');
-    }
+    }  
 
     const grade = calculateGrade(email);
 
-    const oauth2Client = new google.auth.OAuth2();
-    oauth2Client.setCredentials({ access_token: token });
-
-    const people = google.people({ version: 'v1', auth: oauth2Client });
-    const me = await people.people.get({
-      resourceName: 'people/me',
-      personFields: 'photos',
-    });
-
-    const photos = me.data.photos || [];
-    const profile_image = photos.length > 0
-      ? photos[0].url
-      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+    if(!picture) {
+      profile_image = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+    } else {
+      profile_image = picture;
+    }
 
     let user = await User.findOne({ email });
 
     if (!user) {
       const userId = User.generateUniqueId();
-      const sessionToken = uuidv4();
+      const sessionToken = uuidv4(); // Generate a session token
 
       user = new User({
         user_id: userId,
@@ -57,17 +72,17 @@ router.post('/google', async (req, res) => {
         email: email,
         profile_image: profile_image,
         grade: grade,
-        session: sessionToken,
+        session: sessionToken, // Store session token
       });
       await user.save();
     } else {
       user.grade = grade;
       user.profile_image = profile_image;
-      user.session = uuidv4();
+      user.session = uuidv4(); // Update session token
       await user.save();
     }
 
-    res.status(200).json({ user, sessionToken: user.session });
+    res.status(200).json({ user, sessionToken: user.session }); // Return session token to client
   } catch (error) {
     console.error('Error verifying token:', error);
     res.status(400).send('Error verifying token');
