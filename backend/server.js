@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -11,20 +12,9 @@ const toolsRouter = require('./routes/tools');
 const app = express();
 
 // CORS configuration
-const allowedOrigins = [
-    'https://student-training-system-two.vercel.app', // Add your frontend domain here
-    'https://another-allowed-domain.com' // Add other allowed domains if any
-];
-
 app.use(cors({
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true, // Enable to allow cookies with CORS
+    origin: 'https://student-training-system-two.vercel.app', // Replace with your frontend's URL
+    credentials: true, // Allow cookies to be sent
 }));
 
 app.use(bodyParser.json());
