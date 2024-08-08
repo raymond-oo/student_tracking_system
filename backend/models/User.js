@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
   list_of_trained_tools: { type: [Tool.schema] },
   profile_image: { type: String },
   session: { type: String },
-});
+}, {timestamps: true});
 
 userSchema.statics.generateUniqueId = function() {
 
