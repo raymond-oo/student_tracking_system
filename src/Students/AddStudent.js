@@ -12,9 +12,8 @@ const AddStudent = () => {
         last_name: '',
         email: '',
         grade: '',
-        profile_picture: null
+        profile_picture: ''
     });
-    const [profilePictureURL, setProfilePictureURL] = useState(null);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
@@ -22,8 +21,8 @@ const AddStudent = () => {
     const handleChange = (e) => {
         if (e.target.name === 'profile_picture') {
             const file = e.target.files[0];
-            setStudent({ ...student, [e.target.name]: file });
-            setProfilePictureURL(URL.createObjectURL(file));
+            const imageUrl = URL.createObjectURL(file);
+            setStudent({ ...student, profile_picture: imageUrl });
         } else {
             setStudent({ ...student, [e.target.name]: e.target.value });
         }
@@ -31,16 +30,10 @@ const AddStudent = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        Object.keys(student).forEach(key => {
-            formData.append(key, student[key]);
-        });
-
         try {
-            await axios.post(`${API_URL}/api/students`, formData, {
+            await axios.post(`${API_URL}/api/students`, student, {
                 headers: {
-                    'Authorization': localStorage.getItem('sessionToken'),
-                    'Content-Type': 'multipart/form-data'
+                    'Authorization': localStorage.getItem('sessionToken')
                 }
             });
             navigate('/edit-students');
@@ -87,7 +80,6 @@ const AddStudent = () => {
                     <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
                     <input type="text" name="grade" placeholder="Grade" onChange={handleChange} required />
                     <input type="file" name="profile_picture" onChange={handleChange} accept="image/*" />
-                    {profilePictureURL && <img src={profilePictureURL} alt="Profile" className="profile-preview" />}
                     <div className="button-group">
                         <button type="submit">Add Student</button>
                         <button type="button" onClick={handleCancel}>Cancel</button>
