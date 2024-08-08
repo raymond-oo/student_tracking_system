@@ -42,6 +42,20 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
         navigate(`/tool/${toolId}`);
     };
 
+    const formatUpdatedAt = (timestamp) => {
+        const date = new Date(timestamp);
+        const formattedDate = date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        const formattedTime = date.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        return `${formattedDate} at ${formattedTime}`;
+    };
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
 
@@ -56,7 +70,7 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
             <div className="student-details">
                 <p><strong>Grade:</strong> {student.grade}</p>
                 <p><strong>Email:</strong> {student.email}</p>
-                <p><strong>Last Updated:</strong> {student.updatedAt}</p>
+                <p><strong>Last Updated:</strong> {formatUpdatedAt(student.updatedAt)}</p>
                 {showLogout && (
                 <button className="logout-button" onClick={onLogout}>Logout</button>
             )}
