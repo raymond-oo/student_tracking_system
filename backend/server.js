@@ -31,7 +31,7 @@ app.use('/api/user', userRouter);
 app.use('/api/protected', protectedRoutes);
 app.use('/api/students', studentsRoute);
 app.use('/api/tools', toolsRouter);
-app.use('/api/upload', uploadRouter);
+app.use('/api', uploadRouter);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
