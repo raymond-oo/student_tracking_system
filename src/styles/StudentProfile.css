@@ -6,8 +6,8 @@
 
 .back-button {
     position: absolute;
-    top: 120px;
-    left: 20px;
+    top: 135px;
+    left: 35px;
     background-color: transparent !important;
     display: flex;
     align-items: center;
