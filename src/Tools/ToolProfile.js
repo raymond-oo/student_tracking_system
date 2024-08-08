@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Header';
 import '../styles/ToolProfile.css';
+import backarrow from '../resources/backarrow.png';
 
 const ToolProfile = () => {
     const [tool, setTool] = useState(null);
