@@ -38,8 +38,11 @@ const ToolProfile = () => {
     return (
         <div>
             <Header />
+            <div className="back-button" onClick={() => navigate('/view-tools')}>
+                    <img src={backarrow} alt="Go Back" />
+                    <span>Go Back</span>
+                </div>
             <div className="tool-profile-container">
-                <button className="back-button" onClick={() => navigate('/view-tools')}>Back to Tools</button>
                 <div className="tool-profile">
                     <div className="tool-header">
                         <div className="tool-image-placeholder">
