@@ -12,7 +12,7 @@ const AddStudent = () => {
         last_name: '',
         email: '',
         grade: '',
-        profile_picture: ''
+        profile_picture: null,
     });
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -20,9 +20,7 @@ const AddStudent = () => {
 
     const handleChange = (e) => {
         if (e.target.name === 'profile_picture') {
-            const file = e.target.files[0];
-            const imageUrl = URL.createObjectURL(file);
-            setStudent({ ...student, profile_picture: imageUrl });
+            setStudent({ ...student, [e.target.name]: e.target.files[0] });
         } else {
             setStudent({ ...student, [e.target.name]: e.target.value });
         }
@@ -30,11 +28,24 @@ const AddStudent = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Prepare FormData object
+        const formData = new FormData();
+        formData.append('user_id', student.user_id);
+        formData.append('first_name', student.first_name);
+        formData.append('last_name', student.last_name);
+        formData.append('email', student.email);
+        formData.append('grade', student.grade);
+        if (student.profile_picture) {
+            formData.append('profile_picture', student.profile_picture);
+        }
+
         try {
-            await axios.post(`${API_URL}/api/students`, student, {
+            await axios.post(`${API_URL}/api/students`, formData, {
                 headers: {
-                    'Authorization': localStorage.getItem('sessionToken')
-                }
+                    'Authorization': localStorage.getItem('sessionToken'),
+                    'Content-Type': 'multipart/form-data', // Set the correct Content-Type
+                },
             });
             navigate('/edit-students');
             toast.success('Student added successfully!', {
@@ -47,9 +58,8 @@ const AddStudent = () => {
                     color: '#DCB41F',
                 },
             });
-
         } catch (err) {
-            setError(err.response?.data?.message || err.message);
+            setError(err.response.data.message);
         }
     };
 
@@ -74,15 +84,56 @@ const AddStudent = () => {
                 <h2>Add New Student</h2>
                 {error && <p className="error">{error}</p>}
                 <form onSubmit={handleSubmit}>
-                    <input type="text" name="user_id" placeholder="User ID (optional)" onChange={handleChange} />
-                    <input type="text" name="first_name" placeholder="First Name" onChange={handleChange} required />
-                    <input type="text" name="last_name" placeholder="Last Name" onChange={handleChange} required />
-                    <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-                    <input type="text" name="grade" placeholder="Grade" onChange={handleChange} required />
-                    <input type="file" name="profile_picture" onChange={handleChange} accept="image/*" />
+                    <input
+                        type="text"
+                        name="user_id"
+                        placeholder="User ID (optional)"
+                        onChange={handleChange}
+                        value={student.user_id}
+                    />
+                    <input
+                        type="text"
+                        name="first_name"
+                        placeholder="First Name"
+                        onChange={handleChange}
+                        value={student.first_name}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="last_name"
+                        placeholder="Last Name"
+                        onChange={handleChange}
+                        value={student.last_name}
+                        required
+                    />
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        onChange={handleChange}
+                        value={student.email}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="grade"
+                        placeholder="Grade"
+                        onChange={handleChange}
+                        value={student.grade}
+                        required
+                    />
+                    <input
+                        type="file"
+                        name="profile_picture"
+                        onChange={handleChange}
+                        accept="image/*"
+                    />
                     <div className="button-group">
                         <button type="submit">Add Student</button>
-                        <button type="button" onClick={handleCancel}>Cancel</button>
+                        <button type="button" onClick={handleCancel}>
+                            Cancel
+                        </button>
                     </div>
                 </form>
             </div>
