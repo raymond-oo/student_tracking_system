@@ -14,13 +14,16 @@ const AddStudent = () => {
         grade: '',
         profile_picture: null
     });
+    const [profilePictureURL, setProfilePictureURL] = useState(null);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
 
     const handleChange = (e) => {
         if (e.target.name === 'profile_picture') {
-            setStudent({ ...student, [e.target.name]: e.target.files[0] });
+            const file = e.target.files[0];
+            setStudent({ ...student, [e.target.name]: file });
+            setProfilePictureURL(URL.createObjectURL(file));
         } else {
             setStudent({ ...student, [e.target.name]: e.target.value });
         }
@@ -28,10 +31,16 @@ const AddStudent = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        Object.keys(student).forEach(key => {
+            formData.append(key, student[key]);
+        });
+
         try {
-            await axios.post(`${API_URL}/api/students`, student, {
+            await axios.post(`${API_URL}/api/students`, formData, {
                 headers: {
-                    'Authorization': localStorage.getItem('sessionToken')
+                    'Authorization': localStorage.getItem('sessionToken'),
+                    'Content-Type': 'multipart/form-data'
                 }
             });
             navigate('/edit-students');
@@ -47,7 +56,7 @@ const AddStudent = () => {
             });
 
         } catch (err) {
-            setError(err.response.data.message);
+            setError(err.response?.data?.message || err.message);
         }
     };
 
@@ -78,6 +87,7 @@ const AddStudent = () => {
                     <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
                     <input type="text" name="grade" placeholder="Grade" onChange={handleChange} required />
                     <input type="file" name="profile_picture" onChange={handleChange} accept="image/*" />
+                    {profilePictureURL && <img src={profilePictureURL} alt="Profile" className="profile-preview" />}
                     <div className="button-group">
                         <button type="submit">Add Student</button>
                         <button type="button" onClick={handleCancel}>Cancel</button>
