@@ -41,11 +41,11 @@ const StudentProfile = () => {
     return (
         <div>
             <Header />
-            <div className="student-profile-container">
-                <div className="back-button" onClick={() => navigate('/view-students')}>
+            <div className="back-button" onClick={() => navigate('/view-students')}>
                     <img src={backarrow} alt="Go Back" />
                     <span>Go Back</span>
                 </div>
+            <div className="student-profile-container">
                 <RespectiveStudent student={student} showLogout={false} />
             </div>
         </div>
