@@ -57,7 +57,17 @@ const EditStudents = () => {
         }
       });
       setStudents(students.filter(student => student._id !== studentToDelete));
-      toast.success('Student deleted successfully!')
+      toast.success('Student deleted successfully!', {
+        iconTheme: {
+            primary: '#333',
+            secondary: '#DCB41F',
+        },
+        style: {
+            backgroundColor: '#333',
+            color: '#DCB41F',
+        },
+    });
+    
       setIsModalOpen(false);
       setStudentToDelete(null);
       await new Promise(resolve => setTimeout(resolve, 1000));

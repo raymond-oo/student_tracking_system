@@ -61,6 +61,7 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
                 <button className="logout-button" onClick={onLogout}>Logout</button>
             )}
             </div>
+            {student && !student.is_admin && (
             <div className="tools-container">
                 <h3>Trained Tools</h3>
                 <div className="tools-grid">
@@ -73,6 +74,7 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
                     ))}
                 </div>
             </div>
+        )}
         </div>
     );
 };

@@ -35,7 +35,17 @@ const AddStudent = () => {
                 }
             });
             navigate('/edit-students');
-            toast.success('Student added successfully!');
+            toast.success('Student added successfully!', {
+                iconTheme: {
+                    primary: '#333',
+                    secondary: '#DCB41F',
+                },
+                style: {
+                    backgroundColor: '#333',
+                    color: '#DCB41F',
+                },
+            });
+
         } catch (err) {
             setError(err.response.data.message);
         }
@@ -43,7 +53,16 @@ const AddStudent = () => {
 
     const handleCancel = () => {
         navigate('/edit-students');
-        toast('No changes were made.');
+        toast('No changes were made.', {
+            iconTheme: {
+                primary: '#333',
+                secondary: '#DCB41F',
+            },
+            style: {
+                backgroundColor: '#333',
+                color: '#DCB41F',
+            },
+        });
     };
 
     return (

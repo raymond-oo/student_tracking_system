@@ -31,16 +31,43 @@ const AddTool = () => {
                 }
             });
             navigate('/edit-tools');
-            toast.success('Tool added successfully!');
+            toast.success('Tool added successfully!', {
+                iconTheme: {
+                    primary: '#333',
+                    secondary: '#DCB41F',
+                },
+                style: {
+                    backgroundColor: '#333',
+                    color: '#DCB41F',
+                },
+            });
         } catch (err) {
             setError(err.response ? err.response.data.message : 'Error adding tool');
-            toast.error('Error adding tool');
+            toast.error('Error adding tool', {
+                iconTheme: {
+                    primary: '#FFFFFF',
+                    secondary: '#E61920',
+                },
+                style: {
+                    backgroundColor: '#E61920',
+                    color: '#FFFFFF',
+                },
+            });
         }
     };
 
     const handleCancel = () => {
         navigate('/edit-tools');
-        toast('No changes were made.');
+        toast('No changes were made.', {
+            iconTheme: {
+                primary: '#333',
+                secondary: '#DCB41F',
+            },
+            style: {
+                backgroundColor: '#333',
+                color: '#DCB41F',
+            },
+        });
     };
 
     return (

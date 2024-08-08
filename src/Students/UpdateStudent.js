@@ -79,7 +79,16 @@ const UpdateStudent = () => {
                 }
             });
             navigate(`/student/${id}`);
-            toast.success('Student updated successfully!');
+            toast.success('Student updated successfully!', {
+                iconTheme: {
+                    primary: '#333',
+                    secondary: '#DCB41F',
+                },
+                style: {
+                    backgroundColor: '#333',
+                    color: '#DCB41F',
+                },
+            });
         } catch (err) {
             setError(err.response.data.message);
         }
@@ -87,13 +96,31 @@ const UpdateStudent = () => {
 
     const handleCancel = () => {
         navigate('/edit-students');
-        toast('No changes were made.');
+        toast('No changes were made.', {
+            iconTheme: {
+                primary: '#333',
+                secondary: '#DCB41F',
+            },
+            style: {
+                backgroundColor: '#333',
+                color: '#DCB41F',
+            },
+        });
     };
 
     const handleAddTool = (tool) => {
         const alreadyAdded = student.list_of_trained_tools.some(t => t.tool_id === tool.tool_id);
         if (alreadyAdded) {
-            toast.error('Tool has already been added.');
+            toast.error('Tool has already been added.', {
+                iconTheme: {
+                    primary: '#FFFFFF',
+                    secondary: '#E61920',
+                },
+                style: {
+                    backgroundColor: '#E61920',
+                    color: '#FFFFFF',
+                },
+            });
         } else {
             setStudent(prevState => ({
                 ...prevState,
@@ -119,7 +146,16 @@ const UpdateStudent = () => {
         }));
         setIsModalOpen(false);
         setToolToRemove(null);
-        toast.success('Tool removed successfully.');
+        toast.success('Tool removed successfully.', {
+            iconTheme: {
+                primary: '#333',
+                secondary: '#DCB41F',
+            },
+            style: {
+                backgroundColor: '#333',
+                color: '#DCB41F',
+            },
+        });
     };
 
     const closeModal = () => {

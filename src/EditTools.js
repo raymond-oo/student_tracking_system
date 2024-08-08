@@ -57,7 +57,17 @@ const EditTools = () => {
         }
       });
       setTools(tools.filter(tool => tool._id !== toolToDelete));
-      toast.success('Tool deleted successfully!');
+      toast.success('Tool deleted successfully!', {
+        iconTheme: {
+            primary: '#333',
+            secondary: '#DCB41F',
+        },
+        style: {
+            backgroundColor: '#333',
+            color: '#DCB41F',
+        },
+    });
+    
       setIsModalOpen(false);
       setToolToDelete(null);
       await new Promise(resolve => setTimeout(resolve, 1000));
