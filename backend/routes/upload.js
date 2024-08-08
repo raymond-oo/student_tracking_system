@@ -28,6 +28,7 @@ router.post('/', upload.single('file'), (req, res) => {
         return res.status(400).json({ error: 'No file uploaded' });
     }
     // Construct the file URL
+    console.log(req.file);
     const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
     res.json({ url: fileUrl });
 });
