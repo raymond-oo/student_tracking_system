@@ -3,144 +3,49 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #1a1a1a;
-    overflow: hidden;
-    position: relative;
+    background-color: white;
   }
   
-  .background-animation {
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    right: -50%;
-    bottom: -50%;
-    width: 200%;
-    height: 200%;
-    background: transparent url('http://assets.iceable.com/img/noise-transparent.png') repeat 0 0;
-    background-repeat: repeat;
-    animation: bg-animation .2s infinite;
-    opacity: .9;
-    visibility: visible;
-  }
-  
-  @keyframes bg-animation {
-      0% { transform: translate(0,0) }
-      10% { transform: translate(-5%,-5%) }
-      20% { transform: translate(-10%,5%) }
-      30% { transform: translate(5%,-10%) }
-      40% { transform: translate(-5%,15%) }
-      50% { transform: translate(-10%,5%) }
-      60% { transform: translate(15%,0) }
-      70% { transform: translate(0,10%) }
-      80% { transform: translate(-15%,0) }
-      90% { transform: translate(10%,5%) }
-      100% { transform: translate(5%,0) }
-  }
-  
-  .content {
+  .loading-content {
     text-align: center;
-    z-index: 1;
   }
   
-  .title {
-    font-size: 3.5rem;
-    color: #FCE300;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 10px rgba(252, 227, 0, 0.7);
-  }
-  
-  .subtitle {
-    font-size: 1.8rem;
-    color: #ffffff;
-    margin-bottom: 2rem;
-  }
-  
-  .gear-container {
+  .loading-circles {
     display: flex;
     justify-content: center;
-    align-items: center;
+    margin-bottom: 10px;
   }
   
-  .gear {
-    width: 50px;
-    height: 50px;
-    background: #4285F4;
+  .circle {
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+    background-color: #4285F4;
     border-radius: 50%;
-    margin: 0 15px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    opacity: 0.3;
+    animation: pulse 1s infinite ease-in-out;
   }
   
-  .gear::before {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: #1a1a1a;
-    border-radius: 50%;
+  .circle-1 {
+    animation-delay: 0s;
   }
   
-  .gear::after {
-    content: '';
-    position: absolute;
-    width: 70px;
-    height: 70px;
-    border: 10px solid #4285F4;
-    border-radius: 50%;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
+  .circle-2 {
+    animation-delay: 0.5s;
   }
   
-  .gear-1 {
-    animation: spin 4s linear infinite;
-  }
-  
-  .gear-2 {
-    animation: spin 4s linear infinite reverse;
-    width: 40px;
-    height: 40px;
-  }
-  
-  .gear-3 {
-    animation: spin 4s linear infinite;
-    width: 60px;
-    height: 60px;
-  }
-  
-  @keyframes spin {
-    100% { transform: rotate(360deg); }
-  }
-  
-  @media (max-width: 768px) {
-    .title {
-      font-size: 2.5rem;
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.3;
     }
-    
-    .subtitle {
-      font-size: 1.4rem;
+    50% {
+      opacity: 1;
     }
-    
-    .gear {
-      width: 40px;
-      height: 40px;
-      margin: 0 10px;
-    }
-    
-    .gear::after {
-      width: 56px;
-      height: 56px;
-      border-width: 8px;
-    }
-    
-    .gear-2 {
-      width: 32px;
-      height: 32px;
-    }
-    
-    .gear-3 {
-      width: 48px;
-      height: 48px;
-    }
+  }
+  
+  .loading-text {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    margin: 0;
   }
