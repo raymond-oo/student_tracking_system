@@ -4,6 +4,7 @@ import logo from '../resources/isylogo.png';
 import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 import { useNavigate } from 'react-router-dom';
+import LoadingPage from './LoadingPage';
 
 const Header = () => {
     const [user, setUser] = useState(null);
@@ -29,7 +30,7 @@ const Header = () => {
         };
 
         fetchUser();
-    }, []);
+    }, [API_URL]);
 
     useEffect(() => {
         if(error) {
@@ -37,7 +38,7 @@ const Header = () => {
         }
     }, [error, navigate]);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingPage />;
     if (error) return <div>Error: {error.message}</div>;
 
     return (

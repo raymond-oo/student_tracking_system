@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import '../styles/StudentProfile.css';
 import RespectiveStudent from '../components/RespectiveStudent';
 import backarrow from '../resources/back-arrow.svg';
+import LoadingPage from '../components/LoadingPage';
 
 const StudentProfile = () => {
     const [student, setStudent] = useState(null);
@@ -32,9 +33,9 @@ const StudentProfile = () => {
         };
 
         fetchStudent();
-    }, [id]);
+    }, [id, API_URL]);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingPage />;
     if (error) return <div>Error: {error.message}</div>;
     if (!student) return <div>Student not found</div>;
 

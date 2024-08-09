@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
+import LoadingPage from './LoadingPage';
 
 const AdminRoute = ({ children }) => {
     const [loading, setLoading] = useState(true);
@@ -24,9 +25,9 @@ const AdminRoute = ({ children }) => {
         };
 
         checkAdmin();
-    }, []);
+    }, [API_URL]);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingPage />;
 
     return isAdmin ? children : <Navigate to="/" />;
 };

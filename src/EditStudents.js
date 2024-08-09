@@ -5,6 +5,7 @@ import './styles/EditStudents.css';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import ConfirmationModal from './components/ConfirmationModal';
+import LoadingPage from './components/LoadingPage';
 
 const EditStudents = () => {
   const [students, setStudents] = useState([]);
@@ -126,7 +127,7 @@ const EditStudents = () => {
     );
   });
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <LoadingPage />;
   if (error) return <div>Error: {error.message}</div>;
 
   return (

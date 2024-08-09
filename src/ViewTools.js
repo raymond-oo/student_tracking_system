@@ -5,6 +5,7 @@ import axios from 'axios';
 import './styles/ViewTools.css';
 import Header from './components/Header';
 import ToolCard from './components/ToolCard';
+import LoadingPage from './components/LoadingPage';
 
 const ViewTools = () => {
     const [tools, setTools] = useState([]);
@@ -71,7 +72,7 @@ const ViewTools = () => {
         tool.tool_location.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingPage />;
     if (error) return <div>Error: {error.message}</div>;
 
     return (

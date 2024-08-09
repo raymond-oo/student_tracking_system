@@ -5,6 +5,7 @@ import './styles/EditTools.css';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import ConfirmationModal from './components/ConfirmationModal';
+import LoadingPage from './components/LoadingPage';
 
 const EditTools = () => {
   const [tools, setTools] = useState([]);
@@ -118,7 +119,7 @@ const EditTools = () => {
       `${tool.tool_id}`.includes(searchTerm.toLowerCase())
   );
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <LoadingPage />;
   if (error) return <div>Error: {error.message}</div>;
 
   return (

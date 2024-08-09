@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Header from './components/Header';
-import StudentView from './components/RespectiveStudent';
 import './styles/MyAccount.css';
 import toast from 'react-hot-toast';
 import RespectiveStudent from './components/RespectiveStudent';
+import LoadingPage from './components/LoadingPage';
 
 const MyAccount = () => {
     const [user, setUser] = useState(null);
@@ -32,7 +32,7 @@ const MyAccount = () => {
         };
 
         fetchUser();
-    }, []);
+    }, [API_URL]);
 
     const handleLogout = () => {
         localStorage.removeItem('sessionToken');
@@ -49,7 +49,7 @@ const MyAccount = () => {
         });
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingPage />;
     if (error) return <div>Error: {error.message}</div>;
 
     return (

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/RespectiveStudent.css';
 import ToolCard from './ToolCard';
+import LoadingPage from './LoadingPage';
 
 const RespectiveStudent = ({ student, showLogout, onLogout }) => {
     const [trainedTools, setTrainedTools] = useState([]);
@@ -56,7 +57,7 @@ const RespectiveStudent = ({ student, showLogout, onLogout }) => {
         return `${formattedDate} at ${formattedTime}`;
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingPage />;
     if (error) return <div>Error: {error.message}</div>;
 
     return (

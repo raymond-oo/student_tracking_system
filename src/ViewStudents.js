@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './styles/ViewStudents.css';
 import Header from './components/Header';
+import LoadingPage from './components/LoadingPage';
 
 const ViewStudents = () => {
     const [students, setStudents] = useState([]);
@@ -80,7 +81,7 @@ const ViewStudents = () => {
         );
     });
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingPage />;
     if (error) return <div>Error: {error.message}</div>;
 
     return (
