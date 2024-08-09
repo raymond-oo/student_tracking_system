@@ -1,43 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import '../styles/LoadingPage.css';
+import React from 'react';
+import './LoadingPage.css';
 
 const LoadingPage = () => {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) => {
-        if (prevProgress >= 100) {
-          clearInterval(timer);
-          return 100;
-        }
-        return prevProgress + 1;
-      });
-    }, 30);
-
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <div className="loading-page">
-      <div className="loading-content">
-        <h1>Welcome to the Makerspace</h1>
-        <p>Where innovation comes to life</p>
-        
-        <div className="progress-bar-container">
-          <div 
-            className="progress-bar" 
-            style={{ width: `${progress}%` }}
-          ></div>
+      <div className="background-animation"></div>
+      <div className="content">
+        <h1 className="title">The Makerspace</h1>
+        <p className="subtitle">Is Coming To You Soon</p>
+        <div className="gear-container">
+          <div className="gear gear-1"></div>
+          <div className="gear gear-2"></div>
+          <div className="gear gear-3"></div>
         </div>
-        
-        <p className="progress-text">{progress}% Loaded</p>
-      </div>
-      
-      <div className="loading-circles">
-        <div className="circle circle-1"></div>
-        <div className="circle circle-2"></div>
-        <div className="circle circle-3"></div>
       </div>
     </div>
   );

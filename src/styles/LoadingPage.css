@@ -1,93 +1,146 @@
 .loading-page {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    background-color: #F9F9F9;
-    font-family: Arial, sans-serif;
-}
-
-.loading-content {
-    text-align: center;
-}
-
-.loading-content h1 {
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 0.5rem;
-}
-
-.loading-content p {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 2rem;
-}
-
-.progress-bar-container {
-    width: 300px;
-    height: 4px;
-    background-color: #e0e0e0;
-    border-radius: 2px;
+    align-items: center;
+    height: 100vh;
+    background-color: #1a1a1a;
     overflow: hidden;
-    margin-bottom: 1rem;
-}
-
-.progress-bar {
-    height: 100%;
-    background-color: #4285F4;
-    transition: width 0.3s ease;
-}
-
-.progress-text {
-    font-size: 1rem;
-    color: #666;
-}
-
-.loading-circles {
+    position: relative;
+  }
+  
+  .background-animation {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    right: -50%;
+    bottom: -50%;
+    width: 200%;
+    height: 200%;
+    background: transparent url('http://assets.iceable.com/img/noise-transparent.png') repeat 0 0;
+    background-repeat: repeat;
+    animation: bg-animation .2s infinite;
+    opacity: .9;
+    visibility: visible;
+  }
+  
+  @keyframes bg-animation {
+      0% { transform: translate(0,0) }
+      10% { transform: translate(-5%,-5%) }
+      20% { transform: translate(-10%,5%) }
+      30% { transform: translate(5%,-10%) }
+      40% { transform: translate(-5%,15%) }
+      50% { transform: translate(-10%,5%) }
+      60% { transform: translate(15%,0) }
+      70% { transform: translate(0,10%) }
+      80% { transform: translate(-15%,0) }
+      90% { transform: translate(10%,5%) }
+      100% { transform: translate(5%,0) }
+  }
+  
+  .content {
+    text-align: center;
+    z-index: 1;
+  }
+  
+  .title {
+    font-size: 3.5rem;
+    color: #FCE300;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(252, 227, 0, 0.7);
+  }
+  
+  .subtitle {
+    font-size: 1.8rem;
+    color: #ffffff;
+    margin-bottom: 2rem;
+  }
+  
+  .gear-container {
     display: flex;
     justify-content: center;
-    margin-top: 3rem;
-}
-
-.circle {
+    align-items: center;
+  }
+  
+  .gear {
+    width: 50px;
+    height: 50px;
+    background: #4285F4;
+    border-radius: 50%;
+    margin: 0 15px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .gear::before {
+    content: '';
+    position: absolute;
     width: 20px;
     height: 20px;
+    background: #1a1a1a;
     border-radius: 50%;
-    margin: 0 10px;
-    animation: bounce 0.5s ease-in-out infinite alternate;
-}
-
-.circle-1 { 
-    background-color: #4285F4;
-    animation-delay: 0s;
-}
-
-.circle-2 { 
-    background-color: #FCE300;
-    animation-delay: 0.1s;
-}
-
-.circle-3 { 
-    background-color: #4285F4;
-    animation-delay: 0.2s;
-}
-
-@keyframes bounce {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-10px); }
-}
-
-@media (max-width: 768px) {
-    .loading-content h1 {
-        font-size: 2rem;
+  }
+  
+  .gear::after {
+    content: '';
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border: 10px solid #4285F4;
+    border-radius: 50%;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+  }
+  
+  .gear-1 {
+    animation: spin 4s linear infinite;
+  }
+  
+  .gear-2 {
+    animation: spin 4s linear infinite reverse;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .gear-3 {
+    animation: spin 4s linear infinite;
+    width: 60px;
+    height: 60px;
+  }
+  
+  @keyframes spin {
+    100% { transform: rotate(360deg); }
+  }
+  
+  @media (max-width: 768px) {
+    .title {
+      font-size: 2.5rem;
     }
-
-    .loading-content p {
-        font-size: 1rem;
+    
+    .subtitle {
+      font-size: 1.4rem;
     }
-
-    .progress-bar-container {
-        width: 250px;
+    
+    .gear {
+      width: 40px;
+      height: 40px;
+      margin: 0 10px;
     }
-}
+    
+    .gear::after {
+      width: 56px;
+      height: 56px;
+      border-width: 8px;
+    }
+    
+    .gear-2 {
+      width: 32px;
+      height: 32px;
+    }
+    
+    .gear-3 {
+      width: 48px;
+      height: 48px;
+    }
+  }
